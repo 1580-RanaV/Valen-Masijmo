@@ -72,7 +72,8 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
         </button>
 
         {/* Brand */}
-        <button
+        <Link
+          href="/"
           onClick={() => {
             setMobileMenuOpen(false);
             onBrandClick?.();
@@ -80,7 +81,7 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
           className={`absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 ${textColor} text-base font-bold tracking-[0.2em] cursor-pointer transition-colors duration-500`}
         >
           VALEN MASIJMO
-        </button>
+        </Link>
 
         {/* Desktop menu */}
         <ul className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-colors duration-500`}>
@@ -125,7 +126,7 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
             )}
           </li>
           <li>
-            <Link href="#" className="tracking-widest hover:opacity-70 transition-opacity text-xs">
+            <Link href="/story" className="tracking-widest hover:opacity-70 transition-opacity text-xs">
               The Masijmo Story
             </Link>
           </li>
@@ -192,7 +193,7 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
           </div>
           
           <Link
-            href="#"
+            href="/story"
             className="font-thin text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
             onClick={() => handleMobileLink()}
           >
