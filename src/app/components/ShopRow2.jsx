@@ -20,7 +20,7 @@ export default function NextThree() {
     {
       id: 1,
       images: ['/t6.png'],
-      title: 'Valen Valentine T-Shirt',
+      title: 'VALEN VALENTINE T-SHIRT',
       price: '₹35,799',
       inStock: true,
       slug: 'maybe-egypt-tshirt'
@@ -28,7 +28,7 @@ export default function NextThree() {
     {
       id: 2,
       images: ['/t5.png'],
-      title: 'Dear Masijmo T-Shirt',
+      title: 'DEAR MASIJMO T-SHIRT',
       price: '₹1,55,799',
       inStock: true,
       slug: 'ironveil-tshirt'
@@ -36,7 +36,7 @@ export default function NextThree() {
     {
       id: 3,
       images: ['/t8.png'],
-      title: 'Valen Club EXCLUSIVE T-Shirt',
+      title: 'VALEN CLUB EXCLUSIVE T-SHIRT',
       price: '₹65,799',
       inStock: false,
       slug: 'only-names-tshirt'
@@ -44,7 +44,7 @@ export default function NextThree() {
     {
       id: 4,
       images: ['/t7.png'],
-      title: 'Valen Picnic T-Shirt',
+      title: 'VALEN PICNIC T-SHIRT',
       price: '₹35,799',
       inStock: true,
       slug: 'owl-watching-tshirt'

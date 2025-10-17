@@ -78,7 +78,7 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
             setMobileMenuOpen(false);
             onBrandClick?.();
           }}
-          className={`absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 ${textColor} text-base font-bold tracking-[0.2em] cursor-pointer transition-colors duration-500`}
+          className={`absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 ${textColor} text-xl font-bold tracking-[0.2em] cursor-pointer transition-colors duration-500`}
         >
           VALEN MASIJMO
         </Link>

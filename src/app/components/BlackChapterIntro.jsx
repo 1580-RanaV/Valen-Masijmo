@@ -20,7 +20,7 @@ export default function People() {
           </div>
 
           {/* Right side - Text Content */}
-          <div className="flex flex-col items-center justify-center px-4">
+          <div className="flex flex-col items-center justify-center px-4 uppercase">
             <div className="max-w-lg text-center">
               <p className="text-xs font-bold text-gray-500 tracking-widest mb-6">
                 VALEN MASIJMO — THE BLACK CHAPTER ONE
@@ -39,7 +39,7 @@ export default function People() {
                 href="#"
                 className="inline-block text-xs font-bold tracking-normal text-gray-900 hover:text-gray-600 hover:border-gray-600 transition-colors duration-300"
               >
-                <button className="border border-neutral-900 px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors duration-300 text-xs font-bold">
+                <button className="border border-neutral-900 uppercase px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors duration-300 text-xs font-bold">
                   Coming Soon
                 </button>
               </Link>

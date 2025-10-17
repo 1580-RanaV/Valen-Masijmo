@@ -20,7 +20,7 @@ export default function SectionThree() {
           </div>
 
           {/* Left side - Text Content (shown second on mobile) */}
-          <div className="flex flex-col items-center justify-center px-4 lg:px-12 lg:order-1">
+          <div className="flex flex-col items-center justify-center px-4 lg:px-12 lg:order-1 uppercase">
             <div className="max-w-lg text-center">
               <p className="text-xs font-bold text-gray-500 tracking-widest mb-6">
                 VALEN MASIJMO
@@ -38,7 +38,7 @@ export default function SectionThree() {
                 href="#"
                 className="inline-block text-xs font-bold tracking-widest text-gray-900 hover:text-gray-600 hover:border-gray-600 transition-colors duration-300"
               >
-                <button className="border border-neutral-900 px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors duration-300 text-xs font-bold">
+                <button className="border border-neutral-900 uppercase px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors duration-300 text-xs font-bold">
                   Join the Waitlist
                 </button>
               </Link>

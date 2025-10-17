@@ -9,29 +9,28 @@ export default function Story() {
   const observerRef = useRef(null);
 
   useEffect(() => {
-    // Create intersection observer
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleElements((prev) => new Set([...prev, entry.target.dataset.index]));
+            const idx = entry.target.dataset.index;
+            if (idx) {
+              setVisibleElements((prev) => new Set([...prev, idx]));
+            }
           }
         });
       },
       {
-        threshold: 0.1, // Trigger when 10% of element is visible
-        rootMargin: "0px 0px -50px 0px", // Trigger slightly before element enters viewport
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
       }
     );
 
-    // Observe all elements with data-index
     const elements = document.querySelectorAll("[data-index]");
     elements.forEach((el) => observerRef.current.observe(el));
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      if (observerRef.current) observerRef.current.disconnect();
     };
   }, []);
 
@@ -52,7 +51,7 @@ export default function Story() {
           OUR STORY
         </h1>
 
-        <div className="space-y-8 text-xs font-bold text-justify text-neutral-700 leading-relaxed">
+        <div className="space-y-8 text-xs font-bold text-justify text-neutral-700 leading-relaxed uppercase">
           {/* First paragraph (V drop cap) */}
           <p
             data-index="1"
@@ -62,7 +61,7 @@ export default function Story() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Valen began as a designer's dream — to make the T-shirt feel
+            Valen began as a designer&apos;s dream — to make the T-shirt feel
             unmistakably luxurious without shouting. The idea was to take the
             most familiar piece in a wardrobe and elevate it through balance,
             proportion, and silence — where every line, every edge, and every
@@ -101,8 +100,8 @@ export default function Story() {
             Made with the intent to redefine perception, every T-shirt is built
             to carry the weight of refinement without effort. The fabrics drape
             lightly, yet command attention; the cuts are sharp, yet
-            understated. Each piece speaks of confidence that doesn't need to
-            announce itself — the essence of modern quiet luxury.
+            understated. Each piece speaks of confidence that doesn&apos;t need
+            to announce itself — the essence of modern quiet luxury.
             <br />
             <br />
             What began as an experiment in detail has become a symbol of
@@ -111,8 +110,78 @@ export default function Story() {
             most ordinary form can hold extraordinary emotion, when crafted
             with intent.
           </p>
+
+          {/* New paragraph: single-man dream & 3-year practice */}
+          <p
+            data-index="4"
+            className={`transition-all duration-1000 ease-out delay-700 ${
+              visibleElements.has("4")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            This is, at its heart, a single man&apos;s dream — three steady
+            years of practice, patience, and persistence. From hand-drawn
+            sketches on paper to disciplined pattern blocks, from sampling
+            mishaps to the quiet thrill of the first perfect drape, the journey
+            has been joyfully exacting. Every step narrowed the focus: fewer
+            distractions, better decisions, clearer intent.
+          </p>
+
+          {/* New paragraph: fabrics & printing learnings leading to subtle/silent luxury */}
+          <p
+            data-index="5"
+            className={`transition-all duration-1000 ease-out delay-800 ${
+              visibleElements.has("5")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            Along the way came the studies that matter: understanding knit
+            densities and hand feel; testing washes and finishes; exploring
+            print methods — puff, discharge, plastisol, water-based — then
+            choosing restraint. We settled on simple text and measured graphic
+            work: compositions that breathe, statements that whisper, and a
+            silhouette that lets the wearer speak first. Subtle. Silent.
+            Luxury.
+          </p>
+
+          {/* Second image at 50% width and half intrinsic size */}
+          <div
+            data-index="6"
+            className={`w-1/2 mx-auto my-6 transition-all duration-1000 ease-out delay-900 ${
+              visibleElements.has("6")
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95"
+            }`}
+          >
+            <Image
+              src="/story-pic-2.png"
+              alt="Valen Masijmo — Process & Practice"
+              width={600}
+              height={400}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          {/* Closing paragraph */}
+          <p
+            data-index="7"
+            className={`transition-all duration-1000 ease-out delay-[1000ms] ${
+              visibleElements.has("7")
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            Today, Valen continues to evolve, but the core vision remains
+            unchanged: to create pieces that resonate with those who value
+            subtlety, quality, and timeless elegance. In a world that often
+            celebrates excess, Valen is a reminder that true luxury lies in the
+            details that are felt, not flaunted.
+          </p>
         </div>
       </div>
+
       <Footer />
     </section>
   );

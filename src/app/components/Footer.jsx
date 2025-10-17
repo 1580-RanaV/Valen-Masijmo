@@ -10,16 +10,16 @@ export default function Footer() {
 
         {/* Navigation Links */}
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 text-gray-600">
-          <a href="#" className="text-xs md:text-sm font-bold tracking-widest hover:text-neutral-300 transition-colors">
+          <a href="/story" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             About
           </a>
-          <a href="#" className="text-xs md:text-sm font-bold tracking-widest hover:text-neutral-300 transition-colors">
+          <a href="/contact" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             Contact
           </a>
-          <a href="#" className="text-xs md:text-sm font-bold tracking-widest hover:text-neutral-300 transition-colors">
+          <a href="#" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             Shop
           </a>
-          <a href="#" className="text-xs md:text-sm font-bold tracking-widest hover:text-neutral-300 transition-colors">
+          <a href="/careers" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             Careers
           </a>
         </div>
@@ -31,13 +31,13 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-8 md:gap-10">
-            <a href="#" className="text-xs font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
+            <a href="/privacy" className="text-xs uppercase font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
+            <a href="/services" className="text-xs uppercase font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-xs font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
+            <a href="/cookies" className="text-xs uppercase font-bold tracking-wide text-gray-500 hover:text-gray-700 transition-colors">
               Cookies Policy
             </a>
           </div>

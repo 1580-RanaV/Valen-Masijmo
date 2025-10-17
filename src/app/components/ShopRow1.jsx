@@ -16,11 +16,13 @@ export default function TopThree() {
   const { requestAccess } = usePassword();
   const router = useRouter();
 
+  // ...existing code...
+
   const products = [
     {
       id: 1,
       images: ['/t1.png'],
-      title: 'Maybe Egypt T-Shirt',
+      title: 'MAYBE EGYPT T-SHIRT',
       price: '₹35,799',
       inStock: true,
       slug: 'maybe-egypt-tshirt'
@@ -28,7 +30,7 @@ export default function TopThree() {
     {
       id: 2,
       images: ['/t2.png'],
-      title: 'Ironveil T-Shirt',
+      title: 'IRONVEIL T-SHIRT',
       price: '₹35,799',
       inStock: true,
       slug: 'ironveil-tshirt'
@@ -36,7 +38,7 @@ export default function TopThree() {
     {
       id: 3,
       images: ['/t3.png'],
-      title: 'Only Names T-Shirt',
+      title: 'ONLY NAMES T-SHIRT',
       price: '₹49,799',
       inStock: false,
       slug: 'only-names-tshirt'
@@ -44,7 +46,7 @@ export default function TopThree() {
     {
       id: 4,
       images: ['/t4.png'],
-      title: 'The Owl is Watching T-Shirt',
+      title: 'THE OWL IS WATCHING T-SHIRT',
       price: '₹35,799',
       inStock: true,
       slug: 'owl-watching-tshirt'
