@@ -23,7 +23,7 @@ export default function TopThree() {
       title: 'Maybe Egypt T-Shirt',
       price: '₹35,799',
       inStock: true,
-      slug: 'maybe-egypt-tshirt' // Add product slug for routing
+      slug: 'maybe-egypt-tshirt'
     },
     {
       id: 2,
@@ -43,7 +43,7 @@ export default function TopThree() {
     },
     {
       id: 4,
-      images: ['/t4-2.png'],
+      images: ['/t4.png'],
       title: 'The Owl is Watching T-Shirt',
       price: '₹35,799',
       inStock: true,
@@ -54,8 +54,6 @@ export default function TopThree() {
   useEffect(() => {
     if (hoveredProduct !== null) {
       const product = products.find(p => p.id === hoveredProduct);
-      
-      // Only start carousel if there are multiple images
       if (product && product.images.length > 1) {
         const intervalId = setInterval(() => {
           setCurrentImages(prev => ({
@@ -63,69 +61,35 @@ export default function TopThree() {
             [hoveredProduct]: (prev[hoveredProduct] + 1) % product.images.length
           }));
         }, 2000);
-
         return () => clearInterval(intervalId);
       }
     }
   }, [hoveredProduct]);
 
-  const handleMouseEnter = (productId) => {
-    setHoveredProduct(productId);
-  };
-
+  const handleMouseEnter = (productId) => setHoveredProduct(productId);
   const handleMouseLeave = (productId) => {
     setHoveredProduct(null);
-    setCurrentImages(prev => ({
-      ...prev,
-      [productId]: 0
-    }));
+    setCurrentImages(prev => ({ ...prev, [productId]: 0 }));
   };
 
-  // Handle product click with password protection
   const handleProductClick = (product) => {
-    requestAccess(() => {
-      // This runs only after correct password
-      // Option 1: Go to specific product page
-      router.push(`/product/${product.slug}`);
-      
-      // Option 2: Go to shop page (uncomment if you prefer this)
-      // router.push('/shop');
-      
-      // Option 3: Go to shop with product ID (uncomment if you prefer this)
-      // router.push(`/shop?product=${product.id}`);
-    });
+    requestAccess(() => router.push(`/product/${product.slug}`));
   };
 
   return (
-    <section className="w-full py-16 md:py-24">
+    <section className="w-full py-16">
       <style jsx>{`
         @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; transform: translateY(0); }
+          100% { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeImage {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
+          0% { opacity: 0; }
+          100% { opacity: 1; }
         }
         @keyframes slideUp {
-          0% {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; transform: translateY(10px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
         .image-container {
           position: relative;
@@ -140,7 +104,7 @@ export default function TopThree() {
       `}</style>
       
       <div className="max-w-full px-0">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 tracking-wider text-gray-50 px-4">
+        <h2 className="text-xs font-bold text-center mb-12 tracking-wider text-gray-50 px-4">
           TOP PICKS
         </h2>
         
@@ -168,21 +132,19 @@ export default function TopThree() {
                 />
               </div>
               
-              {/* Product Info - Fixed height container */}
-              <div className="text-center px-2 relative mb-4 md:mb-0">
-                <h3 className="text-sm font-bold tracking-wide transition-all duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
+              {/* Product Info */}
+              <div className="text-center px-2 relative mb-4">
+                <h3 className="text-xs font-bold tracking-wide transition-all duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
                   {product.title}
                 </h3>
                 
-                <p className="text-sm font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
+                <p className="text-xs font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
                   {product.price}
                 </p>
-                
-                {/* Stock status container - fixed height on desktop to prevent layout shift */}
-                <div className="mt-2 md:h-8 flex items-center justify-center">
-                  {/* Mobile: Always visible */}
+
+                {/* <div className="mt-2 flex items-center justify-center">
                   <span 
-                    className={`md:hidden inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                    className={`inline-block px-3 py-1 text-xs font-bold ${
                       product.inStock 
                         ? 'bg-black text-white' 
                         : 'bg-black text-white'
@@ -190,20 +152,7 @@ export default function TopThree() {
                   >
                     {product.inStock ? 'In Stock' : 'Sold Out'}
                   </span>
-                  
-                  {/* Desktop: Show on hover - absolute positioned */}
-                  {hoveredProduct === product.id && (
-                    <span 
-                      className={`hidden md:inline-block stock-badge px-3 py-1 text-xs font-bold ${
-                        product.inStock 
-                          ? 'bg-black text-white' 
-                          : 'bg-black text-white'
-                      }`}
-                    >
-                      {product.inStock ? 'In Stock' : 'Sold Out'}
-                    </span>
-                  )}
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

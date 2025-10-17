@@ -1,14 +1,13 @@
 import HeroSection from '../app/components/HeroSection';
-import TopThree from './components/SectionTwo';
-import People from './components/SectionThree';
+import TopThree from './components/ShopRow1';
+import People from './components/BlackChapterIntro';
 import CrDir from './components/SectionSix';
-import SectionThree from './components/SectionFour';
+import SectionThree from './components/ValenClubIntro';
 import Footer from './components/Footer';
 import ShopRow2 from './components/ShopRow2';
-import LastSection from './components/LastSection';
-import Grid from './components/SectionFive';
-import GridTwo from './components/SectionSeven';
-import Eight from './components/SectionEight';
+import Grid from './components/Grid1';
+import GridTwo from './components/Grid2';
+import Eight from './components/FruityIntro';
 
 export default function Home() {
   return (
@@ -22,7 +21,6 @@ export default function Home() {
       <CrDir />
       <GridTwo />
       <Eight />
-      {/* <LastSection /> */}
       <Footer />
     </main>
   );

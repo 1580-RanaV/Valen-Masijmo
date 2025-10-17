@@ -46,7 +46,7 @@ export default function HeroSection() {
           alt="Hero Background"
           fill
           priority
-          className="object-cover object-center brightness-100"
+          className="object-cover object-center brightness-110"
         />
 
         {/* Hero Center Text */}
