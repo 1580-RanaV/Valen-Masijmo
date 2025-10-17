@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePassword } from './PasswordProtection';
 import { useRouter } from 'next/navigation';
 
-export default function TopThree() {
+export default function NextThree() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [currentImages, setCurrentImages] = useState({
     1: 0,
@@ -19,32 +19,32 @@ export default function TopThree() {
   const products = [
     {
       id: 1,
-      images: ['/t1.png'],
-      title: 'Maybe Egypt T-Shirt',
+      images: ['/t6.png'],
+      title: 'Valen Valentine T-Shirt',
       price: '₹35,799',
       inStock: true,
       slug: 'maybe-egypt-tshirt' // Add product slug for routing
     },
     {
       id: 2,
-      images: ['/t2.png'],
-      title: 'Ironveil T-Shirt',
-      price: '₹35,799',
+      images: ['/t5.png'],
+      title: 'Dear Masijmo T-Shirt',
+      price: '₹1,55,799',
       inStock: true,
       slug: 'ironveil-tshirt'
     },
     {
       id: 3,
-      images: ['/t3.png'],
-      title: 'Only Names T-Shirt',
-      price: '₹49,799',
+      images: ['/t8.png'],
+      title: 'Valen Club EXCLUSIVE T-Shirt',
+      price: '₹65,799',
       inStock: false,
       slug: 'only-names-tshirt'
     },
     {
       id: 4,
-      images: ['/t4-2.png'],
-      title: 'The Owl is Watching T-Shirt',
+      images: ['/t7.png'],
+      title: 'Valen Picnic T-Shirt',
       price: '₹35,799',
       inStock: true,
       slug: 'owl-watching-tshirt'
@@ -140,8 +140,8 @@ export default function TopThree() {
       `}</style>
       
       <div className="max-w-full px-0">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 tracking-wider text-gray-50 px-4">
-          TOP PICKS
+        <h2 className="text-3xl text-gray-50 md:text-5xl font-bold text-center mb-12 tracking-wider px-4">
+          M
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4 lg:gap-2">

@@ -13,8 +13,8 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const textColor = isAtTop ? 'text-gray-50' : 'text-black';
-  const bgColor = isAtTop ? 'bg-transparent' : 'bg-gray-50/50 backdrop-blur-md';
+  const textColor = isAtTop ? 'text-black' : 'text-black';
+  const bgColor = isAtTop ? 'bg-transparent' : '';
 
   const handleMobileLink = (cb) => {
     setMobileMenuOpen(false);

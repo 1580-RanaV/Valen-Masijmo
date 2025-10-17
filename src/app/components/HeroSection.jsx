@@ -42,7 +42,7 @@ export default function HeroSection() {
       <section className="relative w-full h-screen">
         {/* Background image */}
         <Image
-          src="/wallapaper-2.png"
+          src="/wallpaper-no-name.png"
           alt="Hero Background"
           fill
           priority

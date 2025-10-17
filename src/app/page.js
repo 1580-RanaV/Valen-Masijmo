@@ -4,6 +4,7 @@ import People from './components/SectionThree';
 import CrDir from './components/SectionSix';
 import SectionThree from './components/SectionFour';
 import Footer from './components/Footer';
+import ShopRow2 from './components/ShopRow2';
 import LastSection from './components/LastSection';
 import Grid from './components/SectionFive';
 import GridTwo from './components/SectionSeven';
@@ -15,6 +16,7 @@ export default function Home() {
       <HeroSection />
       <TopThree />
       <People />
+      <ShopRow2 />
       <SectionThree />
       <Grid />
       <CrDir />
