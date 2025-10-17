@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import LastSection from './components/LastSection';
 import Grid from './components/SectionFive';
 import GridTwo from './components/SectionSeven';
+import Eight from './components/SectionEight';
 
 export default function Home() {
   return (
@@ -18,7 +19,8 @@ export default function Home() {
       <Grid />
       <CrDir />
       <GridTwo />
-      <LastSection />
+      <Eight />
+      {/* <LastSection /> */}
       <Footer />
     </main>
   );

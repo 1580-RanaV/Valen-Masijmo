@@ -194,7 +194,7 @@ export default function TopThree() {
                   {/* Desktop: Show on hover - absolute positioned */}
                   {hoveredProduct === product.id && (
                     <span 
-                      className={`hidden md:inline-block stock-badge px-3 py-1 rounded-full text-xs font-bold ${
+                      className={`hidden md:inline-block stock-badge px-3 py-1 text-xs font-bold ${
                         product.inStock 
                           ? 'bg-black text-white' 
                           : 'bg-black text-white'

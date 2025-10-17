@@ -15,12 +15,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SmoothScrollProvider>
-          <PasswordProvider>
+        <PasswordProvider>
+          <SmoothScrollProvider>
             {children}
-            <PasswordModal />
-          </PasswordProvider>
-        </SmoothScrollProvider>
+          </SmoothScrollProvider>
+          <PasswordModal />
+        </PasswordProvider>
       </body>
     </html>
   );

@@ -37,9 +37,11 @@ export default function SectionThree() {
 
               <Link
                 href="#"
-                className="inline-block border-b-2 border-black text-sm font-bold tracking-widest text-gray-900 hover:text-gray-600 hover:border-gray-600 transition-colors duration-300"
+                className="inline-block text-sm font-bold tracking-widest text-gray-900 hover:text-gray-600 hover:border-gray-600 transition-colors duration-300"
               >
-                Join the Waitlist
+                <button className='border border-neutral-900 px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors duration-300'>
+                  Join the Waitlist
+                </button>
               </Link>
             </div>
           </div>

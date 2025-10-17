@@ -48,7 +48,7 @@ export function PasswordProvider({ children }) {
 export const usePassword = () => useContext(PasswordContext);
 
 // ======================
-// 2. PASSWORD MODAL (Red & Black)
+// 2. PASSWORD MODAL (White Themed)
 // ======================
 export function PasswordModal() {
   const { showModal, verifyPassword, closeModal } = usePassword();
@@ -57,7 +57,6 @@ export function PasswordModal() {
   const [shake, setShake] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Ensure we're on the client side
   useState(() => {
     setMounted(true);
   }, []);
@@ -117,16 +116,16 @@ export function PasswordModal() {
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" style={{ position: 'fixed' }}>
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
         onClick={closeModal}
       />
 
       {/* Modal */}
       <div
         className={`
-          relative w-full max-w-md sm:max-w-lg bg-neutral-900
-          shadow-2xl
-          text-white p-8 sm:p-12
+          relative w-full max-w-md sm:max-w-lg bg-gray-50
+          border border-gray-200 shadow-2xl
+          text-neutral-900 p-8 sm:p-12
           ${shake ? "shake" : ""}
         `}
       >
@@ -144,21 +143,22 @@ export function PasswordModal() {
         {/* Close */}
         <button
           onClick={closeModal}
-          className="absolute top-4 right-4 text-white hover:text-red-800 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-neutral-900 transition-colors"
+          aria-label="Close"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12">
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-widest mb-4 text-neutral-700">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-widest mb-6 text-neutral-900">
             VALEN MASIJMO
           </h2>
-          <div className="w-16 h-0.5 bg-red-800 mx-auto mb-4"></div>
-          <p className="text-neutral-400 font-bold text-sm tracking-wide">
-            ENTER ACCESS CODE
+          <div className="w-16 h-px bg-neutral-300 mx-auto mb-6"></div>
+          <p className="text-gray-600 font-thin text-xs sm:text-sm tracking-widest uppercase">
+            Enter Access Code
           </p>
         </div>
 
@@ -176,12 +176,12 @@ export function PasswordModal() {
               onPaste={index === 0 ? handlePaste : undefined}
               autoFocus={index === 0}
               className={`
-                text-center text-white font-bold bg-black border-2
+                text-center text-neutral-900 font-medium bg-white border
                 w-12 h-14 sm:w-14 sm:h-16 text-xl sm:text-2xl
-                focus:outline-none transition-colors
+                focus:outline-none transition-all
                 ${error 
-                  ? "border-red-800 text-red-800" 
-                  : "border-white focus:border-red-800"
+                  ? "border-red-400 text-red-500 bg-red-50" 
+                  : "border-gray-300 focus:border-neutral-900 focus:shadow-sm"
                 }
               `}
             />
@@ -190,19 +190,53 @@ export function PasswordModal() {
 
         {/* Error */}
         {error && (
-          <div className="text-center text-red-800 font-bold text-xs sm:text-sm mb-4 tracking-wide">
-            INVALID CODE. TRY AGAIN.
+          <div className="text-center font-thin text-red-800 text-xs sm:text-sm mb-4 tracking-wide">
+            Invalid code. Please try again.
           </div>
         )}
 
         {/* Info */}
-        <div className="text-center text-neutral-600 text-xs font-bold tracking-widest">
-          RESTRICTED ACCESS
+        <div className="text-center text-gray-400 text-xs font-thin tracking-widest uppercase">
+          Restricted Access
         </div>
       </div>
     </div>
   );
 
-  // Render modal as a portal directly in document.body
   return createPortal(modalContent, document.body);
+}
+
+// ======================
+// 3. DEMO COMPONENT
+// ======================
+export default function Demo() {
+  return (
+    <PasswordProvider>
+      <DemoContent />
+    </PasswordProvider>
+  );
+}
+
+function DemoContent() {
+  const { requestAccess, isAuthenticated } = usePassword();
+
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-wider text-neutral-900 mb-8">
+          Password Modal Demo
+        </h1>
+        <button
+          onClick={() => requestAccess(() => alert("Access granted!"))}
+          className="px-8 py-3 bg-neutral-900 text-white text-sm font-thin tracking-widest uppercase hover:bg-neutral-700 transition-colors"
+        >
+          {isAuthenticated ? "Already Authenticated" : "Request Access"}
+        </button>
+        <p className="mt-6 text-sm text-gray-600 font-thin tracking-wide">
+          Password: <span className="font-medium">SECRET</span>
+        </p>
+      </div>
+      <PasswordModal />
+    </div>
+  );
 }

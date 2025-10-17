@@ -2,10 +2,8 @@
 
 html, body {
   scroll-behavior: auto !important;
-  overflow: hidden;
-  will-change: transform;
+  /* Remove overflow: hidden and will-change: transform */
 }
-
 
 :root {
   --background: #ffffff;
@@ -52,4 +50,43 @@ body {
 
 .font-bold {
   font-family: 'font-bold', sans-serif;
+}
+/* Ensure navbar stays fixed above smooth scroll container */
+nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  z-index: 9999 !important;
+}
+
+/* === 1. Custom text selection color === */
+::selection {
+  background: black;       /* background becomes black */
+  color: white;            /* text becomes white */
+}
+
+/* For Firefox compatibility */
+::-moz-selection {
+  background: black;
+  color: white;
+}
+
+/* === 2. Hide scrollbar (for all browsers) === */
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Optional: ensure layout doesn’t shift */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow: -moz-scrollbars-none;
 }

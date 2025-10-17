@@ -5,15 +5,18 @@ import Lenis from '@studio-freight/lenis';
 export default function SmoothScrollProvider({ children }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.6, // ⬅️ increase this for more glide (try 1.8 or even 2.0)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -12 * t)), // very soft ease-out
+      duration: 1.6,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -12 * t)),
       smoothWheel: true,
       smoothTouch: false,
-      lerp: 0.06, // ⬅️ smaller value = smoother interpolation
+      lerp: 0.06,
       direction: 'vertical',
       gestureDirection: 'vertical',
-      touchMultiplier: 1.2, // gentle scroll speed
-      wheelMultiplier: 0.9, // slightly slower wheel response = smoother
+      touchMultiplier: 1.2,
+      wheelMultiplier: 0.9,
+      // This is key - don't apply transforms to the wrapper
+      wrapper: window,
+      content: document.documentElement,
     });
 
     let rafId;
@@ -23,8 +26,11 @@ export default function SmoothScrollProvider({ children }) {
     };
     rafId = requestAnimationFrame(raf);
 
-    return () => cancelAnimationFrame(rafId);
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
-  return children;
+  return <>{children}</>;
 }
