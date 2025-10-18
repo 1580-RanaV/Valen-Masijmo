@@ -45,9 +45,9 @@ export default function TopThree() {
     },
     {
       id: 4,
-      images: ['/t4.png'],
-      title: 'THE OWL IS WATCHING T-SHIRT',
-      price: '₹35,799',
+      images: ['/valen-blue.png'],
+      title: 'BLUE VALEN T-SHIRT',
+      price: '₹25,799',
       inStock: true,
       slug: 'owl-watching-tshirt'
     }
