@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="w-full bg-gray-50 text-black">
@@ -5,7 +7,7 @@ export default function Footer() {
         
         {/* Brand Text */}
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wider text-neutral-900 leading-none">
-          VALEN MASIJMO
+          <Link href="/">VALEN MASIJMO</Link>
         </h2>
 
         {/* Navigation Links */}

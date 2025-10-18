@@ -24,11 +24,8 @@ export function PasswordProvider({ children }) {
     }
   };
 
-  const verifyPassword = (password) => {
+  const verifyPassword = async (password) => {
     if (password === CORRECT_PASSWORD) {
-      setIsAuthenticated(true);
-      setShowModal(false);
-      onSuccessCallback?.();
       return true;
     }
     return false;
@@ -36,9 +33,15 @@ export function PasswordProvider({ children }) {
 
   const closeModal = () => setShowModal(false);
 
+  const completeAuth = () => {
+    setIsAuthenticated(true);
+    setShowModal(false);
+    onSuccessCallback?.();
+  };
+
   return (
     <PasswordContext.Provider
-      value={{ isAuthenticated, showModal, requestAccess, verifyPassword, closeModal }}
+      value={{ isAuthenticated, showModal, requestAccess, verifyPassword, closeModal, completeAuth }}
     >
       {children}
     </PasswordContext.Provider>
@@ -51,10 +54,12 @@ export const usePassword = () => useContext(PasswordContext);
 // 2. PASSWORD MODAL (White Themed)
 // ======================
 export function PasswordModal() {
-  const { showModal, verifyPassword, closeModal } = usePassword();
+  const { showModal, verifyPassword, closeModal, completeAuth } = usePassword();
   const [password, setPassword] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useState(() => {
@@ -63,9 +68,35 @@ export function PasswordModal() {
 
   if (!showModal || !mounted) return null;
 
-  const tryVerify = (candidate) => {
-    const isValid = verifyPassword(candidate);
-    if (!isValid) {
+  const fetchShopPage = async () => {
+    // Simulate fetching the /shop page
+    // Replace this with your actual page navigation logic
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000); // Simulate network delay
+    });
+  };
+
+  const tryVerify = async (candidate) => {
+    const isValid = await verifyPassword(candidate);
+    if (isValid) {
+      setIsSuccess(true);
+      setIsLoading(true);
+      
+      try {
+        await fetchShopPage();
+        // Once page is fetched, complete authentication
+        completeAuth();
+        // Redirect to /shop or trigger navigation
+        // window.location.href = '/shop';
+      } catch (err) {
+        console.error('Failed to load shop page:', err);
+        setIsLoading(false);
+        setIsSuccess(false);
+        setError(true);
+      }
+    } else {
       setError(true);
       setShake(true);
       setTimeout(() => {
@@ -77,7 +108,7 @@ export function PasswordModal() {
   };
 
   const handleInputChange = (index, value) => {
-    if (value.length > 1) return;
+    if (value.length > 1 || isLoading) return;
     const newPassword = [...password];
     newPassword[index] = value.toUpperCase();
     setPassword(newPassword);
@@ -94,6 +125,7 @@ export function PasswordModal() {
   };
 
   const handleKeyDown = (index, e) => {
+    if (isLoading) return;
     if (e.key === "Backspace" && !password[index] && index > 0) {
       document.getElementById(`pwd-input-${index - 1}`)?.focus();
     }
@@ -104,6 +136,7 @@ export function PasswordModal() {
   };
 
   const handlePaste = (e) => {
+    if (isLoading) return;
     e.preventDefault();
     const pasted = e.clipboardData.getData("text").toUpperCase().slice(0, 6);
     const newPassword = pasted.split("").concat(["", "", "", "", "", ""]).slice(0, 6);
@@ -117,7 +150,7 @@ export function PasswordModal() {
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-        onClick={closeModal}
+        onClick={isLoading ? undefined : closeModal}
       />
 
       {/* Modal */}
@@ -138,18 +171,26 @@ export function PasswordModal() {
           .shake {
             animation: shake 0.3s ease-in-out;
           }
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+          .spinner {
+            animation: spin 1s linear infinite;
+          }
         `}</style>
 
         {/* Close */}
-        <button
-          onClick={closeModal}
-          className="absolute top-4 right-4 text-gray-400 hover:text-neutral-900 transition-colors"
-          aria-label="Close"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        {!isLoading && (
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 text-gray-400 hover:text-neutral-900 transition-colors"
+            aria-label="Close"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
 
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12">
@@ -158,7 +199,7 @@ export function PasswordModal() {
           </h2>
           <div className="w-16 h-px bg-neutral-300 mx-auto mb-6"></div>
           <p className="text-gray-600 font-thin text-xs sm:text-sm tracking-widest uppercase">
-            Enter Access Code
+            {isLoading ? "Loading Shop..." : "Enter Access Code"}
           </p>
         </div>
 
@@ -175,12 +216,16 @@ export function PasswordModal() {
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={index === 0 ? handlePaste : undefined}
               autoFocus={index === 0}
+              disabled={isLoading}
               className={`
                 text-center text-neutral-900 font-medium bg-white border
                 w-12 h-14 sm:w-14 sm:h-16 text-xl sm:text-2xl
                 focus:outline-none transition-all
+                ${isLoading ? "cursor-not-allowed opacity-50" : ""}
                 ${error 
                   ? "border-red-400 text-red-500 bg-red-50" 
+                  : isSuccess
+                  ? "border-green-500 text-green-600 bg-green-50"
                   : "border-gray-300 focus:border-neutral-900 focus:shadow-sm"
                 }
               `}
@@ -188,17 +233,33 @@ export function PasswordModal() {
           ))}
         </div>
 
+        {/* Loading Spinner */}
+        {isLoading && (
+          <div className="flex justify-center mb-6">
+            <div className="spinner w-8 h-8 border-3 border-gray-200 border-t-neutral-900 rounded-full"></div>
+          </div>
+        )}
+
         {/* Error */}
-        {error && (
+        {error && !isLoading && (
           <div className="text-center font-thin text-red-800 text-xs sm:text-sm mb-4 tracking-wide">
             Invalid code. Please try again.
           </div>
         )}
 
+        {/* Loading Text */}
+        {isLoading && (
+          <div className="text-center font-thin text-neutral-900 text-xs sm:text-sm mb-4 tracking-wide">
+            Taking you to the VM Shop...
+          </div>
+        )}
+
         {/* Info */}
-        <div className="text-center text-gray-400 text-xs font-thin tracking-widest uppercase">
-          Restricted Access
-        </div>
+        {!isLoading && (
+          <div className="text-center text-gray-400 text-xs font-thin tracking-widest uppercase">
+            Restricted Access
+          </div>
+        )}
       </div>
     </div>
   );
@@ -227,7 +288,7 @@ function DemoContent() {
           Password Modal Demo
         </h1>
         <button
-          onClick={() => requestAccess(() => alert("Access granted!"))}
+          onClick={() => requestAccess(() => alert("Access granted! Redirecting to shop..."))}
           className="px-8 py-3 bg-neutral-900 text-white text-sm font-thin tracking-widest uppercase hover:bg-neutral-700 transition-colors"
         >
           {isAuthenticated ? "Already Authenticated" : "Request Access"}

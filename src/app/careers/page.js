@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 export default function Careers() {
   const [visible, setVisible] = useState(new Set());
@@ -27,146 +27,241 @@ export default function Careers() {
 
   const toggle = (id) => setOpenId((prev) => (prev === id ? null : id));
 
+  const roles = [
+    {
+      id: "smm",
+      title: "SOCIAL MEDIA MANAGER",
+      location: "REMOTE",
+      experience: "1–2 YEARS",
+      tags: ["STORYTELLING", "CONTENT CREATION", "COMMUNITY"],
+      description: "SHAPE OUR VOICE ACROSS PLATFORMS. TRANSLATE BRAND VALUES INTO MEMORABLE MOMENTS.",
+      responsibilities: [
+        "DEVELOP AND EXECUTE WEEKLY CONTENT STRATEGY ACROSS INSTAGRAM, TIKTOK, AND YOUTUBE SHORTS",
+        "CRAFT COMPELLING CAPTIONS THAT REFLECT BRAND PHILOSOPHY AND AESTHETIC",
+        "ENGAGE WITH COMMUNITY AUTHENTICALLY AND BUILD MEANINGFUL CONNECTIONS",
+        "TRACK PERFORMANCE METRICS: REACH, ENGAGEMENT, SAVES, AND CONVERSION SIGNALS",
+        "COLLABORATE WITH CREATIVE TEAM TO MAINTAIN VISUAL AND TONAL CONSISTENCY"
+      ],
+      bonus: ["BASIC VIDEO EDITING SKILLS", "UNDERSTANDING OF REELS PACING AND TRENDS", "EXPERIENCE WITH QUIET LUXURY OR MINIMALIST BRANDS"],
+      apply: "SHARE YOUR PORTFOLIO: 2–3 ACCOUNTS YOU'VE MANAGED + A BRIEF NOTE ON WHY MINIMALIST AESTHETICS RESONATE WITH YOU."
+    },
+    {
+      id: "hsd",
+      title: "HAND SKETCH DESIGNER",
+      location: "REMOTE",
+      experience: "1–2 YEARS",
+      tags: ["ILLUSTRATION", "APPAREL", "CRAFTSMANSHIP"],
+      description: "BRING IDEAS TO LIFE THROUGH HAND-DRAWN ILLUSTRATIONS. MERGE TRADITIONAL TECHNIQUES WITH MODERN APPAREL.",
+      responsibilities: [
+        "CREATE ORIGINAL HAND SKETCHES FOR T-SHIRTS, HOODIES, AND ACCESSORIES",
+        "MASTER PROPORTION, NEGATIVE SPACE, AND COMPOSITIONAL BALANCE",
+        "PREPARE SKETCHES FOR PRODUCTION: SCANNING, BASIC DIGITAL CLEANUP",
+        "WORK CLOSELY WITH PRINT VENDORS ON PLACEMENT, SCALE, AND LINE WEIGHT",
+        "UNDERSTAND FABRIC CONSTRAINTS AND PRINT TECHNIQUES"
+      ],
+      bonus: ["FAMILIARITY WITH PUFF, DISCHARGE, AND WATER-BASED PRINTING", "KNOWLEDGE OF GARMENT CONSTRUCTION", "EXPERIENCE WITH SCREEN PRINTING LIMITATIONS"],
+      apply: "SUBMIT YOUR WORK: 6–10 SKETCHES (PDF OR PORTFOLIO LINK) + A SHORT NOTE ABOUT YOUR FAVORITE DRAWING TOOLS."
+    }
+  ];
+
   return (
     <section className="min-h-screen bg-gray-50 relative">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto px-4 pt-28 pb-24 text-center">
-        {/* HEADING */}
-        <h1
-          data-index="0"
-          className={`text-xs font-bold tracking-widest text-neutral-900 mb-6 uppercase transition-all duration-1000 ease-out ${
-            visible.has("0") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          CAREERS
-        </h1>
+      <div className="max-w-5xl mx-auto px-6 pt-32 pb-24">
+        {/* HERO SECTION */}
+        <div className="max-w-3xl mx-auto text-center mb-24">
+          <h1
+            data-index="0"
+            className={`text-xs font-bold tracking-[0.3em] text-neutral-900 mb-8 uppercase transition-all duration-1000 ease-out ${
+              visible.has("0") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            JOIN OUR TEAM
+          </h1>
 
-        {/* REMOTE + EXPERIENCE BANNER */}
-        <div
-          data-index="1"
-          className={`text-xs font-bold uppercase text-neutral-900 transition-all duration-1000 ease-out delay-150 ${
-            visible.has("1") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div className="inline-flex items-center gap-3">
-            <span className="border border-neutral-900 px-3 py-1 tracking-widest">
-              REMOTE POSITIONS
+          <p
+            data-index="1"
+            className={`text-xs font-bold uppercase text-neutral-600 leading-relaxed mb-12 transition-all duration-1000 ease-out delay-150 ${
+              visible.has("1") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            WE BUILD FOR THOSE WHO VALUE QUIET CONFIDENCE OVER LOUD STATEMENTS. 
+            IF YOU SHARE THIS PHILOSOPHY AND BRING DEDICATION TO YOUR CRAFT, 
+            WE WANT TO HEAR FROM YOU.
+          </p>
+
+          <div
+            data-index="2"
+            className={`flex flex-wrap justify-center gap-3 transition-all duration-1000 ease-out delay-300 ${
+              visible.has("2") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
+              REMOTE FIRST
             </span>
-            <span className="border border-neutral-900 px-3 py-1 tracking-widest">
+            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
               1–2 YEARS EXPERIENCE
             </span>
-            <span className="border border-neutral-900 px-3 py-1 tracking-widest">
-              STRONG INTEREST REQUIRED
+            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
+              PASSION REQUIRED
             </span>
           </div>
         </div>
 
-        {/* INTRO COPY */}
-        <p
-          data-index="2"
-          className={`mt-8 text-xs font-bold uppercase text-neutral-700 leading-relaxed max-w-xl mx-auto transition-all duration-1000 ease-out delay-300 ${
-            visible.has("2") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          WE HIRE FOR CURIOSITY, CARE, AND CONSISTENCY. IF YOU ARE EARLY IN YOUR
-          JOURNEY BUT COMMITTED TO CRAFT, WE WOULD LIKE TO HEAR FROM YOU.
-        </p>
-
-        {/* POSITIONS LIST */}
+        {/* ROLES SECTION */}
         <div
           data-index="3"
-          className={`mt-16 text-left transition-all duration-1000 ease-out delay-500 ${
+          className={`mb-24 transition-all duration-1000 ease-out delay-500 ${
             visible.has("3") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <ul className="space-y-4">
-            {/* ROLE 1: SOCIAL MEDIA MANAGER */}
-            <li className="border border-neutral-300">
-              <button
-                aria-expanded={openId === "smm"}
-                onClick={() => toggle("smm")}
-                className="w-full flex items-center justify-between px-4 py-4 text-xs font-bold uppercase tracking-widest text-neutral-900"
-              >
-                <span>SOCIAL MEDIA MANAGER — REMOTE</span>
-                <span className={`transition-transform ${openId === "smm" ? "rotate-90" : ""}`}>
-                  ▶
-                </span>
-              </button>
+          <h2 className="text-xs font-bold tracking-[0.3em] text-neutral-900 mb-12 uppercase text-center">
+            OPEN POSITIONS
+          </h2>
 
-              <div
-                className={`overflow-hidden transition-[max-height,opacity,transform] duration-300 ${
-                  openId === "smm" ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-1"
-                }`}
-              >
-                <div className="px-4 pb-4 text-xs font-bold uppercase text-neutral-700 leading-relaxed space-y-3">
-                  <p className="text-neutral-900">
-                    HIGHLIGHTS: 1–2 YEARS EXPERIENCE • STRONG INTEREST IN BRAND STORYTELLING • REMOTE
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>PLAN AND EXECUTE WEEKLY CONTENT ACROSS IG / TIKTOK / YT SHORTS.</li>
-                    <li>WRITE CLEAN CAPTIONS, SCHEDULE POSTS, AND RESPOND TO COMMUNITY.</li>
-                    <li>REPORT BASIC METRICS: REACH, SAVES, CTR, CONVERSION HINTS.</li>
-                    <li>COORDINATE WITH DESIGN FOR ASSET NEEDS AND BRAND CONSISTENCY.</li>
-                  </ul>
-                  <p>PLUS: BASIC VIDEO EDITING, REELS RHYTHM, AND SOUND CURATION.</p>
-                  <p>
-                    APPLY: SEND LINKS TO 2–3 HANDLED PAGES + A SHORT NOTE ON WHY YOU LIKE QUIET LUXURY.
-                  </p>
+          <div className="space-y-6">
+            {roles.map((role) => (
+              <div key={role.id} className="border border-neutral-200 bg-gray-50">
+                {/* ROLE HEADER */}
+                <button
+                  aria-expanded={openId === role.id}
+                  onClick={() => toggle(role.id)}
+                  className="w-full px-6 py-6 text-left hover:bg-neutral-100 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <h3 className="text-xs font-bold tracking-widest uppercase text-neutral-900">
+                          {role.title}
+                        </h3>
+                        <span className="text-xs font-bold tracking-widest uppercase text-neutral-500">
+                          · {role.location}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {role.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="bg-gray-50 border border-neutral-300 px-3 py-1 text-xs font-bold tracking-wider uppercase text-neutral-700"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                        {role.description}
+                      </p>
+                    </div>
+                    <span
+                      className={`text-neutral-900 transition-transform duration-300 ${
+                        openId === role.id ? "rotate-90" : ""
+                      }`}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="square"/>
+                      </svg>
+                    </span>
+                  </div>
+                </button>
+
+                {/* ROLE DETAILS */}
+                <div
+                  className={`overflow-hidden transition-all duration-500 ${
+                    openId === role.id
+                      ? "max-h-[2000px] opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="px-6 pb-6 space-y-8">
+                    <div className="h-px bg-neutral-200" />
+
+                    {/* EXPERIENCE */}
+                    <div>
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
+                        EXPERIENCE LEVEL
+                      </h4>
+                      <p className="text-xs font-bold uppercase text-neutral-600">
+                        {role.experience} · REMOTE POSITION
+                      </p>
+                    </div>
+
+                    {/* RESPONSIBILITIES */}
+                    <div>
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-4">
+                        RESPONSIBILITIES
+                      </h4>
+                      <ul className="space-y-3">
+                        {role.responsibilities.map((item, idx) => (
+                          <li key={idx} className="flex gap-3">
+                            <span className="text-neutral-400 mt-0.5">—</span>
+                            <span className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* BONUS SKILLS */}
+                    <div>
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-4">
+                        BONUS SKILLS
+                      </h4>
+                      <ul className="space-y-3">
+                        {role.bonus.map((item, idx) => (
+                          <li key={idx} className="flex gap-3">
+                            <span className="text-neutral-400 mt-0.5">+</span>
+                            <span className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* HOW TO APPLY */}
+                    <div className="bg-gray-50 border border-neutral-200 p-6">
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
+                        HOW TO APPLY
+                      </h4>
+                      <p className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                        {role.apply}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </li>
-
-            {/* ROLE 2: HAND SKETCH DESIGN — NAME CHOSEN FOR CLARITY */}
-            <li className="border border-neutral-300">
-              <button
-                aria-expanded={openId === "hsd"}
-                onClick={() => toggle("hsd")}
-                className="w-full flex items-center justify-between px-4 py-4 text-xs font-bold uppercase tracking-widest text-neutral-900"
-              >
-                <span>HAND SKETCH DESIGNER (APPAREL) — REMOTE</span>
-                <span className={`transition-transform ${openId === "hsd" ? "rotate-90" : ""}`}>
-                  ▶
-                </span>
-              </button>
-
-              <div
-                className={`overflow-hidden transition-[max-height,opacity,transform] duration-300 ${
-                  openId === "hsd" ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-1"
-                }`}
-              >
-                <div className="px-4 pb-4 text-xs font-bold uppercase text-neutral-700 leading-relaxed space-y-3">
-                  <p className="text-neutral-900">
-                    HIGHLIGHTS: 1–2 YEARS EXPERIENCE • STRONG INTEREST IN HAND DRAWING • REMOTE
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>CREATE CLEAN HAND SKETCHES FOR TEES, HOODIES, AND MINIMAL GRAPHICS.</li>
-                    <li>UNDERSTAND PROPORTION, NEGATIVE SPACE, AND SILHOUETTE BALANCE.</li>
-                    <li>SCAN OR PHOTOGRAPH SKETCHES; PREP SIMPLE CLEANUPS (BASIC DIGITAL).</li>
-                    <li>COLLABORATE WITH PRINT VENDORS: SCALE, PLACEMENT, AND LINE WEIGHT.</li>
-                  </ul>
-                  <p>PLUS: FAMILIARITY WITH PUFF / DISCHARGE / WATER-BASED PRINT CONSTRAINTS.</p>
-                  <p>
-                    APPLY: SEND 6–10 SKETCHES (PDF OR LINK) + A NOTE ON YOUR FAVOURITE PAPER/PENCIL.
-                  </p>
-                </div>
-              </div>
-            </li>
-          </ul>
+            ))}
+          </div>
         </div>
 
-        {/* HOW TO APPLY */}
+        {/* APPLICATION INSTRUCTIONS */}
         <div
           data-index="4"
-          className={`mt-16 transition-all duration-1000 ease-out delay-700 ${
+          className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out delay-700 ${
             visible.has("4") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-xs font-bold uppercase text-neutral-900 tracking-widest">
-            EMAIL: CAREERS@VALENMASIJMO.COM — SUBJECT: ROLE / YOUR NAME
-          </p>
-          <p className="mt-4 text-xs font-bold uppercase text-neutral-700">
-            INCLUDE YOUR LINKS, 3 BULLETS ON EXPERIENCE, AND EARLIEST START DATE.
+          <div className="border border-neutral-900 bg-neutral-900 text-white p-8">
+            <h3 className="text-xs font-bold tracking-[0.3em] uppercase mb-6">
+              READY TO APPLY?
+            </h3>
+            <p className="text-xs font-bold uppercase mb-4 tracking-wider">
+              EMAIL US AT: CAREERS@VALENMASIJMO.COM
+            </p>
+            <p className="text-xs font-bold uppercase text-neutral-300 leading-relaxed">
+              SUBJECT LINE: [ROLE] — [YOUR NAME]
+            </p>
+            <div className="h-px bg-neutral-700 my-6" />
+            <p className="text-xs font-bold uppercase text-neutral-300 leading-relaxed">
+              INCLUDE: YOUR PORTFOLIO OR WORK SAMPLES · THREE KEY POINTS ABOUT YOUR EXPERIENCE · EARLIEST START DATE
+            </p>
+          </div>
+
+          <p className="mt-12 text-xs font-bold uppercase text-neutral-500 leading-relaxed">
+            WE REVIEW ALL APPLICATIONS CAREFULLY. 
+            EXPECT A RESPONSE WITHIN 5–7 BUSINESS DAYS.
           </p>
         </div>
       </div>

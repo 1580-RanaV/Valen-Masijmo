@@ -6,6 +6,18 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Handle scroll to detect when past 100vh
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > window.innerHeight;
+      setIsCollapsed(scrolled);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // close menu on ESC and click outside
   useEffect(() => {
@@ -30,8 +42,8 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
     };
   }, [countryDropdownOpen]);
 
-  const textColor = isAtTop ? 'text-black' : 'text-black';
-  const bgColor = isAtTop ? 'bg-transparent' : '';
+  const textColor = isAtTop ? 'text-white' : 'text-black';
+  const bgColor = isAtTop ? 'bg-transparent' : 'bg-gray-50 shadow-sm';
 
   const countries = [
     { code: 'IND', currency: 'INR', flag: '🇮🇳', disabled: false },
@@ -74,17 +86,25 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
         {/* Brand */}
         <Link
           href="/"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setMobileMenuOpen(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             onBrandClick?.();
           }}
-          className={`absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0 ${textColor} text-xl font-bold tracking-[0.2em] cursor-pointer transition-colors duration-500`}
+          className={`${
+            isCollapsed 
+              ? 'absolute left-1/2 -translate-x-1/2' 
+              : 'absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0'
+          } ${textColor} text-xl font-bold tracking-[0.2em] cursor-pointer transition-all duration-700 ease-in-out`}
         >
           VALEN MASIJMO
         </Link>
 
         {/* Desktop menu */}
-        <ul className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-colors duration-500`}>
+        <ul className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-all duration-700 ${
+          isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}>
           <li className="relative country-dropdown">
             <button
               onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}

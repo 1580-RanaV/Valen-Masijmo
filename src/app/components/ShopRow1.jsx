@@ -74,8 +74,12 @@ export default function TopThree() {
     setCurrentImages(prev => ({ ...prev, [productId]: 0 }));
   };
 
+  // const handleProductClick = (product) => {
+  //   requestAccess(() => router.push(`/product/${product.slug}`));
+  // };
+
   const handleProductClick = (product) => {
-    requestAccess(() => router.push(`/product/${product.slug}`));
+    requestAccess(() => router.push(`/shop`));
   };
 
   return (

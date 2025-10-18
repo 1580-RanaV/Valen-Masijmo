@@ -33,7 +33,7 @@ body {
 
 @font-face {
   font-family: 'font-bold';
-  src: url('/fonts/CaviarDreams_Bold.woff') format('woff');
+  src: url('/fonts/Renner.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap; /* Added for better performance */
