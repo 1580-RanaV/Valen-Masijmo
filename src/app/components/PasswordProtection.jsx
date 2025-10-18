@@ -198,7 +198,7 @@ export function PasswordModal() {
             VALEN MASIJMO
           </h2>
           <div className="w-16 h-px bg-neutral-300 mx-auto mb-6"></div>
-          <p className="text-gray-600 font-thin text-xs sm:text-sm tracking-widest uppercase">
+          <p className="text-gray-600 font-bold text-xs sm:text-sm tracking-widest uppercase">
             {isLoading ? "Loading Shop..." : "Enter Access Code"}
           </p>
         </div>
@@ -242,21 +242,21 @@ export function PasswordModal() {
 
         {/* Error */}
         {error && !isLoading && (
-          <div className="text-center font-thin text-red-800 text-xs sm:text-sm mb-4 tracking-wide">
+          <div className="text-center uppercase font-bold text-red-800 text-xs sm:text-sm mb-4 tracking-wide">
             Invalid code. Please try again.
           </div>
         )}
 
         {/* Loading Text */}
         {isLoading && (
-          <div className="text-center font-thin text-neutral-900 text-xs sm:text-sm mb-4 tracking-wide">
+          <div className="text-center uppercase font-bold text-neutral-900 text-xs sm:text-sm mb-4 tracking-wide">
             Taking you to the VM Shop...
           </div>
         )}
 
         {/* Info */}
         {!isLoading && (
-          <div className="text-center text-gray-400 text-xs font-thin tracking-widest uppercase">
+          <div className="text-center text-gray-400 text-xs font-bold tracking-widest uppercase">
             Restricted Access
           </div>
         )}
@@ -289,11 +289,11 @@ function DemoContent() {
         </h1>
         <button
           onClick={() => requestAccess(() => alert("Access granted! Redirecting to shop..."))}
-          className="px-8 py-3 bg-neutral-900 text-white text-sm font-thin tracking-widest uppercase hover:bg-neutral-700 transition-colors"
+          className="px-8 py-3 bg-neutral-900 text-white text-sm font-bold tracking-widest uppercase hover:bg-neutral-700 transition-colors"
         >
           {isAuthenticated ? "Already Authenticated" : "Request Access"}
         </button>
-        <p className="mt-6 text-sm text-gray-600 font-thin tracking-wide">
+        <p className="mt-6 text-sm text-gray-600 font-bold tracking-wide">
           Password: <span className="font-medium">SECRET</span>
         </p>
       </div>

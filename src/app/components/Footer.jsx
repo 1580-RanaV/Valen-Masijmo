@@ -18,7 +18,7 @@ export default function Footer() {
           <a href="/contact" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             Contact
           </a>
-          <a href="#" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
+          <a href="/shop" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">
             Shop
           </a>
           <a href="/careers" className="text-xs uppercase md:text-xs font-bold tracking-widest hover:text-neutral-300 transition-colors">

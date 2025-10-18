@@ -1,20 +1,50 @@
 'use client';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePassword } from '../components/PasswordProtection';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function ShopPage() {
-  const [hoveredProduct, setHoveredProduct] = useState(null);
   const [currentImages, setCurrentImages] = useState({});
-  
   const { requestAccess } = usePassword();
   const router = useRouter();
 
+  // ============================
+  // SALE ITEMS
+  // ============================
+  const saleProducts = [
+    {
+      id: 11,
+      images: ['/t10.png'],
+      title: 'ADDITION T-SHIRT',
+      price: '₹15,650',
+      originalPrice: '₹45,675',
+      inStock: true,
+      collection: 'FROM "DRAFTS VAULT"',
+      slug: 'addition-limited',
+      soldCount: 10,
+      soldTotal: 21,
+    },
+    {
+      id: 12,
+      images: ['/t11.png'],
+      title: 'MASIJMO KISS T-SHIRT',
+      price: '₹10,650',
+      originalPrice: '₹25,675',
+      inStock: true,
+      collection: 'FROM "DRAFTS VAULT"',
+      slug: 'kiss-limited',
+      soldCount: 2,
+      soldTotal: 21,
+    },
+  ];
+
+  const saleIds = new Set(saleProducts.map((p) => p.id));
+
   // ============================================
-  // ADD YOUR PRODUCTS HERE - Just edit this array!
+  // REGULAR PRODUCTS
   // ============================================
   const products = [
     {
@@ -23,8 +53,10 @@ export default function ShopPage() {
       title: 'MAYBE EGYPT T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      collection: 'FROM: THE BLACK CHAPTER ONE',
-      slug: 'maybe-egypt-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'maybe-egypt-tshirt',
+      soldCount: 2,
+      soldTotal: 21,
     },
     {
       id: 2,
@@ -32,7 +64,10 @@ export default function ShopPage() {
       title: 'IRONVEIL T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'ironveil-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'ironveil-tshirt',
+      soldCount: 5,
+      soldTotal: 21,
     },
     {
       id: 3,
@@ -40,7 +75,10 @@ export default function ShopPage() {
       title: 'ONLY NAMES T-SHIRT',
       price: '₹49,799',
       inStock: false,
-      slug: 'only-names-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'only-names-tshirt',
+      soldCount: 21,
+      soldTotal: 21,
     },
     {
       id: 4,
@@ -48,7 +86,10 @@ export default function ShopPage() {
       title: 'THE OWL IS WATCHING T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'owl-watching-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'owl-watching-tshirt',
+      soldCount: 7,
+      soldTotal: 21,
     },
     {
       id: 5,
@@ -56,7 +97,10 @@ export default function ShopPage() {
       title: 'VALEN VALENTINE T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'maybe-egypt-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'maybe-egypt-tshirt',
+      soldCount: 3,
+      soldTotal: 21,
     },
     {
       id: 6,
@@ -64,7 +108,10 @@ export default function ShopPage() {
       title: 'DEAR MASIJMO T-SHIRT',
       price: '₹1,55,799',
       inStock: true,
-      slug: 'ironveil-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'ironveil-tshirt',
+      soldCount: 1,
+      soldTotal: 21,
     },
     {
       id: 7,
@@ -72,7 +119,10 @@ export default function ShopPage() {
       title: 'VALEN CLUB EXCLUSIVE T-SHIRT',
       price: '₹65,799',
       inStock: false,
-      slug: 'only-names-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'only-names-tshirt',
+      soldCount: 21,
+      soldTotal: 21,
     },
     {
       id: 8,
@@ -80,167 +130,139 @@ export default function ShopPage() {
       title: 'VALEN PICNIC T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'owl-watching-tshirt'
+      collection: 'FROM "BLACK CHAPTER ONE"',
+      slug: 'owl-watching-tshirt',
+      soldCount: 9,
+      soldTotal: 21,
     },
-    {
-      id: 9,
-      images: ['/t9.png'],
-      title: 'BIGGER PROBLEMS T-SHIRT',
-      price: '₹14,659',
-      inStock: true,
-      slug: 'bigger-problems-tshirt'
-    },
-    {
-      id: 10,
-      images: ['/t11.png'],
-      title: 'MASIJMO KISS T-SHIRT',
-      price: '₹16,659',
-      inStock: true,
-      slug: 'kiss-tshirt'
-    },
-    {
-      id: 11,
-      images: ['/t10.png'],
-      title: 'ADDITION T-SHIRT',
-      price: '₹26,659',
-      inStock: true,
-      slug: 'addition-tshirt'
-    }
   ];
 
-  // Initialize currentImages state for all products
+  // Initialize currentImages for all items
   useEffect(() => {
     const initialImages = {};
-    products.forEach(product => {
+    [...saleProducts, ...products].forEach((product) => {
       initialImages[product.id] = 0;
     });
     setCurrentImages(initialImages);
   }, []);
 
-  // Handle image cycling on hover
-  useEffect(() => {
-    if (hoveredProduct !== null) {
-      const product = products.find(p => p.id === hoveredProduct);
-      if (product && product.images.length > 1) {
-        const intervalId = setInterval(() => {
-          setCurrentImages(prev => ({
-            ...prev,
-            [hoveredProduct]: (prev[hoveredProduct] + 1) % product.images.length
-          }));
-        }, 2000);
-        return () => clearInterval(intervalId);
-      }
-    }
-  }, [hoveredProduct]);
-
-  const handleMouseEnter = (productId) => setHoveredProduct(productId);
-  
-  const handleMouseLeave = (productId) => {
-    setHoveredProduct(null);
-    setCurrentImages(prev => ({ ...prev, [productId]: 0 }));
-  };
-
   const handleProductClick = (product) => {
     requestAccess(() => router.push(`/product/${product.slug}`));
   };
 
+  const allProducts = [...saleProducts, ...products];
+
   return (
     <>
       <Navbar />
-      
-      <main className="min-h-screen bg-gray-50">
-        <section className="w-full py-16">
+      <main className="min-h-screen bg-gray-50 text-xs leading-[1.5]">
+        <section className="w-full py-8 sm:py-12 lg:py-16">
           <style jsx>{`
-            @keyframes fadeIn {
-              0% { opacity: 0; transform: translateY(0); }
-              100% { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes fadeImage {
-              0% { opacity: 0; }
-              100% { opacity: 1; }
-            }
-            @keyframes slideUp {
-              0% { opacity: 0; transform: translateY(10px); }
-              100% { opacity: 1; transform: translateY(0); }
-            }
             .image-container {
               position: relative;
               overflow: hidden;
             }
-            .image-slide {
-              transition: opacity 0.8s ease-in-out;
+            .product-grid {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 0;
+              width: 100%;
             }
-            .stock-badge {
-              animation: slideUp 0.3s ease-out forwards;
+            @media (min-width: 640px) {
+              .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+              }
+            }
+            @media (min-width: 768px) {
+              .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+              }
+            }
+            @media (min-width: 1024px) {
+              .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+              }
             }
           `}</style>
-          
-          <div className="max-w-full px-0">
-            <h1 className="text-xs font-bold text-center mb-12 tracking-wider text-gray-900 px-4">
-              ALL PRODUCTS
-            </h1>
-            
-            {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4 lg:gap-2 px-4 lg:px-8">
-              {products.map((product) => (
+
+          {/* Title */}
+          <h1 className="font-bold text-center mb-8 sm:mb-10 lg:mb-12 tracking-wider text-gray-900 px-4">
+            ALL PRODUCTS
+          </h1>
+
+          {/* Product Grid */}
+          <div className="product-grid">
+            {allProducts.map((item) => (
+              <div
+                key={item.id}
+                className="cursor-pointer w-full border-r border-b border-gray-200 last:border-r-0 bg-white"
+                onClick={() => handleProductClick(item)}
+              >
+                {/* Image Container */}
                 <div
-                  key={product.id}
-                  className="group cursor-pointer"
-                  onMouseEnter={() => handleMouseEnter(product.id)}
-                  onMouseLeave={() => handleMouseLeave(product.id)}
-                  onClick={() => handleProductClick(product)}
+                  className="relative w-full bg-gray-50 image-container"
+                  style={{ paddingBottom: '150%' }}
                 >
-                  {/* Image Container */}
-                  <div 
-                    className="relative w-full overflow-hidden bg-gray-50 mb-4 image-container" 
-                    style={{ paddingBottom: '150%' }}
-                  >
-                    {currentImages[product.id] !== undefined && (
-                      <Image
-                        src={product.images[currentImages[product.id]]}
-                        alt={product.title}
-                        fill
-                        className="object-cover image-slide"
-                        key={currentImages[product.id]}
-                        style={{ animation: 'fadeImage 0.8s ease-in-out' }}
-                      />
-                    )}
-                  </div>
-                  
-                  {/* Product Info */}
-                  <div className="text-center px-2 relative mb-4">
-                    <h3 className="text-xs font-bold tracking-wide transition-all duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
-                      {product.title}
-                    </h3>
+                  {/* SALE badge */}
+                  {saleIds.has(item.id) && (
+                    <span className="absolute top-2 right-2 z-10 bg-black text-white px-2 py-1 font-bold tracking-widest text-[10px]">
+                      SALE
+                    </span>
+                  )}
 
-                    <p className="text-xs font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
-                      {product.collection}
-                    </p>
-                    
-                    <p className="text-xs font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
-                      {product.price}
-                    </p>
+                  <Image
+                    src={item.images[currentImages[item.id] ?? 0]}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
 
-                    {/* Uncomment if you want stock badges */}
-                    <div className="mt-2 flex items-center justify-center">
-                      <span 
-                        className={`inline-block px-3 py-1 text-xs font-bold ${
-                          product.inStock 
-                            ? 'bg-black text-white' 
-                            : 'bg-black text-white'
-                        }`}
-                      >
-                        {product.inStock ? 'In Stock' : 'Sold Out'}
+                {/* Text Region */}
+                <div className="text-center px-3 lg:px-4 py-4">
+                  <h3 className="font-bold tracking-wide text-neutral-900 mb-1">
+                    {item.title}
+                  </h3>
+
+                  <p className="font-bold tracking-wider text-neutral-500 mb-2">
+                    {item.collection}
+                  </p>
+
+                  {item.originalPrice ? (
+                    <div className="font-bold tracking-wider mb-2">
+                      <span className="line-through text-neutral-400 mr-2">
+                        {item.originalPrice}
                       </span>
+                      <span className="text-green-600">{item.price}</span>
                     </div>
+                  ) : (
+                    <p className="font-bold tracking-wider text-neutral-600 mb-2">
+                      {item.price}
+                    </p>
+                  )}
+
+                  <div className="mb-2">
+                    <span className="font-bold tracking-widest text-neutral-500">
+                      [{item.soldCount ?? 0}/{item.soldTotal ?? 0}] SOLD
+                    </span>
+                  </div>
+
+                  <div className="mt-2 flex items-center justify-center">
+                    <span
+                      className={`inline-block px-3 py-1 font-bold ${
+                        item.inStock ? 'bg-black text-white' : 'bg-red-800 text-white'
+                      }`}
+                    >
+                      {item.inStock ? 'In Stock' : 'Sold Out'}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </section>
       </main>
-      
       <Footer />
     </>
   );
