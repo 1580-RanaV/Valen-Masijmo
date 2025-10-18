@@ -3,23 +3,23 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
-export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
+export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onShopClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Handle scroll to detect when past 100vh
+  // Center logo after scrolling past 100vh (kept)
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > window.innerHeight;
       setIsCollapsed(scrolled);
     };
-    
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // init on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // close menu on ESC and click outside
+  // Close menus on ESC / outside click
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') {
@@ -27,13 +27,11 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
         setCountryDropdownOpen(false);
       }
     };
-    
     const onClick = (e) => {
       if (countryDropdownOpen && !e.target.closest('.country-dropdown')) {
         setCountryDropdownOpen(false);
       }
     };
-    
     window.addEventListener('keydown', onKey);
     document.addEventListener('click', onClick);
     return () => {
@@ -63,14 +61,7 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
     <>
       {/* Fixed Navbar */}
       <nav
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          transform: 'none',
-          willChange: 'auto'
-        }}
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, transform: 'none', willChange: 'auto' }}
         className={`flex justify-between font-bold items-center px-6 md:px-12 py-6 z-50 transition-all duration-500 ${bgColor}`}
       >
         {/* Mobile menu button */}
@@ -83,18 +74,13 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Brand */}
+        {/* Brand (now just navigates home; no scroll-to-top) */}
         <Link
           href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            setMobileMenuOpen(false);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            onBrandClick?.();
-          }}
+          onClick={() => setMobileMenuOpen(false)}
           className={`${
-            isCollapsed 
-              ? 'absolute left-1/2 -translate-x-1/2' 
+            isCollapsed
+              ? 'absolute left-1/2 -translate-x-1/2'
               : 'absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0'
           } ${textColor} text-xl font-bold tracking-[0.2em] cursor-pointer transition-all duration-700 ease-in-out`}
         >
@@ -102,9 +88,11 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
         </Link>
 
         {/* Desktop menu */}
-        <ul className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-all duration-700 ${
-          isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}>
+        <ul
+          className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-all duration-700 ${
+            isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+        >
           <li className="relative country-dropdown">
             <button
               onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
@@ -113,10 +101,12 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
               <span className="w-5 h-5 overflow-hidden flex items-center justify-center text-sm">
                 {selectedCountry.flag}
               </span>
-              <span>{selectedCountry.code} | {selectedCountry.currency}</span>
+              <span>
+                {selectedCountry.code} | {selectedCountry.currency}
+              </span>
               <ChevronDown size={14} className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
-            
+
             {/* Dropdown */}
             {countryDropdownOpen && (
               <div className="absolute top-full mt-2 left-0 bg-white shadow-lg rounded-sm py-2 min-w-[150px] z-50">
@@ -131,15 +121,15 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
                     }}
                     disabled={country.disabled}
                     className={`w-full text-left px-4 py-2 text-xs tracking-wide flex items-center gap-2 ${
-                      country.disabled
-                        ? 'text-gray-400 cursor-not-allowed'
-                        : 'hover:bg-gray-100 cursor-pointer'
+                      country.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-100 cursor-pointer'
                     } ${selectedCountry.code === country.code ? 'bg-gray-50' : ''}`}
                   >
                     <span className="w-5 h-5 rounded-full overflow-hidden flex items-center justify-center text-sm border border-gray-200">
                       {country.flag}
                     </span>
-                    <span>{country.code} | {country.currency}</span>
+                    <span>
+                      {country.code} | {country.currency}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -165,25 +155,24 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
 
       {/* Mobile Menu Overlay */}
       <div
-        style={{
-          position: 'fixed',
-          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)'
-        }}
+        style={{ position: 'fixed', transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
         className={`inset-0 bg-gray-50 z-40 transition-transform duration-300 ease-in-out md:hidden`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8 uppercase">
           <div className="flex flex-col items-center gap-3 country-dropdown">
             <button
               onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
-              className="font-thin text-black tracking-wide hover:opacity-70 transition-opacity text-xs flex items-center gap-1.5"
+              className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs flex items-center gap-1.5"
             >
               <span className="w-5 h-5 rounded-full overflow-hidden flex items-center justify-center text-sm border border-gray-200">
                 {selectedCountry.flag}
               </span>
-              <span>{selectedCountry.code} | {selectedCountry.currency}</span>
+              <span>
+                {selectedCountry.code} | {selectedCountry.currency}
+              </span>
               <ChevronDown size={14} className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
-            
+
             {countryDropdownOpen && (
               <div className="bg-white shadow-lg rounded-sm py-2 px-4">
                 {countries.map((country) => (
@@ -197,34 +186,42 @@ export default function Navbar({ isAtTop, onBrandClick, onShopClick }) {
                     }}
                     disabled={country.disabled}
                     className={`w-full text-center py-2 text-xs tracking-wide flex items-center justify-center gap-2 ${
-                      country.disabled
-                        ? 'text-gray-400 cursor-not-allowed'
-                        : 'hover:opacity-70 cursor-pointer'
+                      country.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:opacity-70 cursor-pointer'
                     }`}
                   >
                     <span className="w-5 h-5 rounded-full overflow-hidden flex items-center justify-center text-sm border border-gray-200">
                       {country.flag}
                     </span>
-                    <span>{country.code} | {country.currency}</span>
+                    <span>
+                      {country.code} | {country.currency}
+                    </span>
                   </button>
                 ))}
               </div>
             )}
           </div>
-          
+
           <Link
             href="/story"
-            className="font-thin text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
+            className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
             onClick={() => handleMobileLink()}
           >
             THE MASIJMO STORY
           </Link>
           <button
             onClick={() => handleMobileLink(onShopClick)}
-            className="font-thin text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
+            className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
           >
             SHOP
           </button>
+          {/* Home link for convenience on mobile */}
+          <Link
+            href="/"
+            className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
+            onClick={() => handleMobileLink()}
+          >
+            HOME
+          </Link>
         </div>
       </div>
     </>

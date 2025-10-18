@@ -83,7 +83,7 @@ export default function ShopPage() {
     {
       id: 4,
       images: ['/t4.png'],
-      title: 'THE OWL IS WATCHING T-SHIRT',
+      title: 'OWL EYES T-SHIRT',
       price: '₹35,799',
       inStock: true,
       collection: 'FROM "BLACK CHAPTER ONE"',
@@ -116,7 +116,7 @@ export default function ShopPage() {
     {
       id: 7,
       images: ['/t8.png'],
-      title: 'VALEN CLUB EXCLUSIVE T-SHIRT',
+      title: 'VALEN CLUB T-SHIRT',
       price: '₹65,799',
       inStock: false,
       collection: 'FROM "BLACK CHAPTER ONE"',
@@ -186,7 +186,7 @@ export default function ShopPage() {
           `}</style>
 
           {/* Title */}
-          <h1 className="font-bold text-center mb-8 sm:mb-10 lg:mb-12 tracking-wider text-gray-900 px-4">
+          <h1 className="font-bold text-center mt-16 mb-8 sm:mb-10 lg:mb-12 tracking-wider text-gray-900 px-4">
             ALL PRODUCTS
           </h1>
 
@@ -242,11 +242,11 @@ export default function ShopPage() {
                     </p>
                   )}
 
-                  <div className="mb-2">
+                  {/* <div className="mb-2">
                     <span className="font-bold tracking-widest text-neutral-500">
                       [{item.soldCount ?? 0}/{item.soldTotal ?? 0}] SOLD
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="mt-2 flex items-center justify-center">
                     <span
@@ -254,7 +254,7 @@ export default function ShopPage() {
                         item.inStock ? 'bg-black text-white' : 'bg-red-800 text-white'
                       }`}
                     >
-                      {item.inStock ? 'In Stock' : 'Sold Out'}
+                      {item.inStock ? 'AVAILABLE' : 'SOLD OUT'}
                     </span>
                   </div>
                 </div>
