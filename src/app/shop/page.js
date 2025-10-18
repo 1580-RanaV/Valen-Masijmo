@@ -16,7 +16,7 @@ export default function ShopPage() {
   // ============================
   const saleProducts = [
     {
-      id: 11,
+      id: 9,
       images: ['/t10.png'],
       title: 'ADDITION T-SHIRT',
       price: '₹15,650',
@@ -28,7 +28,7 @@ export default function ShopPage() {
       soldTotal: 21,
     },
     {
-      id: 12,
+      id: 10,
       images: ['/t11.png'],
       title: 'MASIJMO KISS T-SHIRT',
       price: '₹10,650',
@@ -47,6 +47,17 @@ export default function ShopPage() {
   // REGULAR PRODUCTS
   // ============================================
   const products = [
+    {
+      id: 11,
+      images: ['/t13-1.png'],
+      title: 'KISSES TO VALEN T-SHIRT',
+      price: '₹1,35,999',
+      inStock: true,
+      collection: 'FROM "DRAFTS VAULT"',
+      slug: 'owl-watching-tshirt',
+      soldCount: 9,
+      soldTotal: 21,
+    },
     {
       id: 1,
       images: ['/t1.png'],
@@ -251,7 +262,7 @@ export default function ShopPage() {
                   <div className="mt-2 flex items-center justify-center">
                     <span
                       className={`inline-block px-3 py-1 font-bold ${
-                        item.inStock ? 'bg-black text-white' : 'bg-red-800 text-white'
+                        item.inStock ? 'bg-gray-50 border text-neutral-900' : 'bg-red-800 text-white'
                       }`}
                     >
                       {item.inStock ? 'AVAILABLE' : 'SOLD OUT'}

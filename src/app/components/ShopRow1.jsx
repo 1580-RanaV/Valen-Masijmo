@@ -29,9 +29,9 @@ export default function TopThree() {
     },
     {
       id: 2,
-      images: ['/t2.png'],
-      title: 'IRONVEIL T-SHIRT',
-      price: '₹35,799',
+      images: ['/t13.png'],
+      title: 'KISSES TO VALEN T-SHIRT',
+      price: '₹1,35,999',
       inStock: true,
       slug: 'ironveil-tshirt'
     },
