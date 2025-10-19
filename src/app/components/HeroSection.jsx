@@ -43,7 +43,7 @@ export default function HeroSection() {
         {/* Shrunk hero image container */}
         <div className="relative w-[75%] h-[75%] overflow-hidden">
           <Image
-            src="/hero-pic.jpg"
+            src="/hero-pic.png"
             alt="Hero Background"
             fill
             priority
