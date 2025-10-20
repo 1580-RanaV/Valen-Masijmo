@@ -54,11 +54,11 @@ export default function HeroSection() {
         {/* Desktop image - visible only on medium screens and up */}
         <div className="relative w-full h-full hidden md:block">
           <Image
-            src="/hero-desktop.png"
+            src="/hero-desktop-2.png"
             alt="Hero Background"
             fill
             priority
-            className="object-contain object-center brightness-110"
+            className="object-contain object-center brightness-100"
           />
         </div>
       </section>
