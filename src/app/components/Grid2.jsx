@@ -19,25 +19,25 @@ export default function Grid() {
   };
 
   return (
-    <section className="w-full py-16 md:py-24">
-      <div className="max-w-full px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+    <section className="w-full p-0 m-0 mt-16">
+      <div className="max-w-full p-0 m-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {products.map((product) => (
             <button
               key={product.id}
               onClick={() => handleProductClick(product)}
-              className="group cursor-pointer text-left"
+              className="group cursor-pointer text-left p-0 m-0"
               aria-label={`Open ${product.slug}`}
             >
               <div
-                className="relative w-full overflow-hidden bg-gray-100"
-                style={{ paddingBottom: '150%' }} // 2:3 aspect
+                className="relative w-full overflow-hidden"
+                style={{ aspectRatio: '2 / 3' }}
               >
                 <Image
                   src={product.images[0]}
                   alt={`Product ${product.id}`}
                   fill
-                  className="object-cover"
+                  className="object-cover p-0 m-0"
                   priority={product.id === 1}
                 />
               </div>

@@ -39,11 +39,11 @@ export default function HeroSection() {
         onShopClick={handleShopClick}
       />
 
-      <section className="relative w-full h-screen flex items-center justify-center bg-white">
+      <section className="relative w-full h-screen flex items-center justify-center mt-2">
         {/* Mobile image - visible only on small screens */}
         <div className="relative w-full h-full md:hidden">
           <Image
-            src="/hero-mobile.png"
+            src="/hero-desktop-3.png"
             alt="Hero Background"
             fill
             priority
@@ -54,7 +54,7 @@ export default function HeroSection() {
         {/* Desktop image - visible only on medium screens and up */}
         <div className="relative w-full h-full hidden md:block">
           <Image
-            src="/hero-desktop-2.png"
+            src="/hero-desktop-3.png"
             alt="Hero Background"
             fill
             priority

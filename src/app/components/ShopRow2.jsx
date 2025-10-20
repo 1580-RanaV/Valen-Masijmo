@@ -12,16 +12,17 @@ export default function NextThree() {
     3: 0,
     4: 0
   });
-  
+
   const { requestAccess } = usePassword();
   const router = useRouter();
 
+  // All T-shirts now between ₹35k–₹40k
   const products = [
     {
       id: 1,
       images: ['/t6/t6-4.png'],
       title: 'VALEN VALENTINE T-SHIRT',
-      price: '₹35,799',
+      price: '₹36,499',
       inStock: true,
       slug: 'valen-valentine-tshirt'
     },
@@ -29,7 +30,7 @@ export default function NextThree() {
       id: 2,
       images: ['/t5/t5-4.png'],
       title: 'DEAR MASIJMO T-SHIRT',
-      price: '₹1,55,799',
+      price: '₹38,999',
       inStock: true,
       slug: 'dear-masijmo-tshirt'
     },
@@ -37,7 +38,7 @@ export default function NextThree() {
       id: 3,
       images: ['/t8/t8-4.png'],
       title: 'VALEN CLUB EXCLUSIVE T-SHIRT',
-      price: '₹65,799',
+      price: '₹39,499',
       inStock: false,
       slug: 'valen-club-tshirt'
     },
@@ -45,7 +46,7 @@ export default function NextThree() {
       id: 4,
       images: ['/t7/t7-4.png'],
       title: 'VALEN PICNIC T-SHIRT',
-      price: '₹35,799',
+      price: '₹35,999',
       inStock: true,
       slug: 'valen-picnic-tshirt'
     }
@@ -77,35 +78,11 @@ export default function NextThree() {
   };
 
   return (
-    <section className="w-full py-16">
+    <section className="w-full py-16 px-0 overflow-x-hidden">
       <style jsx>{`
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
         @keyframes fadeImage {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-        @keyframes slideUp {
-          0% {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; }
+          100% { opacity: 1; }
         }
         .image-container {
           position: relative;
@@ -114,17 +91,15 @@ export default function NextThree() {
         .image-slide {
           transition: opacity 0.8s ease-in-out;
         }
-        .stock-badge {
-          animation: slideUp 0.3s ease-out forwards;
-        }
       `}</style>
-      
-      <div className="max-w-full px-0">
-        <h2 className="text-xs text-gray-50 font-bold text-center mb-12 tracking-wider px-4">
-          M
-        </h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4 lg:gap-2">
+
+      <h2 className="text-xs text-gray-50 font-bold text-center mb-8 tracking-wider px-4">
+        M
+      </h2>
+
+      {/* EDGE-TO-EDGE GRID (no gaps) */}
+      <div className="w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 w-full">
           {products.map((product) => (
             <div
               key={product.id}
@@ -133,10 +108,9 @@ export default function NextThree() {
               onMouseLeave={() => handleMouseLeave(product.id)}
               onClick={() => handleProductClick(product)}
             >
-              {/* Image Container */}
-              <div 
-                className="relative w-full overflow-hidden bg-gray-100 mb-4 image-container" 
-                style={{ paddingBottom: '150%' }}
+              <div
+                className="image-container bg-gray-100"
+                style={{ aspectRatio: '2 / 3' }}
               >
                 <Image
                   src={product.images[currentImages[product.id]]}
@@ -145,30 +119,18 @@ export default function NextThree() {
                   className="object-cover image-slide"
                   key={currentImages[product.id]}
                   style={{ animation: 'fadeImage 0.8s ease-in-out' }}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  priority
                 />
               </div>
-              
-              {/* Product Info */}
-              <div className="text-center px-2 relative mb-4">
-                <h3 className="text-xs font-bold tracking-wide transition-all duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
+
+              <div className="text-center px-2 py-4">
+                <h3 className="text-xs font-bold tracking-wide transition-opacity duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
                   {product.title}
                 </h3>
-                
-                <p className="text-xs font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
+                <p className="text-xs font-bold tracking-wider transition-colors duration-300 group-hover:text-neutral-400 text-neutral-500">
                   {product.price}
                 </p>
-                
-                {/* <div className="mt-2 flex items-center justify-center">
-                  <span 
-                    className={`inline-block px-3 py-1 text-xs font-bold ${
-                      product.inStock 
-                        ? 'bg-black text-white' 
-                        : 'bg-black text-white'
-                    }`}
-                  >
-                    {product.inStock ? 'In Stock' : 'Sold Out'}
-                  </span>
-                </div> */}
               </div>
             </div>
           ))}

@@ -16,14 +16,12 @@ export default function TopThree() {
   const { requestAccess } = usePassword();
   const router = useRouter();
 
-  // ...existing code...
-
   const products = [
     {
       id: 1,
       images: ['/t1/t1-4.png'],
       title: 'MAYBE EGYPT T-SHIRT',
-      price: '₹35,799',
+      price: '₹35,999',
       inStock: true,
       slug: 'maybe-egypt-tshirt'
     },
@@ -31,7 +29,7 @@ export default function TopThree() {
       id: 2,
       images: ['/t12/t12-5.png'],
       title: 'KISSES TO VALEN T-SHIRT',
-      price: '₹1,35,999',
+      price: '₹39,499',
       inStock: true,
       slug: 'kisses-to-valen-tshirt'
     },
@@ -39,7 +37,7 @@ export default function TopThree() {
       id: 3,
       images: ['/t3/t3-4.png'],
       title: 'ONLY NAMES T-SHIRT',
-      price: '₹49,799',
+      price: '₹37,499',
       inStock: false,
       slug: 'only-names-tshirt'
     },
@@ -47,7 +45,7 @@ export default function TopThree() {
       id: 4,
       images: ['/t9/t9-5.png'],
       title: 'BLUE VALEN T-SHIRT',
-      price: '₹25,799',
+      price: '₹36,999',
       inStock: true,
       slug: 'blue-valen-tshirt'
     }
@@ -74,95 +72,66 @@ export default function TopThree() {
     setCurrentImages(prev => ({ ...prev, [productId]: 0 }));
   };
 
-  // const handleProductClick = (product) => {
-  //   requestAccess(() => router.push(`/product/${product.slug}`));
-  // };
-
+  // Send to /shop (same behavior as your previous request)
   const handleProductClick = (product) => {
     requestAccess(() => router.push(`/shop`));
+    // For direct product page later:
+    // requestAccess(() => router.push(`/product/${product.slug}`));
   };
 
   return (
-    <section className="w-full py-16">
+    <section className="w-full py-16 px-0 overflow-x-hidden">
       <style jsx>{`
-        @keyframes fadeIn {
-          0% { opacity: 0; transform: translateY(0); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
         @keyframes fadeImage {
           0% { opacity: 0; }
           100% { opacity: 1; }
         }
-        @keyframes slideUp {
-          0% { opacity: 0; transform: translateY(10px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .image-container {
-          position: relative;
-          overflow: hidden;
-        }
-        .image-slide {
-          transition: opacity 0.8s ease-in-out;
-        }
-        .stock-badge {
-          animation: slideUp 0.3s ease-out forwards;
-        }
+        .image-container { position: relative; overflow: hidden; }
+        .image-slide { transition: opacity 0.8s ease-in-out; }
       `}</style>
       
-      <div className="max-w-full px-0">
-        <h2 className="text-xs font-bold text-center mb-12 tracking-wider text-gray-50 px-4">
-          TOP PICKS
-        </h2>
+      <h2 className="text-xs font-bold text-center mb-8 tracking-wider text-gray-50">
+        TOP PICKS
+      </h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4 lg:gap-2">
-          {products.map((product) => (
+      {/* Edge-to-edge grid, NO gaps */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 w-full">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="group cursor-pointer"
+            onMouseEnter={() => handleMouseEnter(product.id)}
+            onMouseLeave={() => handleMouseLeave(product.id)}
+            onClick={() => handleProductClick(product)}
+          >
+            {/* Image tile (no outer margins) */}
             <div
-              key={product.id}
-              className="group cursor-pointer"
-              onMouseEnter={() => handleMouseEnter(product.id)}
-              onMouseLeave={() => handleMouseLeave(product.id)}
-              onClick={() => handleProductClick(product)}
+              className="image-container bg-gray-100"
+              style={{ aspectRatio: '2 / 3' }}
             >
-              {/* Image Container */}
-              <div 
-                className="relative w-full overflow-hidden bg-gray-100 mb-4 image-container" 
-                style={{ paddingBottom: '150%' }}
-              >
-                <Image
-                  src={product.images[currentImages[product.id]]}
-                  alt={product.title}
-                  fill
-                  className="object-cover image-slide"
-                  key={currentImages[product.id]}
-                  style={{ animation: 'fadeImage 0.8s ease-in-out' }}
-                />
-              </div>
-              
-              {/* Product Info */}
-              <div className="text-center px-2 relative mb-4">
-                <h3 className="text-xs font-bold tracking-wide transition-all duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
-                  {product.title}
-                </h3>
-                
-                <p className="text-xs font-bold tracking-wider transition-all duration-300 group-hover:text-neutral-500 text-neutral-500 mb-2">
-                  {product.price}
-                </p>
-
-                {/* <div className="mt-2 flex items-center justify-center">
-                  <span 
-                    className={`inline-block px-3 py-1 text-xs font-bold ${
-                      product.inStock 
-                        ? 'bg-black text-white' 
-                        : 'bg-black text-white'
-                    }`}
-                  >
-                    {product.inStock ? 'In Stock' : 'Sold Out'}
-                  </span>
-                </div> */}
-              </div>
+              <Image
+                src={product.images[currentImages[product.id]]}
+                alt={product.title}
+                fill
+                className="object-cover image-slide"
+                key={currentImages[product.id]}
+                style={{ animation: 'fadeImage 0.8s ease-in-out' }}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                priority
+              />
             </div>
-          ))}
-        </div>
+            
+            {/* Product Info (doesn't add horizontal gaps) */}
+            <div className="text-center px-2 py-4">
+              <h3 className="text-xs font-bold tracking-wide transition-opacity duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
+                {product.title}
+              </h3>
+              <p className="text-xs font-bold tracking-wider transition-colors duration-300 group-hover:text-neutral-400 text-neutral-500">
+                {product.price}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

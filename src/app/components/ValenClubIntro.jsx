@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SectionThree() {
   return (
-    <section className="relative w-full py-16">
+    <section className="relative w-full mt-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
