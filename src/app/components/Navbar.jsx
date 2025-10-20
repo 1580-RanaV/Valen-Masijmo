@@ -8,10 +8,11 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Center logo after scrolling past 100vh (kept)
+  // Center logo after scrolling past 150px (kept)
   useEffect(() => {
+    const THRESHOLD_PX = 150; // try 150 (faster). lower = faster (e.g. 100)
     const handleScroll = () => {
-      const scrolled = window.scrollY > window.innerHeight;
+      const scrolled = window.scrollY > THRESHOLD_PX;
       setIsCollapsed(scrolled);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -41,7 +42,7 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
   }, [countryDropdownOpen]);
 
   const textColor = isAtTop ? 'text-white' : 'text-black';
-  const bgColor = isAtTop ? 'bg-transparent' : 'bg-gray-50 shadow-sm';
+  const bgColor = isAtTop ? 'bg-gray-50' : 'bg-white';
 
   const countries = [
     { code: 'IND', currency: 'INR', flag: '🇮🇳', disabled: false },
@@ -59,22 +60,22 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
 
   return (
     <>
-      {/* Fixed Navbar */}
+      {/* Fixed Navbar with Glassmorphism */}
       <nav
         style={{ position: 'fixed', top: 0, left: 0, right: 0, transform: 'none', willChange: 'auto' }}
-        className={`flex justify-between font-bold items-center px-6 md:px-12 py-6 z-50 transition-all duration-500 ${bgColor}`}
+        className={`flex justify-between font-bold items-center px-6 md:px-12 py-6 z-50 transition-all duration-500 ${bgColor} border-b-neutral-400`}
       >
-        {/* Mobile menu button */}
+        {/* Mobile menu button - smaller size */}
         <button
           onClick={() => setMobileMenuOpen((s) => !s)}
           className={`md:hidden z-50 transition-colors ${textColor}`}
           aria-label="Toggle menu"
           aria-expanded={mobileMenuOpen}
         >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        {/* Brand (now just navigates home; no scroll-to-top) */}
+        {/* Brand - single line with whitespace nowrap */}
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
@@ -82,12 +83,12 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
             isCollapsed
               ? 'absolute left-1/2 -translate-x-1/2'
               : 'absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0'
-          } ${textColor} text-xl font-bold tracking-[0.2em] cursor-pointer transition-all duration-700 ease-in-out`}
+          } ${textColor} text-xs font-bold tracking-[0.2em] cursor-pointer transition-all duration-700 ease-in-out whitespace-nowrap`}
         >
           VALEN MASIJMO
         </Link>
 
-        {/* Desktop menu */}
+        {/* Desktop menu - all text xs */}
         <ul
           className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-all duration-700 ${
             isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -107,9 +108,9 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
               <ChevronDown size={14} className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
-            {/* Dropdown */}
+            {/* Dropdown with glassmorphism */}
             {countryDropdownOpen && (
-              <div className="absolute top-full mt-2 left-0 bg-white shadow-lg rounded-sm py-2 min-w-[150px] z-50">
+              <div className="absolute top-full mt-2 left-0 bg-white/90 backdrop-blur-md shadow-lg rounded-sm py-2 min-w-[150px] z-50 border border-white/20">
                 {countries.map((country) => (
                   <button
                     key={country.code}
@@ -121,8 +122,8 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
                     }}
                     disabled={country.disabled}
                     className={`w-full text-left px-4 py-2 text-xs tracking-wide flex items-center gap-2 ${
-                      country.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-100 cursor-pointer'
-                    } ${selectedCountry.code === country.code ? 'bg-gray-50' : ''}`}
+                      country.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-white/50 cursor-pointer'
+                    } ${selectedCountry.code === country.code ? 'bg-white/30' : ''}`}
                   >
                     <span className="w-5 h-5 rounded-full overflow-hidden flex items-center justify-center text-sm border border-gray-200">
                       {country.flag}
@@ -150,13 +151,13 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
           </li>
         </ul>
 
-        <div className="md:hidden w-7" />
+        <div className="md:hidden w-5" />
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay with glassmorphism */}
       <div
         style={{ position: 'fixed', transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-        className={`inset-0 bg-gray-50 z-40 transition-transform duration-300 ease-in-out md:hidden`}
+        className={`inset-0 bg-white/30 backdrop-blur-md z-40 transition-transform duration-300 ease-in-out md:hidden`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8 uppercase">
           <div className="flex flex-col items-center gap-3 country-dropdown">
@@ -174,7 +175,7 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
             </button>
 
             {countryDropdownOpen && (
-              <div className="bg-white shadow-lg rounded-sm py-2 px-4">
+              <div className="bg-white/90 backdrop-blur-md shadow-lg rounded-sm py-2 px-4 border border-white/20">
                 {countries.map((country) => (
                   <button
                     key={country.code}

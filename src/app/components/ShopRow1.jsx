@@ -21,7 +21,7 @@ export default function TopThree() {
   const products = [
     {
       id: 1,
-      images: ['/t1/t1.png'],
+      images: ['/t1/t1-4.png'],
       title: 'MAYBE EGYPT T-SHIRT',
       price: '₹35,799',
       inStock: true,
@@ -29,15 +29,15 @@ export default function TopThree() {
     },
     {
       id: 2,
-      images: ['/t12/t12.png'],
+      images: ['/t12/t12-5.png'],
       title: 'KISSES TO VALEN T-SHIRT',
       price: '₹1,35,999',
       inStock: true,
-      slug: 'ironveil-tshirt'
+      slug: 'kisses-to-valen-tshirt'
     },
     {
       id: 3,
-      images: ['/t3/t3.png'],
+      images: ['/t3/t3-4.png'],
       title: 'ONLY NAMES T-SHIRT',
       price: '₹49,799',
       inStock: false,
@@ -45,11 +45,11 @@ export default function TopThree() {
     },
     {
       id: 4,
-      images: ['/t9/t9.png'],
+      images: ['/t9/t9-5.png'],
       title: 'BLUE VALEN T-SHIRT',
       price: '₹25,799',
       inStock: true,
-      slug: 'owl-watching-tshirt'
+      slug: 'blue-valen-tshirt'
     }
   ];
 

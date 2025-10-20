@@ -90,23 +90,6 @@ export default function Careers() {
             IF YOU SHARE THIS PHILOSOPHY AND BRING DEDICATION TO YOUR CRAFT, 
             WE WANT TO HEAR FROM YOU.
           </p>
-
-          <div
-            data-index="2"
-            className={`flex flex-wrap justify-center gap-3 transition-all duration-1000 ease-out delay-300 ${
-              visible.has("2") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
-              REMOTE FIRST
-            </span>
-            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
-              1–2 YEARS EXPERIENCE
-            </span>
-            <span className="border border-neutral-300 px-4 py-2 text-xs font-bold tracking-widest uppercase text-neutral-900">
-              PASSION REQUIRED
-            </span>
-          </div>
         </div>
 
         {/* ROLES SECTION */}
@@ -237,7 +220,7 @@ export default function Careers() {
         </div>
 
         {/* APPLICATION INSTRUCTIONS */}
-        <div
+        {/* <div
           data-index="4"
           className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out delay-700 ${
             visible.has("4") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -263,9 +246,8 @@ export default function Careers() {
             WE REVIEW ALL APPLICATIONS CAREFULLY. 
             EXPECT A RESPONSE WITHIN 5–7 BUSINESS DAYS.
           </p>
-        </div>
+        </div> */}
       </div>
-
       <Footer />
     </section>
   );

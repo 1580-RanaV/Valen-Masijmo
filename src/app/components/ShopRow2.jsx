@@ -19,35 +19,35 @@ export default function NextThree() {
   const products = [
     {
       id: 1,
-      images: ['/t6/t6.png'],
+      images: ['/t6/t6-4.png'],
       title: 'VALEN VALENTINE T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'maybe-egypt-tshirt'
+      slug: 'valen-valentine-tshirt'
     },
     {
       id: 2,
-      images: ['/t5/t5.png'],
+      images: ['/t5/t5-4.png'],
       title: 'DEAR MASIJMO T-SHIRT',
       price: '₹1,55,799',
       inStock: true,
-      slug: 'ironveil-tshirt'
+      slug: 'dear-masijmo-tshirt'
     },
     {
       id: 3,
-      images: ['/t8/t8.png'],
+      images: ['/t8/t8-4.png'],
       title: 'VALEN CLUB EXCLUSIVE T-SHIRT',
       price: '₹65,799',
       inStock: false,
-      slug: 'only-names-tshirt'
+      slug: 'valen-club-tshirt'
     },
     {
       id: 4,
-      images: ['/t7/t7.png'],
+      images: ['/t7/t7-4.png'],
       title: 'VALEN PICNIC T-SHIRT',
       price: '₹35,799',
       inStock: true,
-      slug: 'owl-watching-tshirt'
+      slug: 'valen-picnic-tshirt'
     }
   ];
 

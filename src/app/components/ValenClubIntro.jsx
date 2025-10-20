@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SectionThree() {
   return (
-    <section className="relative w-full bg-gray-50 py-16">
+    <section className="relative w-full py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
@@ -12,7 +12,7 @@ export default function SectionThree() {
           <div className="relative h-[80vh] overflow-hidden lg:order-2">
             <Image
               src="/chair-red-2.png"
-              alt="Valen Masijmo — Black Chapter One"
+              alt="Valen Masijmo — Silent Luxury"
               fill
               priority
               className="object-contain"
@@ -31,7 +31,11 @@ export default function SectionThree() {
               </h1>
 
               <p className="text-xs font-bold text-gray-600 leading-relaxed mb-10">
-                Formed in silence and built on invitation alone, <span className="text-red-800 font-bold">Valen Club</span> is a private circle for those who value rarity over noise. Membership grants early access to every Valen Masijmo collection — pieces released quietly, known only to those within. It is not a program, but a privilege — an entry into the brand’s most silent conversations.
+                The <span className="text-red-800 font-bold">Valen Club</span> is not a community — it’s a gate. An inner circle built quietly around belief, taste, and patience. Entry is never requested; it is noticed. Within, pieces are not announced or displayed — they are offered, one to one, when the moment feels right.
+              </p>
+
+              <p className="text-xs font-bold text-gray-600 leading-relaxed mb-10">
+                To be part of Valen Masijmo is to exist away from the ordinary rhythm of commerce. There are no drops, no deadlines — only presence. Each creation is made after acceptance, by hand, in silence. Fewer than ten in the world, meant to be worn, not owned.
               </p>
 
               <Link
