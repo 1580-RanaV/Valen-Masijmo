@@ -154,6 +154,7 @@ export default function ShopPage() {
       initialImages[product.id] = 0;
     });
     setCurrentImages(initialImages);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleProductClick = (product) => {

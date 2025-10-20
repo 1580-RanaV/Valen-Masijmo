@@ -472,33 +472,33 @@ export default function ProductPage() {
                   <tbody>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">XS</td>
-                      <td className="border border-gray-200 px-2 py-1">34"</td>
-                      <td className="border border-gray-200 px-2 py-1">26"</td>
+                      <td className="border border-gray-200 px-2 py-1">34&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">26&amp;quot;</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">S</td>
-                      <td className="border border-gray-200 px-2 py-1">36"</td>
-                      <td className="border border-gray-200 px-2 py-1">27"</td>
+                      <td className="border border-gray-200 px-2 py-1">36&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">27&amp;quot;</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">M</td>
-                      <td className="border border-gray-200 px-2 py-1">38"</td>
-                      <td className="border border-gray-200 px-2 py-1">28"</td>
+                      <td className="border border-gray-200 px-2 py-1">38&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">28&amp;quot;</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">L</td>
-                      <td className="border border-gray-200 px-2 py-1">40"</td>
-                      <td className="border border-gray-200 px-2 py-1">29"</td>
+                      <td className="border border-gray-200 px-2 py-1">40&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">29&amp;quot;</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">XL</td>
-                      <td className="border border-gray-200 px-2 py-1">42"</td>
-                      <td className="border border-gray-200 px-2 py-1">30"</td>
+                      <td className="border border-gray-200 px-2 py-1">42&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">30&amp;quot;</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-200 px-2 py-1">XXL</td>
-                      <td className="border border-gray-200 px-2 py-1">44"</td>
-                      <td className="border border-gray-200 px-2 py-1">31"</td>
+                      <td className="border border-gray-200 px-2 py-1">44&amp;quot;</td>
+                      <td className="border border-gray-200 px-2 py-1">31&amp;quot;</td>
                     </tr>
                   </tbody>
                 </table>
@@ -518,7 +518,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <Footer className='bg-white'/>
+      <Footer />
     </main>
   );
 }
