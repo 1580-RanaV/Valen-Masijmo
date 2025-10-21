@@ -10,7 +10,7 @@ export default function SectionThree() {
         {/* Left (on lg) / Top (on mobile) — Image */}
         <div className="relative w-full lg:w-2/3 h-72 sm:h-96 md:h-[60vh] lg:h-[80vh] border-b lg:border-b-0 lg:border-r border-gray-300">
           <Image
-            src="/break-photo-2.png"
+            src="/break-photo-3.png"
             alt="Valen Masijmo — Silent Luxury"
             fill
             priority

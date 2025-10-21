@@ -28,7 +28,7 @@ export default function Story() {
           </p>
 
           {/* Centered photo (50% width) */}
-          <div className="w-1/2 mx-auto my-6">
+          {/* <div className="w-1/2 mx-auto my-6">
             <Image
               src="/story-pic.png"
               alt="Valen Masijmo Studio"
@@ -37,7 +37,7 @@ export default function Story() {
               className="w-full h-auto object-cover"
               priority
             />
-          </div>
+          </div> */}
 
           {/* Second paragraph (M drop cap) */}
           <p className="first-letter:float-left first-letter:text-5xl first-letter:font-bold first-letter:leading-[0.8] first-letter:mr-2 first-letter:mt-[2px]">

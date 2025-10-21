@@ -8,39 +8,31 @@ export default function Navbar({ isAtTop }) {
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Center logo after scrolling past 150px (kept)
+  // If not passed from parent, detect top state ourselves
+  const [isTop, setIsTop] = useState(true);
+  useEffect(() => {
+    const handleScroll = () => setIsTop(window.scrollY <= 2);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Center logo after scrolling past 150px
   useEffect(() => {
     const THRESHOLD_PX = 150;
     const handleScroll = () => setIsCollapsed(window.scrollY > THRESHOLD_PX);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // init on mount
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menus on ESC / outside click
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') {
-        setMobileMenuOpen(false);
-        setCountryDropdownOpen(false);
-      }
-    };
-    const onClick = (e) => {
-      const target = e.target;
-      if (countryDropdownOpen && target && !target.closest('.country-dropdown')) {
-        setCountryDropdownOpen(false);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    document.addEventListener('click', onClick);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.removeEventListener('click', onClick);
-    };
-  }, [countryDropdownOpen]);
+  const atTop = typeof isAtTop === 'boolean' ? isAtTop : isTop;
 
-  const textColor = isAtTop ? 'text-white' : 'text-black';
-  const bgColor = isAtTop ? 'bg-gray-50' : 'bg-white';
+  // Style logic - completely transparent when at top
+  const textColor = atTop ? 'text-white' : 'text-black';
+  const bgClass = atTop ? '' : 'bg-white';
+  const borderClass = atTop ? '' : 'border-b border-neutral-200';
+  const shadowClass = atTop ? '' : 'shadow-sm';
 
   const countries = [
     { code: 'IND', currency: 'INR', flag: '🇮🇳', disabled: false },
@@ -48,21 +40,26 @@ export default function Navbar({ isAtTop }) {
     { code: 'UK', currency: 'GBP', flag: '🇬🇧', disabled: true },
     { code: 'USA', currency: 'USD', flag: '🇺🇸', disabled: true },
   ];
-
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
 
-  const handleMobileLink = () => {
-    setMobileMenuOpen(false);
-  };
+  const handleMobileLink = () => setMobileMenuOpen(false);
 
   return (
     <>
-      {/* Fixed Navbar with Glassmorphism */}
+      {/* Fixed Navbar */}
       <nav
-        style={{ position: 'fixed', top: 0, left: 0, right: 0, transform: 'none', willChange: 'auto' }}
-        className={`flex justify-between font-bold items-center px-6 md:px-12 py-6 z-50 transition-all duration-500 ${bgColor} border-b-neutral-400`}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          transform: 'none',
+          willChange: 'auto',
+        }}
+        className={`flex justify-between items-center font-bold px-6 md:px-12 py-6 z-50 transition-all duration-500 
+          ${bgClass} ${borderClass} ${shadowClass}`}
       >
-        {/* Mobile menu button - smaller size */}
+        {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen((s) => !s)}
           className={`md:hidden z-50 transition-colors ${textColor}`}
@@ -72,7 +69,7 @@ export default function Navbar({ isAtTop }) {
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        {/* Brand - single line with whitespace nowrap */}
+        {/* Brand */}
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
@@ -85,7 +82,7 @@ export default function Navbar({ isAtTop }) {
           VALEN MASIJMO
         </Link>
 
-        {/* Desktop menu - all text xs */}
+        {/* Desktop Menu */}
         <ul
           className={`hidden md:flex gap-8 text-xs font-bold uppercase tracking-wide ${textColor} transition-all duration-700 ${
             isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -102,10 +99,13 @@ export default function Navbar({ isAtTop }) {
               <span>
                 {selectedCountry.code} | {selectedCountry.currency}
               </span>
-              <ChevronDown size={14} className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`}
+              />
             </button>
 
-            {/* Dropdown with glassmorphism */}
+            {/* Dropdown */}
             {countryDropdownOpen && (
               <div className="absolute top-full mt-2 left-0 bg-white/90 backdrop-blur-md shadow-lg rounded-sm py-2 min-w-[150px] z-50 border border-white/20">
                 {countries.map((country) => (
@@ -133,11 +133,13 @@ export default function Navbar({ isAtTop }) {
               </div>
             )}
           </li>
+
           <li>
             <Link href="/story" className="tracking-widest hover:opacity-70 transition-opacity text-xs">
               The Masijmo Story
             </Link>
           </li>
+
           <li>
             <Link
               href="/shop"
@@ -151,7 +153,7 @@ export default function Navbar({ isAtTop }) {
         <div className="md:hidden w-5" />
       </nav>
 
-      {/* Mobile Menu Overlay with glassmorphism */}
+      {/* Mobile Menu Overlay */}
       <div
         style={{ position: 'fixed', transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
         className="inset-0 bg-white/30 backdrop-blur-md z-40 transition-transform duration-300 ease-in-out md:hidden"
@@ -215,7 +217,6 @@ export default function Navbar({ isAtTop }) {
             SHOP
           </Link>
 
-          {/* Home link for convenience on mobile */}
           <Link
             href="/"
             className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"

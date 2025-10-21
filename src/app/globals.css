@@ -13,10 +13,10 @@ html, body {
   --font-mono: var(--font-geist-mono);
 }
 
-/* @theme inline {
-  --text-xs: var(--text-base);
-  --text-xs--line-height: var(--text-base--line-height);
-} */
+@theme inline {
+  --text-xs: var(--text-sm);
+  --text-xs--line-height: var(--text-sm--line-height);
+} 
 
 
 body {
@@ -29,7 +29,7 @@ body {
 /* globals.css */
 @font-face {
   font-family: 'font-bold';
-  src: url('/fonts/neu.woff') format('woff');
+  src: url('/fonts/gotham.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
