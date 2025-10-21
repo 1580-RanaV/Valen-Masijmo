@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { PRODUCTS } from '../data/products';
 
 export default function ShopPage() {
   const [currentImages, setCurrentImages] = useState({});
@@ -15,116 +16,24 @@ export default function ShopPage() {
 
   const minSwipeDistance = 50;
 
-  const saleProducts = [
-    {
-      id: 9,
-      images: ['/t10/t10-new.png', '/t10/t10-2-new.png', '/t10/t10-3-new.png'],
-      title: 'ADDITION T-SHIRT',
-      price: '₹15,650',
-      originalPrice: '₹45,675',
-      slug: 'addition-tshirt',
-      isSale: true,
-    },
-    {
-      id: 10,
-      images: ['/t11/t11.png', '/t11/t11-2.png', '/t11/t11-3.png'],
-      title: 'COFFEE SPILL T-SHIRT',
-      price: '₹12,650',
-      originalPrice: '₹25,675',
-      slug: 'coffee-spill-tshirt',
-      isSale: true,
-    },
-  ];
-
-  const products = [
-    {
-      id: 12,
-      images: ['/t9/t9.png', '/t9/t9-2.png', '/t9/t9-3.png', '/t9/t9-4.png'],
-      title: 'BLUE VALEN T-SHIRT',
-      price: '₹25,749',
-      slug: 'blue-valen-tshirt',
-      isSale: false,
-    },
-    {
-      id: 11,
-      images: ['/t12/t12.png', '/t12/t12-2.png', '/t12/t12-3.png', '/t12/t12-4.png'],
-      title: 'KISSES TO VALEN T-SHIRT',
-      price: '₹1,35,999',
-      slug: 'kisses-to-valen-tshirt',
-      isSale: false,
-    },
-    {
-      id: 1,
-      images: ['/t1/t1.png', '/t1/t1-2.png', '/t1/t1-3.png'],
-      title: 'MAYBE EGYPT T-SHIRT',
-      price: '₹35,799',
-      slug: 'maybe-egypt-tshirt',
-      isSale: false,
-    },
-    {
-      id: 2,
-      images: ['/t2/t2.png', '/t2/t2-2.png', '/t2/t2-3.png'],
-      title: 'IRONVEIL T-SHIRT',
-      price: '₹35,799',
-      slug: 'ironveil-tshirt',
-      isSale: false,
-    },
-    {
-      id: 3,
-      images: ['/t3/t3.png', '/t3/t3-2.png', '/t3/t3-3.png'],
-      title: 'ONLY NAMES T-SHIRT',
-      price: '₹49,799',
-      slug: 'only-names-tshirt',
-      isSale: false,
-    },
-    {
-      id: 4,
-      images: ['/t4/t4.png', '/t4/t4-2.png', '/t4/t4-3.png'],
-      title: 'OWL EYES T-SHIRT',
-      price: '₹35,799',
-      slug: 'owl-eyes-tshirt',
-      isSale: false,
-    },
-    {
-      id: 5,
-      images: ['/t6/t6.png', '/t6/t6-2.png', '/t6/t6-3.png'],
-      title: 'VALEN VALENTINE T-SHIRT',
-      price: '₹35,799',
-      slug: 'valen-valentine-tshirt',
-      isSale: false,
-    },
-    {
-      id: 6,
-      images: ['/t5/t5.png', '/t5/t5-2.png', '/t5/t5-3.png'],
-      title: 'DEAR MASIJMO T-SHIRT',
-      price: '₹1,55,799',
-      slug: 'dear-masijmo-tshirt',
-      isSale: false,
-    },
-    {
-      id: 7,
-      images: ['/t8/t8.png', '/t8/t8-2.png', '/t8/t8-3.png'],
-      title: 'VALEN CLUB T-SHIRT',
-      price: '₹65,799',
-      slug: 'valen-club-tshirt',
-      isSale: false,
-    },
-    {
-      id: 8,
-      images: ['/t7/t7.png', '/t7/t7-2.png', '/t7/t7-3.png'],
-      title: 'VALEN PICNIC T-SHIRT',
-      price: '₹35,799',
-      slug: 'valen-picnic-tshirt',
-      isSale: false,
-    },
-  ];
+  // Derive what you previously hardcoded as two arrays:
+  const allListItems = PRODUCTS.map((p) => ({
+    id: p.id,
+    images: p.images,
+    title: p.title,
+    price: p.price,
+    originalPrice: p.originalPrice, // undefined when not on sale
+    slug: p.slug,
+    isSale: !!p.originalPrice || !!p.isSale,
+  }));
 
   useEffect(() => {
-    const initialImages = {};
-    [...saleProducts, ...products].forEach((product) => {
-      initialImages[product.id] = 0;
+    const initial = {};
+    allListItems.forEach((product) => {
+      initial[product.id] = 0;
     });
-    setCurrentImages(initialImages);
+    setCurrentImages(initial);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Direct navigation: no password modal
@@ -184,15 +93,15 @@ export default function ShopPage() {
   };
 
   const getSortedProducts = () => {
-    const allProducts = [...saleProducts, ...products];
+    const list = [...allListItems];
 
     if (sortOrder === 'low-to-high') {
-      return [...allProducts].sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      return list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
     } else if (sortOrder === 'high-to-low') {
-      return [...allProducts].sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      return list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
     }
 
-    return allProducts;
+    return list;
   };
 
   const sortedProducts = getSortedProducts();

@@ -22,13 +22,13 @@ export default function Home() {
       <div className="pt-8">
         <ShopRow2 />
       </div>
-      <div className="pt-4">
+      <div className="pt-16">
         <People />
       </div>
-      <div className="pt-8">
+      <div className="pt-16">
         <ShopRow1 />
       </div>
-      <div className="pt-4">
+      <div className="pt-16">
         <SectionThree />
       </div>
       <div className="pt-16">
