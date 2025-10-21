@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function People() {
   return (
-    <section className="relative w-full py-16">
+    <section className="relative w-full">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           

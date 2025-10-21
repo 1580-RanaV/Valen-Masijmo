@@ -19,7 +19,7 @@ export default function Grid() {
   };
 
   return (
-    <section className="w-full p-0 m-0 py-16">
+    <section className="w-full p-0 m-0">
       <div className="max-w-full p-0 m-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {products.map((product) => (

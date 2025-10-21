@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { usePassword } from './PasswordProtection';
 import { useRouter } from 'next/navigation';
 
 export default function TopThree() {
@@ -12,9 +11,11 @@ export default function TopThree() {
     3: 0,
     4: 0
   });
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   
-  const { requestAccess } = usePassword();
   const router = useRouter();
+  const minSwipeDistance = 50;
 
   const products = [
     {
@@ -22,7 +23,6 @@ export default function TopThree() {
       images: ['/t1/t1-4.png'],
       title: 'MAYBE EGYPT T-SHIRT',
       price: '₹35,999',
-      inStock: true,
       slug: 'maybe-egypt-tshirt'
     },
     {
@@ -30,7 +30,6 @@ export default function TopThree() {
       images: ['/t12/t12-5.png'],
       title: 'KISSES TO VALEN T-SHIRT',
       price: '₹39,499',
-      inStock: true,
       slug: 'kisses-to-valen-tshirt'
     },
     {
@@ -38,7 +37,6 @@ export default function TopThree() {
       images: ['/t3/t3-4.png'],
       title: 'ONLY NAMES T-SHIRT',
       price: '₹37,499',
-      inStock: false,
       slug: 'only-names-tshirt'
     },
     {
@@ -46,7 +44,6 @@ export default function TopThree() {
       images: ['/t9/t9-5.png'],
       title: 'BLUE VALEN T-SHIRT',
       price: '₹36,999',
-      inStock: true,
       slug: 'blue-valen-tshirt'
     }
   ];
@@ -72,42 +69,100 @@ export default function TopThree() {
     setCurrentImages(prev => ({ ...prev, [productId]: 0 }));
   };
 
-  // Send to /shop (same behavior as your previous request)
-  const handleProductClick = (product) => {
-    requestAccess(() => router.push(`/shop`));
-    // For direct product page later:
-    // requestAccess(() => router.push(`/product/${product.slug}`));
+  const handleProductClick = () => {
+    router.push('/shop');
+  };
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = (productId, totalImages) => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      setCurrentImages((prev) => ({
+        ...prev,
+        [productId]: (prev[productId] + 1) % totalImages,
+      }));
+    }
+    
+    if (isRightSwipe) {
+      setCurrentImages((prev) => ({
+        ...prev,
+        [productId]: prev[productId] === 0 ? totalImages - 1 : prev[productId] - 1,
+      }));
+    }
   };
 
   return (
-    <section className="w-full py-16 px-0 overflow-x-hidden">
+    <section className="w-full px-0 overflow-x-hidden">
       <style jsx>{`
         @keyframes fadeImage {
           0% { opacity: 0; }
           100% { opacity: 1; }
         }
-        .image-container { position: relative; overflow: hidden; }
-        .image-slide { transition: opacity 0.8s ease-in-out; }
+        .image-container { 
+          position: relative; 
+          overflow: hidden; 
+        }
+        .image-slide { 
+          transition: opacity 0.8s ease-in-out; 
+        }
+        .progress-bar {
+          position: absolute;
+          bottom: 8px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 4px;
+          z-index: 10;
+        }
+        .progress-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.5);
+          transition: background-color 0.3s ease;
+        }
+        .progress-dot.active {
+          background-color: rgba(255, 255, 255, 1);
+        }
+        @media (min-width: 640px) {
+          .progress-bar {
+            display: none;
+          }
+        }
       `}</style>
       
       <h2 className="text-xs font-bold text-center mb-8 tracking-wider text-gray-50">
         TOP PICKS
       </h2>
         
-      {/* Edge-to-edge grid, NO gaps */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 w-full">
         {products.map((product) => (
           <div
             key={product.id}
             className="group cursor-pointer"
-            onMouseEnter={() => handleMouseEnter(product.id)}
-            onMouseLeave={() => handleMouseLeave(product.id)}
-            onClick={() => handleProductClick(product)}
+            onClick={handleProductClick}
           >
-            {/* Image tile (no outer margins) */}
             <div
               className="image-container bg-gray-100"
               style={{ aspectRatio: '2 / 3' }}
+              onMouseEnter={() => handleMouseEnter(product.id)}
+              onMouseLeave={() => handleMouseLeave(product.id)}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={() => onTouchEnd(product.id, product.images.length)}
             >
               <Image
                 src={product.images[currentImages[product.id]]}
@@ -119,16 +174,28 @@ export default function TopThree() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                 priority
               />
+              
+              {product.images.length > 1 && (
+                <div className="progress-bar">
+                  {product.images.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`progress-dot ${currentImages[product.id] === index ? 'active' : ''}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
             
-            {/* Product Info (doesn't add horizontal gaps) */}
-            <div className="text-center px-2 py-4">
-              <h3 className="text-xs font-bold tracking-wide transition-opacity duration-300 group-hover:opacity-70 text-neutral-900 mb-1">
-                {product.title}
-              </h3>
-              <p className="text-xs font-bold tracking-wider transition-colors duration-300 group-hover:text-neutral-400 text-neutral-500">
-                {product.price}
-              </p>
+            <div className="px-2 py-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <h3 className="text-xs font-bold tracking-wide transition-opacity duration-300 text-neutral-900">
+                  {product.title}
+                </h3>
+                <p className="text-xs font-bold tracking-wider transition-colors duration-300 text-neutral-900">
+                  {product.price}
+                </p>
+              </div>
             </div>
           </div>
         ))}

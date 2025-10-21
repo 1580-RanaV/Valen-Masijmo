@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { usePassword } from '../components/PasswordProtection';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,12 +9,12 @@ export default function ShopPage() {
   const [currentImages, setCurrentImages] = useState({});
   const [sortOrder, setSortOrder] = useState('default');
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const { requestAccess } = usePassword();
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const router = useRouter();
 
-  // ============================
-  // SALE ITEMS
-  // ============================
+  const minSwipeDistance = 50;
+
   const saleProducts = [
     {
       id: 9,
@@ -23,8 +22,6 @@ export default function ShopPage() {
       title: 'ADDITION T-SHIRT',
       price: '₹15,650',
       originalPrice: '₹45,675',
-      inStock: true,
-      collection: 'FROM "DRAFTS VAULT"',
       slug: 'addition-tshirt',
       isSale: true,
     },
@@ -34,24 +31,17 @@ export default function ShopPage() {
       title: 'COFFEE SPILL T-SHIRT',
       price: '₹12,650',
       originalPrice: '₹25,675',
-      inStock: true,
-      collection: 'FROM "DRAFTS VAULT"',
       slug: 'coffee-spill-tshirt',
       isSale: true,
     },
   ];
 
-  // ============================================
-  // REGULAR PRODUCTS
-  // ============================================
   const products = [
     {
       id: 12,
       images: ['/t9/t9.png', '/t9/t9-2.png', '/t9/t9-3.png', '/t9/t9-4.png'],
       title: 'BLUE VALEN T-SHIRT',
       price: '₹25,749',
-      inStock: true,
-      collection: 'FROM "DRAFTS VAULT"',
       slug: 'blue-valen-tshirt',
       isSale: false,
     },
@@ -60,8 +50,6 @@ export default function ShopPage() {
       images: ['/t12/t12.png', '/t12/t12-2.png', '/t12/t12-3.png', '/t12/t12-4.png'],
       title: 'KISSES TO VALEN T-SHIRT',
       price: '₹1,35,999',
-      inStock: true,
-      collection: 'FROM "DRAFTS VAULT"',
       slug: 'kisses-to-valen-tshirt',
       isSale: false,
     },
@@ -70,8 +58,6 @@ export default function ShopPage() {
       images: ['/t1/t1.png', '/t1/t1-2.png', '/t1/t1-3.png'],
       title: 'MAYBE EGYPT T-SHIRT',
       price: '₹35,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'maybe-egypt-tshirt',
       isSale: false,
     },
@@ -80,8 +66,6 @@ export default function ShopPage() {
       images: ['/t2/t2.png', '/t2/t2-2.png', '/t2/t2-3.png'],
       title: 'IRONVEIL T-SHIRT',
       price: '₹35,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'ironveil-tshirt',
       isSale: false,
     },
@@ -90,8 +74,6 @@ export default function ShopPage() {
       images: ['/t3/t3.png', '/t3/t3-2.png', '/t3/t3-3.png'],
       title: 'ONLY NAMES T-SHIRT',
       price: '₹49,799',
-      inStock: false,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'only-names-tshirt',
       isSale: false,
     },
@@ -100,8 +82,6 @@ export default function ShopPage() {
       images: ['/t4/t4.png', '/t4/t4-2.png', '/t4/t4-3.png'],
       title: 'OWL EYES T-SHIRT',
       price: '₹35,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'owl-eyes-tshirt',
       isSale: false,
     },
@@ -110,8 +90,6 @@ export default function ShopPage() {
       images: ['/t6/t6.png', '/t6/t6-2.png', '/t6/t6-3.png'],
       title: 'VALEN VALENTINE T-SHIRT',
       price: '₹35,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'valen-valentine-tshirt',
       isSale: false,
     },
@@ -120,8 +98,6 @@ export default function ShopPage() {
       images: ['/t5/t5.png', '/t5/t5-2.png', '/t5/t5-3.png'],
       title: 'DEAR MASIJMO T-SHIRT',
       price: '₹1,55,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'dear-masijmo-tshirt',
       isSale: false,
     },
@@ -130,8 +106,6 @@ export default function ShopPage() {
       images: ['/t8/t8.png', '/t8/t8-2.png', '/t8/t8-3.png'],
       title: 'VALEN CLUB T-SHIRT',
       price: '₹65,799',
-      inStock: false,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'valen-club-tshirt',
       isSale: false,
     },
@@ -140,25 +114,22 @@ export default function ShopPage() {
       images: ['/t7/t7.png', '/t7/t7-2.png', '/t7/t7-3.png'],
       title: 'VALEN PICNIC T-SHIRT',
       price: '₹35,799',
-      inStock: true,
-      collection: 'FROM "BLACK CHAPTER ONE"',
       slug: 'valen-picnic-tshirt',
       isSale: false,
     },
   ];
 
-  // Initialize currentImages for all items
   useEffect(() => {
     const initialImages = {};
     [...saleProducts, ...products].forEach((product) => {
       initialImages[product.id] = 0;
     });
     setCurrentImages(initialImages);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Direct navigation: no password modal
   const handleProductClick = (product) => {
-    requestAccess(() => router.push(`/product/${product.slug}`));
+    router.push(`/product/${product.slug}`);
   };
 
   const handlePrevImage = (e, productId, totalImages) => {
@@ -177,12 +148,41 @@ export default function ShopPage() {
     }));
   };
 
-  // Parse price string to number for sorting
-  const parsePrice = (priceStr) => {
-    return parseInt(priceStr.replace(/[₹,]/g, ''));
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
   };
 
-  // Sort products
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = (productId, totalImages) => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      setCurrentImages((prev) => ({
+        ...prev,
+        [productId]: (prev[productId] + 1) % totalImages,
+      }));
+    }
+
+    if (isRightSwipe) {
+      setCurrentImages((prev) => ({
+        ...prev,
+        [productId]: prev[productId] === 0 ? totalImages - 1 : prev[productId] - 1,
+      }));
+    }
+  };
+
+  const parsePrice = (priceStr) => {
+    return parseInt(priceStr.replace(/[₹,]/g, ''), 10);
+  };
+
   const getSortedProducts = () => {
     const allProducts = [...saleProducts, ...products];
 
@@ -238,18 +238,34 @@ export default function ShopPage() {
             .image-slide {
               transition: transform 0.3s ease-in-out;
             }
+            .progress-bar {
+              position: absolute;
+              bottom: 8px;
+              left: 50%;
+              transform: translateX(-50%);
+              display: flex;
+              gap: 4px;
+              z-index: 10;
+            }
+            .progress-dot {
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: rgba(255, 255, 255, 0.5);
+              transition: background-color 0.3s ease;
+            }
+            .progress-dot.active {
+              background-color: rgba(255, 255, 255, 1);
+            }
+            @media (min-width: 640px) {
+              .progress-bar {
+                display: none;
+              }
+            }
           `}</style>
 
-          {/* Title, Paragraph & Sort */}
           <div className="flex flex-col items-center justify-center mt-16 mb-8 sm:mb-10 lg:mb-12 px-4 text-center">
             <h1 className="font-bold tracking-wider text-gray-900 text-xs mb-4">ALL PRODUCTS</h1>
-
-            <p className="max-w-xl text-xs font-bold uppercase leading-relaxed text-neutral-600 tracking-wider mb-6">
-              A curated selection of timeless essentials from our latest drops — crafted with precision,
-              minimal detailing, and a quiet luxury spirit. Discover silhouettes that speak softly, yet stay
-              forever.
-            </p>
-
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
@@ -261,19 +277,22 @@ export default function ShopPage() {
             </select>
           </div>
 
-          {/* Product Grid */}
           <div className="product-grid mt-16">
             {sortedProducts.map((item) => (
               <div
                 key={item.id}
                 className="cursor-pointer w-full border-r border-b border-gray-200 last:border-r-0 bg-white"
                 onClick={() => handleProductClick(item)}
-                onMouseEnter={() => setHoveredProduct(item.id)}
-                onMouseLeave={() => setHoveredProduct(null)}
               >
-                {/* Image Container */}
-                <div className="relative w-full bg-gray-50 image-container" style={{ paddingBottom: '150%' }}>
-                  {/* SALE badge - using isSale property */}
+                <div
+                  className="relative w-full bg-gray-50 image-container"
+                  style={{ paddingBottom: '150%' }}
+                  onMouseEnter={() => setHoveredProduct(item.id)}
+                  onMouseLeave={() => setHoveredProduct(null)}
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={() => onTouchEnd(item.id, item.images?.length ?? 0)}
+                >
                   {item.isSale && (
                     <span className="absolute top-2 right-2 z-10 bg-black text-white px-2 py-1 font-bold tracking-widest text-[10px]">
                       SALE
@@ -288,48 +307,51 @@ export default function ShopPage() {
                     sizes="(max-width: 1024px) 50vw, 25vw"
                   />
 
-                  {/* Carousel Controls */}
                   {item.images.length > 1 && hoveredProduct === item.id && (
                     <>
                       <button
                         onClick={(e) => handlePrevImage(e, item.id, item.images.length)}
-                        className="carousel-btn absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black w-8 h-8 flex items-center justify-center z-10 text-xs font-bold"
+                        className="carousel-btn absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black w-8 h-8 flex items-center justify-center z-10 text-xs font-bold hidden sm:flex"
                       >
-                        ‹
+                        {'<'}
                       </button>
                       <button
                         onClick={(e) => handleNextImage(e, item.id, item.images.length)}
-                        className="carousel-btn absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black w-8 h-8 flex items-center justify-center z-10 text-xs font-bold"
+                        className="carousel-btn absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black w-8 h-8 flex items-center justify-center z-10 text-xs font-bold hidden sm:flex"
                       >
-                        ›
+                        {'>'}
                       </button>
                     </>
                   )}
+
+                  {item.images.length > 1 && (
+                    <div className="progress-bar">
+                      {item.images.map((_, index) => (
+                        <div
+                          key={index}
+                          className={`progress-dot ${currentImages[item.id] === index ? 'active' : ''}`}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Text Region */}
-                <div className="text-center px-3 lg:px-4 py-4">
-                  <h3 className="font-bold tracking-wide text-neutral-900 mb-1 text-xs">{item.title}</h3>
+                <div className="px-3 lg:px-4 py-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                    <h3 className="font-bold tracking-wide text-neutral-900 text-xs">
+                      {item.title}
+                    </h3>
 
-                  <p className="font-bold tracking-wider text-neutral-500 mb-2 text-xs">{item.collection}</p>
-
-                  {item.originalPrice ? (
-                    <div className="font-bold tracking-wider mb-2 text-xs">
-                      <span className="line-through text-neutral-400 mr-2">{item.originalPrice}</span>
-                      <span className="text-green-600">{item.price}</span>
-                    </div>
-                  ) : (
-                    <p className="font-bold tracking-wider text-neutral-600 mb-2 text-xs">{item.price}</p>
-                  )}
-
-                  <div className="mt-2 flex items-center justify-center">
-                    <span
-                      className={`inline-block px-3 py-1 font-bold text-xs ${
-                        item.inStock ? 'bg-gray-50 border text-neutral-900' : 'bg-red-800 text-white'
-                      }`}
-                    >
-                      {item.inStock ? 'AVAILABLE' : 'SOLD OUT'}
-                    </span>
+                    {item.originalPrice ? (
+                      <div className="font-bold tracking-wider text-xs flex flex-col sm:flex-row sm:gap-2">
+                        <span className="line-through text-neutral-400">{item.originalPrice}</span>
+                        <span className="text-green-600">{item.price}</span>
+                      </div>
+                    ) : (
+                      <p className="font-bold tracking-wider text-neutral-900 text-xs">
+                        {item.price}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

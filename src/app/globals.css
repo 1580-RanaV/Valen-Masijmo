@@ -12,6 +12,12 @@ html, body {
   --font-mono: var(--font-geist-mono);
 }
 
+/* @theme inline {
+  --text-xs: var(--text-base);
+  --text-xs--line-height: var(--text-base--line-height);
+} */
+
+
 
 body {
   background: var(--background);
@@ -20,17 +26,25 @@ body {
 }
 
 
+/* globals.css */
 @font-face {
   font-family: 'font-bold';
   src: url('/fonts/Renner.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Added for better performance */
+  font-display: swap;
 }
 
+/* Make this the default font everywhere */
+html, body {
+  font-family: 'font-bold', sans-serif;
+}
+
+/* Optionally keep your utility class */
 .font-bold {
   font-family: 'font-bold', sans-serif;
 }
+
 /* Ensure navbar stays fixed above smooth scroll container */
 nav {
   position: fixed !important;

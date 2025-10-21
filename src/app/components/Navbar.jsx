@@ -3,18 +3,15 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
-export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onShopClick }) {
+export default function Navbar({ isAtTop }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Center logo after scrolling past 150px (kept)
   useEffect(() => {
-    const THRESHOLD_PX = 150; // try 150 (faster). lower = faster (e.g. 100)
-    const handleScroll = () => {
-      const scrolled = window.scrollY > THRESHOLD_PX;
-      setIsCollapsed(scrolled);
-    };
+    const THRESHOLD_PX = 150;
+    const handleScroll = () => setIsCollapsed(window.scrollY > THRESHOLD_PX);
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // init on mount
     return () => window.removeEventListener('scroll', handleScroll);
@@ -29,7 +26,8 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
       }
     };
     const onClick = (e) => {
-      if (countryDropdownOpen && !e.target.closest('.country-dropdown')) {
+      const target = e.target;
+      if (countryDropdownOpen && target && !target.closest('.country-dropdown')) {
         setCountryDropdownOpen(false);
       }
     };
@@ -53,9 +51,8 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
 
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
 
-  const handleMobileLink = (cb) => {
+  const handleMobileLink = () => {
     setMobileMenuOpen(false);
-    cb?.();
   };
 
   return (
@@ -142,12 +139,12 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
             </Link>
           </li>
           <li>
-            <button
-              onClick={onShopClick}
+            <Link
+              href="/shop"
               className="uppercase font-bold tracking-widest hover:opacity-70 transition-opacity text-xs"
             >
               Shop
-            </button>
+            </Link>
           </li>
         </ul>
 
@@ -157,7 +154,7 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
       {/* Mobile Menu Overlay with glassmorphism */}
       <div
         style={{ position: 'fixed', transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-        className={`inset-0 bg-white/30 backdrop-blur-md z-40 transition-transform duration-300 ease-in-out md:hidden`}
+        className="inset-0 bg-white/30 backdrop-blur-md z-40 transition-transform duration-300 ease-in-out md:hidden"
       >
         <div className="flex flex-col items-center justify-center h-full gap-8 uppercase">
           <div className="flex flex-col items-center gap-3 country-dropdown">
@@ -205,21 +202,24 @@ export default function Navbar({ isAtTop /*, onBrandClick, onShopClick*/ , onSho
           <Link
             href="/story"
             className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
-            onClick={() => handleMobileLink()}
+            onClick={handleMobileLink}
           >
             THE MASIJMO STORY
           </Link>
-          <button
-            onClick={() => handleMobileLink(onShopClick)}
+
+          <Link
+            href="/shop"
             className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
+            onClick={handleMobileLink}
           >
             SHOP
-          </button>
+          </Link>
+
           {/* Home link for convenience on mobile */}
           <Link
             href="/"
             className="font-bold text-black tracking-wide hover:opacity-70 transition-opacity text-xs"
-            onClick={() => handleMobileLink()}
+            onClick={handleMobileLink}
           >
             HOME
           </Link>
