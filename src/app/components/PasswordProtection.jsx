@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
+
 // ======================
 // 1. PASSWORD CONTEXT
 // ======================
@@ -197,9 +198,9 @@ export function PasswordModal() {
           <h2 className="text-3xl sm:text-4xl font-bold tracking-widest mb-6 text-neutral-900">
             VALEN MASIJMO
           </h2>
-          <div className="w-16 h-px bg-neutral-300 mx-auto mb-6"></div>
+          <div className="w-16 h-px bg-neutral-300 mx-auto mb-3"></div>
           <p className="text-gray-600 font-bold text-xs sm:text-sm tracking-widest uppercase">
-            {isLoading ? "Loading Shop..." : "Enter Access Code"}
+            {isLoading ? "Standby..." : "Enter Access Code"}
           </p>
         </div>
 
@@ -250,7 +251,7 @@ export function PasswordModal() {
         {/* Loading Text */}
         {isLoading && (
           <div className="text-center uppercase font-bold text-neutral-900 text-xs sm:text-sm mb-4 tracking-wide">
-            Taking you to the VM Shop...
+            Checking password...
           </div>
         )}
 

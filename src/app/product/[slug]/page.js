@@ -6,6 +6,8 @@ import Head from 'next/head';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { PRODUCT_BY_SLUG } from '../../data/products';
+import { usePassword } from "../../components/PasswordProtection";
+
 
 // NEW: import centralized accordion content
 import {
@@ -41,6 +43,8 @@ export default function ProductPage() {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState('');
+
+  const { requestAccess } = usePassword();
 
   const product = PRODUCT_BY_SLUG[params.slug];
 
@@ -176,7 +180,7 @@ export default function ProductPage() {
                         onClick={() => setSelectedSize(size)}
                         className={`py-3 text-xs tracking-wider border transition-all font-bold ${
                           selectedSize === size
-                            ? 'border-neutral-900 bg-neutral-900 text-neutral-900'
+                            ? 'border-neutral-900 bg-neutral-900 text-white'
                             : 'border-neutral-200 bg-white text-neutral-900 hover:border-neutral-400'
                         }`}
                       >
@@ -189,10 +193,14 @@ export default function ProductPage() {
 
               {/* CTA */}
               {product.inStock && (
-                <button className="w-full py-4 bg-neutral-900 text-white text-xs tracking-[0.2em] hover:bg-neutral-800 transition-colors uppercase font-bold">
-                  Contact Seller
+                <button
+                  onClick={() => requestAccess(() => alert("We are currently not accepting any orders. Please try later."))}
+                  className="w-full py-4 bg-neutral-900 text-white text-xs tracking-[0.2em] hover:bg-neutral-800 transition-colors uppercase font-bold"
+                >
+                  Contact Valen Masijmo Seller
                 </button>
               )}
+
 
               {/* Accordions (now fed from centralized data) */}
               <div className="space-y-0 divide-y divide-neutral-200 font-bold">

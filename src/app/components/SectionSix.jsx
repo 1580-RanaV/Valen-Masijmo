@@ -2,7 +2,7 @@
 
 export default function CrDir() {
   return (
-    <section className="w-full h-1/2 flex items-center justify-center px-4">
+    <section className="pt-32 pb-16 w-full h-1/2 flex items-center justify-center px-4">
       <div className="max-w-4xl text-center">
         <p className="font-bold text-xs leading-relaxed text-neutral-900 tracking-widest">
           "WE DESIGN IN SILENCE, LETTING TEXTURE AND DESIGN SPEAK WHERE WORDS CANNOT. LUXURY, FOR US, IS THE ABSENCE OF NOISE."

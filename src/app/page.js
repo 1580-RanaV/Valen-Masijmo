@@ -1,46 +1,30 @@
 import HeroSection from '../app/components/HeroSection';
-import ShopRow1 from './components/ShopRow1';
-import People from './components/BlackChapterIntro';
-import CrDir from './components/SectionSix';
-import SectionThree from './components/ValenClubIntro';
-import Footer from './components/Footer';
-import ShopRow2 from './components/ShopRow2';
-import Grid from './components/Grid1';
-import GridTwo from './components/Grid2';
 import Hero2 from './components/Hero2';
+import ShopRow2 from './components/ShopRow2';
+import People from './components/BlackChapterIntro';
+import ShopRow1 from './components/ShopRow1';
+import SectionThree from './components/ValenClubIntro';
+import Grid from './components/Grid1';
+import CrDir from './components/SectionSix';
+import GridTwo from './components/Grid2';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
     <main className="bg-white">
       {/* HeroSection stays flush at the top */}
-      <HeroSection />
-
-      {/* All other sections get equal top margin + padding */}
-      <div className="pt-16">
+      
+      {/* Consistent spacing between all sections */}
+      <div className="space-y-16">
+        <HeroSection />
         <Hero2 />
-      </div>
-      <div className="pt-8">
         <ShopRow2 />
-      </div>
-      <div className="pt-16">
         <People />
-      </div>
-      <div className="pt-16">
         <ShopRow1 />
-      </div>
-      <div className="pt-16">
         <SectionThree />
-      </div>
-      <div className="pt-16">
         <Grid />
-      </div>
-      <div className="pt-16">
         <CrDir />
-      </div>
-      <div className="pt-16">
         <GridTwo />
-      </div>
-      <div className="pt-8 pb-8">
         <Footer />
       </div>
     </main>

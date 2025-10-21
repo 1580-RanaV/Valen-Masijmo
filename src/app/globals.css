@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 html, body {
   scroll-behavior: auto !important;
   /* Remove overflow: hidden and will-change: transform */
@@ -16,7 +17,6 @@ html, body {
   --text-xs: var(--text-base);
   --text-xs--line-height: var(--text-base--line-height);
 } */
-
 
 
 body {
@@ -77,6 +77,7 @@ nav {
 /* Firefox */
 html {
   scrollbar-width: none;
+  user-select: none;
 }
 
 /* Optional: ensure layout doesn’t shift */
