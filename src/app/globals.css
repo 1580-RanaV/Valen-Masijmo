@@ -29,7 +29,7 @@ body {
 /* globals.css */
 @font-face {
   font-family: 'font-bold';
-  src: url('/fonts/Renner.woff') format('woff');
+  src: url('/fonts/neu.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

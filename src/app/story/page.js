@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 export default function Story() {
   return (
-    <section className="min-h-screen bg-gray-50 relative">
+    <section className="min-h-screen relative">
       <Navbar />
 
       {/* Leave space for navbar */}
