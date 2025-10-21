@@ -354,7 +354,6 @@ export default function ProductPage() {
               )}
 
               <div className="space-y-0 divide-y divide-neutral-200 font-bold">
-                {/* Accordions unchanged but all font-bold */}
                 <Accordion title="DETAILS" defaultOpen={true}>
                   <div className="space-y-3 text-xs text-left leading-relaxed text-neutral-900">
                     <p>{product.description}</p>
@@ -414,12 +413,12 @@ export default function ProductPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-neutral-200">
-                        <tr><td className="py-3 pr-8">XS</td><td className="py-3 pr-8">34"</td><td className="py-3">26"</td></tr>
-                        <tr><td className="py-3 pr-8">S</td><td className="py-3 pr-8">36"</td><td className="py-3">27"</td></tr>
-                        <tr><td className="py-3 pr-8">M</td><td className="py-3 pr-8">38"</td><td className="py-3">28"</td></tr>
-                        <tr><td className="py-3 pr-8">L</td><td className="py-3 pr-8">40"</td><td className="py-3">29"</td></tr>
-                        <tr><td className="py-3 pr-8">XL</td><td className="py-3 pr-8">42"</td><td className="py-3">30"</td></tr>
-                        <tr><td className="py-3 pr-8">XXL</td><td className="py-3 pr-8">44"</td><td className="py-3">31"</td></tr>
+                        <tr><td className="py-3 pr-8">XS</td><td className="py-3 pr-8">34&quot;</td><td className="py-3">26&quot;</td></tr>
+                        <tr><td className="py-3 pr-8">S</td><td className="py-3 pr-8">36&quot;</td><td className="py-3">27&quot;</td></tr>
+                        <tr><td className="py-3 pr-8">M</td><td className="py-3 pr-8">38&quot;</td><td className="py-3">28&quot;</td></tr>
+                        <tr><td className="py-3 pr-8">L</td><td className="py-3 pr-8">40&quot;</td><td className="py-3">29&quot;</td></tr>
+                        <tr><td className="py-3 pr-8">XL</td><td className="py-3 pr-8">42&quot;</td><td className="py-3">30&quot;</td></tr>
+                        <tr><td className="py-3 pr-8">XXL</td><td className="py-3 pr-8">44&quot;</td><td className="py-3">31&quot;</td></tr>
                       </tbody>
                     </table>
                   </div>
