@@ -34,16 +34,22 @@ export default function Careers() {
       location: "REMOTE",
       experience: "1–2 YEARS",
       tags: ["STORYTELLING", "CONTENT CREATION", "COMMUNITY"],
-      description: "SHAPE OUR VOICE ACROSS PLATFORMS. TRANSLATE BRAND VALUES INTO MEMORABLE MOMENTS.",
+      description:
+        "SHAPE OUR VOICE ACROSS PLATFORMS. TRANSLATE BRAND VALUES INTO MEMORABLE MOMENTS.",
       responsibilities: [
         "DEVELOP AND EXECUTE WEEKLY CONTENT STRATEGY ACROSS INSTAGRAM, TIKTOK, AND YOUTUBE SHORTS",
         "CRAFT COMPELLING CAPTIONS THAT REFLECT BRAND PHILOSOPHY AND AESTHETIC",
         "ENGAGE WITH COMMUNITY AUTHENTICALLY AND BUILD MEANINGFUL CONNECTIONS",
         "TRACK PERFORMANCE METRICS: REACH, ENGAGEMENT, SAVES, AND CONVERSION SIGNALS",
-        "COLLABORATE WITH CREATIVE TEAM TO MAINTAIN VISUAL AND TONAL CONSISTENCY"
+        "COLLABORATE WITH CREATIVE TEAM TO MAINTAIN VISUAL AND TONAL CONSISTENCY",
       ],
-      bonus: ["BASIC VIDEO EDITING SKILLS", "UNDERSTANDING OF REELS PACING AND TRENDS", "EXPERIENCE WITH QUIET LUXURY OR MINIMALIST BRANDS"],
-      apply: "SHARE YOUR PORTFOLIO: 2–3 ACCOUNTS YOU'VE MANAGED + A BRIEF NOTE ON WHY MINIMALIST AESTHETICS RESONATE WITH YOU."
+      bonus: [
+        "BASIC VIDEO EDITING SKILLS",
+        "UNDERSTANDING OF REELS PACING AND TRENDS",
+        "EXPERIENCE WITH QUIET LUXURY OR MINIMALIST BRANDS",
+      ],
+      apply:
+        "SHARE YOUR PORTFOLIO: 2–3 ACCOUNTS YOU'VE MANAGED + A BRIEF NOTE ON WHY MINIMALIST AESTHETICS RESONATE WITH YOU.",
     },
     {
       id: "hsd",
@@ -51,29 +57,36 @@ export default function Careers() {
       location: "REMOTE",
       experience: "1–2 YEARS",
       tags: ["ILLUSTRATION", "APPAREL", "CRAFTSMANSHIP"],
-      description: "BRING IDEAS TO LIFE THROUGH HAND-DRAWN ILLUSTRATIONS. MERGE TRADITIONAL TECHNIQUES WITH MODERN APPAREL.",
+      description:
+        "BRING IDEAS TO LIFE THROUGH HAND-DRAWN ILLUSTRATIONS. MERGE TRADITIONAL TECHNIQUES WITH MODERN APPAREL.",
       responsibilities: [
         "CREATE ORIGINAL HAND SKETCHES FOR T-SHIRTS, HOODIES, AND ACCESSORIES",
         "MASTER PROPORTION, NEGATIVE SPACE, AND COMPOSITIONAL BALANCE",
         "PREPARE SKETCHES FOR PRODUCTION: SCANNING, BASIC DIGITAL CLEANUP",
         "WORK CLOSELY WITH PRINT VENDORS ON PLACEMENT, SCALE, AND LINE WEIGHT",
-        "UNDERSTAND FABRIC CONSTRAINTS AND PRINT TECHNIQUES"
+        "UNDERSTAND FABRIC CONSTRAINTS AND PRINT TECHNIQUES",
       ],
-      bonus: ["FAMILIARITY WITH PUFF, DISCHARGE, AND WATER-BASED PRINTING", "KNOWLEDGE OF GARMENT CONSTRUCTION", "EXPERIENCE WITH SCREEN PRINTING LIMITATIONS"],
-      apply: "SUBMIT YOUR WORK: 6–10 SKETCHES (PDF OR PORTFOLIO LINK) + A SHORT NOTE ABOUT YOUR FAVORITE DRAWING TOOLS."
-    }
+      bonus: [
+        "FAMILIARITY WITH PUFF, DISCHARGE, AND WATER-BASED PRINTING",
+        "KNOWLEDGE OF GARMENT CONSTRUCTION",
+        "EXPERIENCE WITH SCREEN PRINTING LIMITATIONS",
+      ],
+      apply:
+        "SUBMIT YOUR WORK: 6–10 SKETCHES (PDF OR PORTFOLIO LINK) + A SHORT NOTE ABOUT YOUR FAVORITE DRAWING TOOLS.",
+    },
   ];
 
   return (
-    <section className="min-h-screen bg-gray-50 relative">
+    <section className="relative">
       <Navbar />
 
-      <div className="max-w-5xl mx-auto px-6 pt-32 pb-24">
+      {/* Reduced top/bottom padding and tightened section margins for consistent vertical rhythm */}
+      <div className="max-w-5xl mx-auto px-6 pt-24">
         {/* HERO SECTION */}
-        <div className="max-w-3xl mx-auto text-center mb-24">
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <h1
             data-index="0"
-            className={`text-xs font-bold tracking-[0.3em] text-neutral-900 mb-8 uppercase transition-all duration-1000 ease-out ${
+            className={`text-xs font-bold tracking-[0.3em] text-neutral-900 mb-6 uppercase transition-all duration-1000 ease-out ${
               visible.has("0") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
@@ -82,12 +95,12 @@ export default function Careers() {
 
           <p
             data-index="1"
-            className={`text-xs font-bold uppercase text-neutral-600 leading-relaxed mb-12 transition-all duration-1000 ease-out delay-150 ${
+            className={`text-xs font-bold uppercase text-neutral-600 leading-relaxed mb-10 transition-all duration-1000 ease-out delay-150 ${
               visible.has("1") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            WE BUILD FOR THOSE WHO VALUE QUIET CONFIDENCE OVER LOUD STATEMENTS. 
-            IF YOU SHARE THIS PHILOSOPHY AND BRING DEDICATION TO YOUR CRAFT, 
+            WE BUILD FOR THOSE WHO VALUE QUIET CONFIDENCE OVER LOUD STATEMENTS.
+            IF YOU SHARE THIS PHILOSOPHY AND BRING DEDICATION TO YOUR CRAFT,
             WE WANT TO HEAR FROM YOU.
           </p>
         </div>
@@ -95,26 +108,26 @@ export default function Careers() {
         {/* ROLES SECTION */}
         <div
           data-index="3"
-          className={`mb-24 transition-all duration-1000 ease-out delay-500 ${
+          className={`mb-16 transition-all duration-1000 ease-out delay-500 ${
             visible.has("3") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="text-xs font-bold tracking-[0.3em] text-neutral-900 mb-12 uppercase text-center">
+          <h2 className="text-xs font-bold tracking-[0.3em] text-neutral-900 mb-8 uppercase text-center">
             OPEN POSITIONS
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
             {roles.map((role) => (
               <div key={role.id} className="border border-neutral-200 bg-gray-50">
                 {/* ROLE HEADER */}
                 <button
                   aria-expanded={openId === role.id}
                   onClick={() => toggle(role.id)}
-                  className="w-full px-6 py-6 text-left hover:bg-neutral-100 transition-colors"
+                  className="w-full px-6 py-5 text-left hover:bg-neutral-100 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <div className="flex flex-wrap items-center gap-3 mb-2.5">
                         <h3 className="text-xs font-bold tracking-widest uppercase text-neutral-900">
                           {role.title}
                         </h3>
@@ -122,7 +135,7 @@ export default function Careers() {
                           · {role.location}
                         </span>
                       </div>
-                      <div className="flex flex-wrap gap-2 mb-3">
+                      <div className="flex flex-wrap gap-2 mb-2.5">
                         {role.tags.map((tag) => (
                           <span
                             key={tag}
@@ -142,7 +155,13 @@ export default function Careers() {
                       }`}
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="square"/>
+                        <path
+                          d="M6 3L11 8L6 13"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                          strokeLinecap="square"
+                        />
                       </svg>
                     </span>
                   </div>
@@ -151,17 +170,15 @@ export default function Careers() {
                 {/* ROLE DETAILS */}
                 <div
                   className={`overflow-hidden transition-all duration-500 ${
-                    openId === role.id
-                      ? "max-h-[2000px] opacity-100"
-                      : "max-h-0 opacity-0"
+                    openId === role.id ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="px-6 pb-6 space-y-8">
+                  <div className="px-6 pb-6 space-y-7">
                     <div className="h-px bg-neutral-200" />
 
                     {/* EXPERIENCE */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-2.5">
                         EXPERIENCE LEVEL
                       </h4>
                       <p className="text-xs font-bold uppercase text-neutral-600">
@@ -171,10 +188,10 @@ export default function Careers() {
 
                     {/* RESPONSIBILITIES */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-4">
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
                         RESPONSIBILITIES
                       </h4>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2.5">
                         {role.responsibilities.map((item, idx) => (
                           <li key={idx} className="flex gap-3">
                             <span className="text-neutral-400 mt-0.5">—</span>
@@ -188,10 +205,10 @@ export default function Careers() {
 
                     {/* BONUS SKILLS */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-4">
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
                         BONUS SKILLS
                       </h4>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2.5">
                         {role.bonus.map((item, idx) => (
                           <li key={idx} className="flex gap-3">
                             <span className="text-neutral-400 mt-0.5">+</span>
@@ -204,8 +221,8 @@ export default function Careers() {
                     </div>
 
                     {/* HOW TO APPLY */}
-                    <div className="bg-gray-50 border border-neutral-200 p-6">
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
+                    <div className="bg-gray-50 border border-neutral-200 p-5">
+                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-2.5">
                         HOW TO APPLY
                       </h4>
                       <p className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
@@ -218,36 +235,9 @@ export default function Careers() {
             ))}
           </div>
         </div>
-
-        {/* APPLICATION INSTRUCTIONS */}
-        {/* <div
-          data-index="4"
-          className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out delay-700 ${
-            visible.has("4") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div className="border border-neutral-900 bg-neutral-900 text-white p-8">
-            <h3 className="text-xs font-bold tracking-[0.3em] uppercase mb-6">
-              READY TO APPLY?
-            </h3>
-            <p className="text-xs font-bold uppercase mb-4 tracking-wider">
-              EMAIL US AT: CAREERS@VALENMASIJMO.COM
-            </p>
-            <p className="text-xs font-bold uppercase text-neutral-300 leading-relaxed">
-              SUBJECT LINE: [ROLE] — [YOUR NAME]
-            </p>
-            <div className="h-px bg-neutral-700 my-6" />
-            <p className="text-xs font-bold uppercase text-neutral-300 leading-relaxed">
-              INCLUDE: YOUR PORTFOLIO OR WORK SAMPLES · THREE KEY POINTS ABOUT YOUR EXPERIENCE · EARLIEST START DATE
-            </p>
-          </div>
-
-          <p className="mt-12 text-xs font-bold uppercase text-neutral-500 leading-relaxed">
-            WE REVIEW ALL APPLICATIONS CAREFULLY. 
-            EXPECT A RESPONSE WITHIN 5–7 BUSINESS DAYS.
-          </p>
-        </div> */}
       </div>
+
+      {/* Footer sits closer thanks to reduced bottom padding above */}
       <Footer />
     </section>
   );

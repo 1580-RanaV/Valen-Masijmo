@@ -61,7 +61,7 @@ export default function Story() {
           </p>
 
           {/* Second image at 50% width */}
-          <div className="w-1/2 mx-auto my-6">
+          {/* <div className="w-1/2 mx-auto my-6">
             <Image
               src="/story-pic-2.png"
               alt="Valen Masijmo — Process & Practice"
@@ -69,7 +69,7 @@ export default function Story() {
               height={400}
               className="w-full h-auto object-cover"
             />
-          </div>
+          </div> */}
 
           {/* Closing paragraph */}
           <p>

@@ -16,31 +16,31 @@ export default function Home() {
       <HeroSection />
 
       {/* All other sections get equal top margin + padding */}
-      <div className="mt-16 pt-16">
+      <div className="pt-16">
         <Hero2 />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-8">
         <ShopRow2 />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-4">
         <People />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-8">
         <ShopRow1 />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-4">
         <SectionThree />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-16">
         <Grid />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-16">
         <CrDir />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-16">
         <GridTwo />
       </div>
-      <div className="mt-16 pt-16">
+      <div className="pt-8 pb-8">
         <Footer />
       </div>
     </main>

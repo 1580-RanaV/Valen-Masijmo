@@ -32,21 +32,19 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* Navbar always black text */}
       <Navbar
         isAtTop={false}
         onBrandClick={scrollToTop}
         onShopClick={handleShopClick}
       />
 
-      {/* Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <Image
           src="/hero-desktop-4.png"
           alt="Hero Background"
           fill
           priority
-          className="object-cover md:object-contain object-center brightness-100"
+          className="object-cover object-top brightness-100"
         />
       </section>
     </>
