@@ -11,6 +11,7 @@ import { usePassword } from "../../components/PasswordProtection";
 
 // NEW: import centralized accordion content
 import {
+  PRODUCT_DETAILS,
   CARE_INSTRUCTIONS,
   WASHING_GUIDE,
   SHIPPING_AND_RETURNS,
@@ -206,14 +207,12 @@ export default function ProductPage() {
               <div className="space-y-0 divide-y divide-neutral-200 font-bold">
                 {/* DETAILS uses product-specific fields, but the *structure* stays here */}
                 <Accordion title="DETAILS" defaultOpen={true}>
-                  <div className="space-y-3 text-xs text-left leading-relaxed text-neutral-900">
-                    <p>{product.description}</p>
-                    <div className="pt-2 space-y-1 text-left">
-                      <p className="font-bold">Fabric: <span className="font-bold">{product.fabric}</span></p>
-                      <p className="font-bold">Fit: <span className="font-bold">{product.fit}</span></p>
-                    </div>
-                  </div>
-                </Accordion>
+                <ul className="list-disc pl-5 space-y-1 text-xs text-left leading-relaxed text-neutral-900">
+                  {PRODUCT_DETAILS.map((detail, i) => (
+                    <li key={i}>{detail}</li>
+                  ))}
+                </ul>
+              </Accordion>
 
                 <Accordion title="CARE INSTRUCTIONS" defaultOpen={true}>
                   <div className="space-y-2 text-xs text-left text-neutral-900">

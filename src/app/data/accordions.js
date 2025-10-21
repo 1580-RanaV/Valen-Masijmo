@@ -1,6 +1,16 @@
 // app/data/accordions.js
-
 // Reusable, centralized content for product accordions
+
+export const PRODUCT_DETAILS = [
+  'Relaxed fit tee',
+  'Midweight pigment dyed 240gsm cotton jersey',
+  'High ribbed crewneck',
+  'Printed on garment',
+  'Unisex',
+  'Material: 100% cotton',
+  'Imported',
+  'This garment has been individually dyed, producing a one-of-a-kind result. Color may fade or bleed after wash',
+];
 
 export const CARE_INSTRUCTIONS = [
   '• Machine wash cold with similar colors',
@@ -30,8 +40,7 @@ export const SHIPPING_AND_RETURNS = {
   returns: '30-day return policy. Items must be unworn, unwashed, and in original condition with tags attached.',
 };
 
-// If you ever need different tables per product, you can export a map keyed by slug.
-// For now, one shared size chart:
+// Shared size chart
 export const SIZE_GUIDE_ROWS = [
   { size: 'XS', chest: '34"', length: '26"' },
   { size: 'S',  chest: '36"', length: '27"' },
@@ -40,3 +49,12 @@ export const SIZE_GUIDE_ROWS = [
   { size: 'XL', chest: '42"', length: '30"' },
   { size: 'XXL', chest: '44"', length: '31"' },
 ];
+
+// Optional: helper to assemble accordion sections
+export const PRODUCT_ACCORDIONS = () => ([
+  { title: 'Product details', type: 'list', items: PRODUCT_DETAILS },
+  { title: 'Care instructions', type: 'list', items: CARE_INSTRUCTIONS },
+  { title: 'Washing guide', type: 'bullets', heading: WASHING_GUIDE.heading, items: WASHING_GUIDE.points },
+  { title: 'Shipping & returns', type: 'split', ...SHIPPING_AND_RETURNS },
+  { title: 'Size guide', type: 'table', rows: SIZE_GUIDE_ROWS },
+]);
