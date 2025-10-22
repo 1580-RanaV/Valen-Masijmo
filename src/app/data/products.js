@@ -19,7 +19,7 @@ export const PRODUCTS = [
   {
     id: 10,
     images: ['/t11/t11-4.png', '/t11/t11.png', '/t11/t11-2.png', '/t11/t11-3.png'],
-    title: 'Coffee spill T-shirt',
+    title: 'Coffee Spill T-shirt',
     price: 'Rs. 42,900',
     originalPrice: 'Rs. 47,675',
     inStock: true,
@@ -98,7 +98,7 @@ export const PRODUCTS = [
   {
     id: 3,
     images: ['/t3/t3-4.png', '/t3/t3.png', '/t3/t3-2.png', '/t3/t3-3.png'],
-    title: 'Only names T-shirt',
+    title: 'Only Names T-shirt',
     price: 'Rs. 46,499',
     inStock: false,
     collection: 'From "Black Chapter One"',
@@ -113,7 +113,7 @@ export const PRODUCTS = [
   {
     id: 4,
     images: ['/t4/t4-4.png', '/t4/t4.png', '/t4/t4-2.png', '/t4/t4-3.png'],
-    title: 'Owl eyes T-shirt',
+    title: 'Owl Eyes T-shirt',
     price: 'Rs. 42,999',
     inStock: true,
     collection: 'From "Black Chapter One"',
@@ -159,7 +159,7 @@ export const PRODUCTS = [
   {
     id: 7,
     images: ['/t8/t8-4.png', '/t8/t8.png', '/t8/t8-2.png', '/t8/t8-3.png'],
-    title: 'Valen club T-shirt',
+    title: 'Valen Club T-shirt',
     price: 'Rs. 45,799',
     inStock: false,
     collection: 'From "Black Chapter One"',
@@ -174,7 +174,7 @@ export const PRODUCTS = [
   {
     id: 8,
     images: ['/t7/t7-4.png', '/t7/t7.png', '/t7/t7-2.png', '/t7/t7-3.png'],
-    title: 'Valen picnic T-shirt',
+    title: 'Valen Picnic T-shirt',
     price: 'Rs. 40,999',
     inStock: true,
     collection: 'From "Black Chapter One"',

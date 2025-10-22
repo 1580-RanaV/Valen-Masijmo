@@ -24,7 +24,7 @@ export default function Hero2() {
         {/* Text overlay at bottom center */}
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-8 sm:pb-12 md:pb-16 lg:pb-20">
           <p className="text-white font-regular text-sm tracking-widest uppercase mb-2">
-            WINTER '25
+            VALEN VINTERS '25
           </p>
           <h1 className="text-white font-regular text-sm font-light tracking-wide mb-4 text-center">
             Valen Masijmo Winter Drop Arriving

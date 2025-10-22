@@ -181,7 +181,7 @@ export default function ProductPage() {
               {product.inStock && (
                 <div className="space-y-4">
                   <p className="text-xs tracking-[0.2em] text-neutral-900 font-bold">
-                    SELECT SIZE
+                    Select Size
                   </p>
                   <div className="grid grid-cols-3 gap-2">
                     {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
