@@ -20,7 +20,7 @@ export default function People() {
           src="/break-photo.png"
           alt="People section desktop"
           fill
-          className="object-cover"
+          className="object-cover object-top"
           priority
         />
       </div>

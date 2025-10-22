@@ -14,7 +14,7 @@ export default function SectionThree() {
             alt="Valen Masijmo — Silent Luxury"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(min-width: 1024px) 66vw, 100vw"
           />
         </div>

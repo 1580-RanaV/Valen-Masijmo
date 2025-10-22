@@ -8,10 +8,10 @@ export default function Grid() {
   const router = useRouter()
 
   const products = [
-    { id: 1, images: ['/grid-1.png'], slug: 'product-1' },
-    { id: 2, images: ['/grid-2.png'], slug: 'product-2' },
-    { id: 3, images: ['/grid-3.png'], slug: 'product-3' },
-    { id: 4, images: ['/grid-4.png'], slug: 'product-4' },
+    { id: 1, images: ['/grid-11.png'], slug: 'product-1' },
+    { id: 2, images: ['/grid-22.png'], slug: 'product-2' },
+    { id: 3, images: ['/grid-33.png'], slug: 'product-3' },
+    { id: 4, images: ['/grid-44.png'], slug: 'product-4' },
   ]
 
   const handleProductClick = (product) => {

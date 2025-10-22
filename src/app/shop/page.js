@@ -185,43 +185,13 @@ export default function ShopPage() {
           {/* Header Section */}
           <div className="max-w-7xl mx-auto px-4 mt-16 mb-8">
             {/* Title and Product Count */}
-            <div className="flex items-baseline gap-2 mb-4">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-black">
+            <div className="align-middle text-center items-center gap-2 mb-4">
+              <h1 className="text-xs sm:text-xs lg:text-xs font-bold tracking-tight text-black">
                 ALL PRODUCTS
               </h1>
-              <span className="text-sm text-gray-500">{sortedProducts.length}</span>
+              <span className="text-sm text-gray-500">({sortedProducts.length})</span>
             </div>
-
-            {/* Description Toggle */}
-            <button
-              onClick={() => setShowDescription(!showDescription)}
-              className="text-sm uppercase text-left text-black mb-4 hover:opacity-70 transition-opacity flex items-center gap-2"
-            >
-              Discover our complete collection — from everyday essentials to statement pieces
-              <svg
-                className={`w-4 h-4 transition-transform ${showDescription ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            {showDescription && (
-              <div className="text-sm uppercase text-gray-900 mb-6 leading-relaxed max-w-3xl">
-                Explore our full range of products featuring quality craftsmanship and modern design. 
-                Each piece is thoughtfully curated to bring both style and functionality to your wardrobe. 
-                Please note that these are exclusive, limited pieces, and we may occasionally decline purchase 
-                offers due to limited availability.
-              </div>
-            )}
-
-            {/* Filter & Sort Row */}
-            <div className="flex items-center justify-between gap-4 pb-4 border-b border-gray-200">
-              {/* Filter & Sort Button */}
-
-            </div>
+  
           </div>
 
           {/* Products Grid */}

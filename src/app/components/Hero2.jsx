@@ -8,7 +8,7 @@ export default function Hero2() {
           src="/hero-2.png"
           alt="Hero section"
           fill
-          className="object-cover"
+          className="object-cover object-top"
           priority
         />
       </div>

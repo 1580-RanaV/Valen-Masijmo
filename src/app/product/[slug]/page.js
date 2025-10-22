@@ -279,9 +279,9 @@ export default function ProductPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-bold">
           <button
             onClick={() => router.push('/shop')}
-            className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-neutral-900 hover:text-neutral-900 transition-colors uppercase font-bold"
+            className="inline-flex underline items-center gap-2 text-xs tracking-[0.2em] text-neutral-900 hover:text-neutral-900 transition-colors uppercase font-bold"
           >
-            <span>←</span> Back to Shop
+            Back to Shop
           </button>
         </div>
       </section>
