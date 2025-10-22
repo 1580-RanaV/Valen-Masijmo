@@ -23,8 +23,8 @@ export default function Home() {
         <ShopRow1 />
         <SectionThree />
         <Grid />
-        <CrDir />
         <GridTwo />
+        <CrDir />
         <Footer />
       </div>
     </main>

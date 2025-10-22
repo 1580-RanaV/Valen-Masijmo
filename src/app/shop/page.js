@@ -12,17 +12,18 @@ export default function ShopPage() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [gridView, setGridView] = useState('four'); // 'one', 'two', 'four', 'five'
+  const [showDescription, setShowDescription] = useState(false);
   const router = useRouter();
 
   const minSwipeDistance = 50;
 
-  // Derive what you previously hardcoded as two arrays:
   const allListItems = PRODUCTS.map((p) => ({
     id: p.id,
     images: p.images,
     title: p.title,
     price: p.price,
-    originalPrice: p.originalPrice, // undefined when not on sale
+    originalPrice: p.originalPrice,
     slug: p.slug,
     isSale: !!p.originalPrice || !!p.isSale,
   }));
@@ -36,7 +37,6 @@ export default function ShopPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Direct navigation: no password modal
   const handleProductClick = (product) => {
     router.push(`/product/${product.slug}`);
   };
@@ -106,6 +106,21 @@ export default function ShopPage() {
 
   const sortedProducts = getSortedProducts();
 
+  const getGridColumns = () => {
+    switch (gridView) {
+      case 'one':
+        return 'grid-cols-1';
+      case 'two':
+        return 'grid-cols-2';
+      case 'four':
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4';
+      case 'five':
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5';
+      default:
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4';
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -115,27 +130,6 @@ export default function ShopPage() {
             .image-container {
               position: relative;
               overflow: hidden;
-            }
-            .product-grid {
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 0;
-              width: 100%;
-            }
-            @media (min-width: 640px) {
-              .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-              }
-            }
-            @media (min-width: 768px) {
-              .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-              }
-            }
-            @media (min-width: 1024px) {
-              .product-grid {
-                grid-template-columns: repeat(4, 1fr);
-              }
             }
             .carousel-btn {
               opacity: 0;
@@ -171,22 +165,65 @@ export default function ShopPage() {
                 display: none;
               }
             }
+            .grid-icon {
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+              transition: opacity 0.2s;
+            }
+            .grid-icon:hover {
+              opacity: 0.7;
+            }
+            .grid-icon.active {
+              opacity: 1;
+            }
+            .grid-icon:not(.active) {
+              opacity: 0.4;
+            }
           `}</style>
 
-          <div className="flex flex-col items-center justify-center mt-16 mb-8 sm:mb-10 lg:mb-12 px-4 text-center">
-            <h1 className="font-bold tracking-wider text-gray-900 text-xs mb-4">ALL PRODUCTS</h1>
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="text-xs font-bold tracking-wider border px-3 py-2 appearance-none cursor-pointer hover:bg-neutral-900 hover:text-white transition-colors"
+          {/* Header Section */}
+          <div className="max-w-7xl mx-auto px-4 mt-16 mb-8">
+            {/* Title and Product Count */}
+            <div className="flex items-baseline gap-2 mb-4">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-black">
+                ALL PRODUCTS
+              </h1>
+              <span className="text-sm text-gray-500">{sortedProducts.length}</span>
+            </div>
+
+            {/* Description Toggle */}
+            <button
+              onClick={() => setShowDescription(!showDescription)}
+              className="text-sm text-left text-black mb-4 hover:opacity-70 transition-opacity flex items-center gap-2"
             >
-              <option value="default">SORT BY: CHOOSE ONE</option>
-              <option value="low-to-high">PRICE: LOW TO HIGH</option>
-              <option value="high-to-low">PRICE: HIGH TO LOW</option>
-            </select>
+              Discover our complete collection — from everyday essentials to statement pieces
+              <svg
+                className={`w-4 h-4 transition-transform ${showDescription ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {showDescription && (
+              <div className="text-sm text-gray-600 mb-6 leading-relaxed max-w-3xl">
+                Explore our full range of products featuring quality craftsmanship and modern design. 
+                Each piece is carefully selected to bring style and functionality to your wardrobe.
+              </div>
+            )}
+
+            {/* Filter & Sort Row */}
+            <div className="flex items-center justify-between gap-4 pb-4 border-b border-gray-200">
+              {/* Filter & Sort Button */}
+
+            </div>
           </div>
 
-          <div className="product-grid mt-16">
+          {/* Products Grid */}
+          <div className={`grid ${getGridColumns()} gap-0 mt-8`}>
             {sortedProducts.map((item) => (
               <div
                 key={item.id}

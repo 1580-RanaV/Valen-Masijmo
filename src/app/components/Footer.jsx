@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full text-black mt-16">
+    <footer className="w-full text-black mt-16 mb-16">
       <div className="px-6 md:px-12 flex flex-col items-center text-center space-y-12 md:space-y-16">
         {/* Brand Text */}
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wider text-neutral-900 leading-none">

@@ -36,11 +36,11 @@ export default function HeroSection() {
       <section className="w-full">
         <div className="relative w-full aspect-[2/3] sm:aspect-[16/9]">
           <Image
-            src="/hero-5.png"
+            src="/hero-7.png"
             alt="Hero Background"
             fill
             priority
-            className="object-cover object-top brightness-100"
+            className="object-cover brightness-95"
           />
         </div>
       </section>
