@@ -1,125 +1,130 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 export default function Careers() {
-  const [visible, setVisible] = useState(new Set());
-  const [openId, setOpenId] = useState(null);
-  const observerRef = useRef(null);
+  const [visible, setVisible] = useState(new Set())
+  const [openId, setOpenId] = useState(null)
+  const observerRef = useRef(null)
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const idx = entry.target.dataset.index;
-            if (idx) setVisible((prev) => new Set([...prev, idx]));
+            const idx = entry.target.dataset.index
+            if (idx) setVisible((prev) => new Set([...prev, idx]))
           }
-        });
+        })
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-    );
-    const els = document.querySelectorAll("[data-index]");
-    els.forEach((el) => observerRef.current.observe(el));
-    return () => observerRef.current && observerRef.current.disconnect();
-  }, []);
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    )
+    const els = document.querySelectorAll('[data-index]')
+    els.forEach((el) => observerRef.current.observe(el))
+    return () => observerRef.current && observerRef.current.disconnect()
+  }, [])
 
-  const toggle = (id) => setOpenId((prev) => (prev === id ? null : id));
+  const toggle = (id) => setOpenId((prev) => (prev === id ? null : id))
 
   const roles = [
     {
-      id: "smm",
-      title: "SOCIAL MEDIA MANAGER",
-      location: "REMOTE",
-      experience: "1–2 YEARS",
-      tags: ["STORYTELLING", "CONTENT CREATION", "COMMUNITY"],
+      id: 'smm',
+      title: 'Social media manager',
+      location: 'Remote',
+      experience: '1–2 years',
+      tags: ['Storytelling', 'Content creation', 'Community'],
       description:
-        "SHAPE OUR VOICE ACROSS PLATFORMS. TRANSLATE BRAND VALUES INTO MEMORABLE MOMENTS.",
+        'Shape our voice across platforms. Translate brand values into memorable moments.',
       responsibilities: [
-        "DEVELOP AND EXECUTE WEEKLY CONTENT STRATEGY ACROSS INSTAGRAM, TIKTOK, AND YOUTUBE SHORTS",
-        "CRAFT COMPELLING CAPTIONS THAT REFLECT BRAND PHILOSOPHY AND AESTHETIC",
-        "ENGAGE WITH COMMUNITY AUTHENTICALLY AND BUILD MEANINGFUL CONNECTIONS",
-        "TRACK PERFORMANCE METRICS: REACH, ENGAGEMENT, SAVES, AND CONVERSION SIGNALS",
-        "COLLABORATE WITH CREATIVE TEAM TO MAINTAIN VISUAL AND TONAL CONSISTENCY",
+        'Develop and execute weekly content strategy across Instagram, TikTok, and YouTube Shorts.',
+        'Craft compelling captions that reflect brand philosophy and aesthetic.',
+        'Engage with the community authentically and build meaningful connections.',
+        'Track performance metrics such as reach, engagement, saves, and conversions.',
+        'Collaborate with the creative team to maintain visual and tonal consistency.',
       ],
       bonus: [
-        "BASIC VIDEO EDITING SKILLS",
-        "UNDERSTANDING OF REELS PACING AND TRENDS",
-        "EXPERIENCE WITH QUIET LUXURY OR MINIMALIST BRANDS",
+        'Basic video editing skills.',
+        'Understanding of Reels pacing and trends.',
+        'Experience with quiet luxury or minimalist brands.',
       ],
       apply:
-        "SHARE YOUR PORTFOLIO: 2–3 ACCOUNTS YOU'VE MANAGED + A BRIEF NOTE ON WHY MINIMALIST AESTHETICS RESONATE WITH YOU.",
+        "Share your portfolio: 2–3 accounts you've managed, plus a brief note on why minimalist aesthetics resonate with you.",
     },
     {
-      id: "hsd",
-      title: "HAND SKETCH DESIGNER",
-      location: "REMOTE",
-      experience: "1–2 YEARS",
-      tags: ["ILLUSTRATION", "APPAREL", "CRAFTSMANSHIP"],
+      id: 'hsd',
+      title: 'Hand sketch designer',
+      location: 'Remote',
+      experience: '1–2 years',
+      tags: ['Illustration', 'Apparel', 'Craftsmanship'],
       description:
-        "BRING IDEAS TO LIFE THROUGH HAND-DRAWN ILLUSTRATIONS. MERGE TRADITIONAL TECHNIQUES WITH MODERN APPAREL.",
+        'Bring ideas to life through hand-drawn illustrations. Merge traditional techniques with modern apparel.',
       responsibilities: [
-        "CREATE ORIGINAL HAND SKETCHES FOR T-SHIRTS, HOODIES, AND ACCESSORIES",
-        "MASTER PROPORTION, NEGATIVE SPACE, AND COMPOSITIONAL BALANCE",
-        "PREPARE SKETCHES FOR PRODUCTION: SCANNING, BASIC DIGITAL CLEANUP",
-        "WORK CLOSELY WITH PRINT VENDORS ON PLACEMENT, SCALE, AND LINE WEIGHT",
-        "UNDERSTAND FABRIC CONSTRAINTS AND PRINT TECHNIQUES",
+        'Create original hand sketches for t-shirts, hoodies, and accessories.',
+        'Master proportion, negative space, and compositional balance.',
+        'Prepare sketches for production: scanning and basic digital cleanup.',
+        'Work closely with print vendors on placement, scale, and line weight.',
+        'Understand fabric constraints and print techniques.',
       ],
       bonus: [
-        "FAMILIARITY WITH PUFF, DISCHARGE, AND WATER-BASED PRINTING",
-        "KNOWLEDGE OF GARMENT CONSTRUCTION",
-        "EXPERIENCE WITH SCREEN PRINTING LIMITATIONS",
+        'Familiarity with puff, discharge, and water-based printing.',
+        'Knowledge of garment construction.',
+        'Experience with screen printing limitations.',
       ],
       apply:
-        "SUBMIT YOUR WORK: 6–10 SKETCHES (PDF OR PORTFOLIO LINK) + A SHORT NOTE ABOUT YOUR FAVORITE DRAWING TOOLS.",
+        'Submit your work: 6–10 sketches (PDF or portfolio link) and a short note about your favorite drawing tools.',
     },
-  ];
+  ]
 
   return (
     <section className="relative">
       <Navbar />
 
-      {/* Reduced top/bottom padding and tightened section margins for consistent vertical rhythm */}
       <div className="max-w-5xl mx-auto px-6 pt-24">
-        {/* HERO SECTION */}
+        {/* Hero Section */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1
             data-index="0"
-            className={`text-xs font-bold tracking-[0.3em] text-neutral-900 mb-6 uppercase transition-all duration-1000 ease-out ${
-              visible.has("0") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`text-xs font-bold tracking-[0.3em] text-neutral-900 mb-6 transition-all duration-1000 ease-out ${
+              visible.has('0')
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8'
             }`}
           >
-            JOIN OUR TEAM
+            Join our team
           </h1>
 
           <p
             data-index="1"
-            className={`text-xs font-bold uppercase text-neutral-600 leading-relaxed mb-10 transition-all duration-1000 ease-out delay-150 ${
-              visible.has("1") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`text-xs font-bold text-neutral-600 leading-relaxed mb-10 transition-all duration-1000 ease-out delay-150 ${
+              visible.has('1')
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8'
             }`}
           >
-            WE BUILD FOR THOSE WHO VALUE QUIET CONFIDENCE OVER LOUD STATEMENTS.
-            IF YOU SHARE THIS PHILOSOPHY AND BRING DEDICATION TO YOUR CRAFT,
-            WE WANT TO HEAR FROM YOU.
+            We build for those who value quiet confidence over loud statements.
+            If you share this philosophy and bring dedication to your craft, we
+            want to hear from you.
           </p>
         </div>
 
-        {/* ROLES SECTION */}
+        {/* Roles Section */}
         <div
           data-index="3"
           className={`mb-16 transition-all duration-1000 ease-out delay-500 ${
-            visible.has("3") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            visible.has('3')
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-xs font-bold tracking-[0.3em] text-neutral-900 mb-8 uppercase text-center">
-            OPEN POSITIONS
+          <h2 className="text-xs font-bold tracking-[0.3em] text-neutral-900 mb-8 text-center">
+            Open positions
           </h2>
 
           <div className="space-y-5">
             {roles.map((role) => (
               <div key={role.id} className="border border-neutral-200 bg-gray-50">
-                {/* ROLE HEADER */}
+                {/* Role Header */}
                 <button
                   aria-expanded={openId === role.id}
                   onClick={() => toggle(role.id)}
@@ -128,10 +133,10 @@ export default function Careers() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-3 mb-2.5">
-                        <h3 className="text-xs font-bold tracking-widest uppercase text-neutral-900">
+                        <h3 className="text-xs font-bold tracking-widest text-neutral-900">
                           {role.title}
                         </h3>
-                        <span className="text-xs font-bold tracking-widest uppercase text-neutral-500">
+                        <span className="text-xs font-bold tracking-widest text-neutral-500">
                           · {role.location}
                         </span>
                       </div>
@@ -139,22 +144,27 @@ export default function Careers() {
                         {role.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="bg-gray-50 border border-neutral-300 px-3 py-1 text-xs font-bold tracking-wider uppercase text-neutral-700"
+                            className="bg-gray-50 border border-neutral-300 px-3 py-1 text-xs font-bold tracking-wider text-neutral-700"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
-                      <p className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                      <p className="text-xs font-bold text-neutral-600 leading-relaxed">
                         {role.description}
                       </p>
                     </div>
                     <span
                       className={`text-neutral-900 transition-transform duration-300 ${
-                        openId === role.id ? "rotate-90" : ""
+                        openId === role.id ? 'rotate-90' : ''
                       }`}
                     >
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                      >
                         <path
                           d="M6 3L11 8L6 13"
                           stroke="currentColor"
@@ -167,35 +177,37 @@ export default function Careers() {
                   </div>
                 </button>
 
-                {/* ROLE DETAILS */}
+                {/* Role Details */}
                 <div
                   className={`overflow-hidden transition-all duration-500 ${
-                    openId === role.id ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+                    openId === role.id
+                      ? 'max-h-[2000px] opacity-100'
+                      : 'max-h-0 opacity-0'
                   }`}
                 >
                   <div className="px-6 pb-6 space-y-7">
                     <div className="h-px bg-neutral-200" />
 
-                    {/* EXPERIENCE */}
+                    {/* Experience */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-2.5">
-                        EXPERIENCE LEVEL
+                      <h4 className="text-xs font-bold tracking-widest text-neutral-900 mb-2.5">
+                        Experience level
                       </h4>
-                      <p className="text-xs font-bold uppercase text-neutral-600">
-                        {role.experience} · REMOTE POSITION
+                      <p className="text-xs font-bold text-neutral-600">
+                        {role.experience} · Remote position
                       </p>
                     </div>
 
-                    {/* RESPONSIBILITIES */}
+                    {/* Responsibilities */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
-                        RESPONSIBILITIES
+                      <h4 className="text-xs font-bold tracking-widest text-neutral-900 mb-3">
+                        Responsibilities
                       </h4>
                       <ul className="space-y-2.5">
                         {role.responsibilities.map((item, idx) => (
                           <li key={idx} className="flex gap-3">
                             <span className="text-neutral-400 mt-0.5">—</span>
-                            <span className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                            <span className="text-xs font-bold text-neutral-600 leading-relaxed">
                               {item}
                             </span>
                           </li>
@@ -203,16 +215,16 @@ export default function Careers() {
                       </ul>
                     </div>
 
-                    {/* BONUS SKILLS */}
+                    {/* Bonus Skills */}
                     <div>
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-3">
-                        BONUS SKILLS
+                      <h4 className="text-xs font-bold tracking-widest text-neutral-900 mb-3">
+                        Bonus skills
                       </h4>
                       <ul className="space-y-2.5">
                         {role.bonus.map((item, idx) => (
                           <li key={idx} className="flex gap-3">
                             <span className="text-neutral-400 mt-0.5">+</span>
-                            <span className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                            <span className="text-xs font-bold text-neutral-600 leading-relaxed">
                               {item}
                             </span>
                           </li>
@@ -220,12 +232,12 @@ export default function Careers() {
                       </ul>
                     </div>
 
-                    {/* HOW TO APPLY */}
+                    {/* How to Apply */}
                     <div className="bg-gray-50 border border-neutral-200 p-5">
-                      <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-900 mb-2.5">
-                        HOW TO APPLY
+                      <h4 className="text-xs font-bold tracking-widest text-neutral-900 mb-2.5">
+                        How to apply
                       </h4>
-                      <p className="text-xs font-bold uppercase text-neutral-600 leading-relaxed">
+                      <p className="text-xs font-bold text-neutral-600 leading-relaxed">
                         {role.apply}
                       </p>
                     </div>
@@ -237,8 +249,7 @@ export default function Careers() {
         </div>
       </div>
 
-      {/* Footer sits closer thanks to reduced bottom padding above */}
       <Footer />
     </section>
-  );
+  )
 }

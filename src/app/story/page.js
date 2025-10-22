@@ -15,7 +15,7 @@ export default function Story() {
           OUR STORY
         </h1>
 
-        <div className="space-y-8 text-xs font-bold text-justify text-neutral-700 leading-relaxed uppercase">
+        <div className="space-y-8 text-xs font-bold text-justify text-neutral-700 leading-relaxed">
           {/* First paragraph (V drop cap) */}
           <p className="first-letter:float-left first-letter:text-5xl first-letter:font-bold first-letter:leading-[0.8] first-letter:mr-2 first-letter:mt-[2px]">
             Valen exists to restore patience to clothing. I design for those who

@@ -12,6 +12,10 @@ export default function Grid() {
     { id: 2, images: ['/grid-22.png'], slug: 'product-2' },
     { id: 3, images: ['/grid-33.png'], slug: 'product-3' },
     { id: 4, images: ['/grid-44.png'], slug: 'product-4' },
+    { id: 5, images: ['/grid-55.png'], slug: 'product-1' },
+    { id: 6, images: ['/grid-66.png'], slug: 'product-2' },
+    { id: 7, images: ['/grid-88.png'], slug: 'product-3' },
+    { id: 8, images: ['/grid-77.png'], slug: 'product-4' },
   ]
 
   const handleProductClick = (product) => {

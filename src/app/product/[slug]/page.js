@@ -8,8 +8,7 @@ import Footer from '../../components/Footer';
 import { PRODUCT_BY_SLUG } from '../../data/products';
 import { usePassword } from "../../components/PasswordProtection";
 
-
-// NEW: import centralized accordion content
+// Import centralized accordion content
 import {
   PRODUCT_DETAILS,
   CARE_INSTRUCTIONS,
@@ -22,16 +21,26 @@ const Accordion = ({ title, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-t border-gray-300 font-bold">
+    <div className="border-t border-gray-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 md:py-6 flex items-center justify-center text-center gap-2 font-bold"
+        className="w-full py-5 flex items-center justify-between text-left font-bold"
       >
-        <span className="text-xs tracking-wider text-neutral-900 font-bold">{title}</span>
-        <span className="text-xs text-neutral-900 font-bold">{isOpen ? '−' : '+'}</span>
+        <span className="text-xs tracking-wider text-neutral-900">{title}</span>
+        <span className="text-neutral-900 flex-shrink-0">
+          {isOpen ? (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 10L8 6L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </span>
       </button>
       {isOpen && (
-        <div className="pb-4 md:pb-6 text-xs uppercase tracking-wider leading-relaxed text-neutral-900 text-center max-w-2xl mx-auto px-4 font-bold">
+        <div className="pb-6 text-xs leading-relaxed text-neutral-900">
           {children}
         </div>
       )}
@@ -59,14 +68,14 @@ export default function ProductPage() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen flex items-center justify-center px-4 font-bold">
-          <div className="text-center font-bold">
+        <main className="min-h-screen flex items-center justify-center px-4">
+          <div className="text-center">
             <h1 className="text-xs tracking-wider mb-4 text-neutral-900 font-bold">PRODUCT NOT FOUND</h1>
             <button
               onClick={() => router.push('/shop')}
-              className="text-xs tracking-wider px-6 py-3 bg-black text-neutral-900 hover:text-neutral-900 transition-colors font-bold"
+              className="text-xs tracking-wider px-6 py-3 bg-black text-white hover:bg-neutral-800 transition-colors font-bold"
             >
-              RETURN TO SHOP
+              Back to shop
             </button>
           </div>
         </main>
@@ -76,19 +85,19 @@ export default function ProductPage() {
   }
 
   return (
-    <main className="bg-white font-bold">
+    <main className="bg-white">
       <Head>
         <title>{product.title} | VALEN MASIJMO</title>
       </Head>
       <Navbar />
 
-      <section className="mt-16 sm:mt-20 md:mt-24 lg:mt-28 font-bold">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-bold">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 font-bold">
+      <section className="mt-16 sm:mt-20 md:mt-24 lg:mt-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
             {/* Gallery */}
-            <div className="space-y-4 font-bold">
-              <div className="relative w-full aspect-[3/4] bg-neutral-50 overflow-hidden font-bold">
+            <div className="space-y-4">
+              <div className="relative w-full aspect-[3/4] bg-neutral-50 overflow-hidden">
                 <Image
                   src={product.images[selectedImage]}
                   alt={`${product.title}`}
@@ -96,19 +105,19 @@ export default function ProductPage() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 font-bold">
+                <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2">
                   <p className="text-xs tracking-wider text-neutral-900 font-bold">
                     {selectedImage + 1} / {product.images.length}
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-3 font-bold">
+              <div className="grid grid-cols-4 gap-3">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className="relative aspect-[3/4] bg-neutral-50 overflow-hidden transition-opacity hover:opacity-80 font-bold"
+                    className="relative aspect-[3/4] bg-neutral-50 overflow-hidden transition-opacity hover:opacity-80"
                   >
                     <Image
                       src={img}
@@ -117,8 +126,8 @@ export default function ProductPage() {
                       className="object-cover"
                     />
                     {selectedImage === idx && (
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center font-bold">
-                        <div className="w-1 h-1 rounded-full bg-white font-bold" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <div className="w-1 h-1 rounded-full bg-white" />
                       </div>
                     )}
                   </button>
@@ -127,24 +136,24 @@ export default function ProductPage() {
             </div>
 
             {/* Right column */}
-            <div className="lg:sticky lg:top-24 lg:self-start space-y-8 lg:space-y-10 pb-12 font-bold">
+            <div className="lg:sticky lg:top-24 lg:self-start space-y-8 pb-12">
               
               {/* Title / Price / Code */}
-              <div className="space-y-4 pb-0 font-bold">
-                <p className="text-xs tracking-[0.2em] text-neutral-900 uppercase font-bold">
+              <div className="space-y-3">
+                <p className="text-xs tracking-[0.2em] text-neutral-600 font-bold">
                   {product.productCode}
                 </p>
                 
-                <h1 className="text-base tracking-wide text-neutral-900 leading-tight sm:text-base font-bold">
+                <h1 className="text-lg tracking-wide text-neutral-900 leading-tight font-bold">
                   {product.title}
                 </h1>
                 
-                <div className="flex items-baseline gap-3 font-bold">
+                <div className="flex items-baseline gap-3">
                   {product.originalPrice ? (
                     <>
                       <span className="text-base text-neutral-900 font-bold">{product.price}</span>
-                      <span className="text-base line-through text-neutral-900 font-bold">{product.originalPrice}</span>
-                      <span className="text-base px-2 py-1 bg-green-50 text-neutral-900 tracking-wider font-bold">SALE</span>
+                      <span className="text-sm line-through text-neutral-500">{product.originalPrice}</span>
+                      <span className="text-xs px-2 py-1 bg-green-50 text-green-700 tracking-wider font-bold">SALE</span>
                     </>
                   ) : (
                     <span className="text-base text-neutral-900 font-bold">{product.price}</span>
@@ -153,8 +162,8 @@ export default function ProductPage() {
               </div>
 
               {/* Stock */}
-              <div className="font-bold">
-                <div className={`inline-flex items-center gap-2 px-4 py-2 border font-bold ${
+              <div>
+                <div className={`inline-flex items-center gap-2 px-4 py-2 border ${
                   product.inStock 
                     ? 'border-neutral-200 bg-neutral-50' 
                     : 'border-red-200 bg-red-50'
@@ -163,18 +172,18 @@ export default function ProductPage() {
                     product.inStock ? 'bg-green-500' : 'bg-red-500'
                   }`} />
                   <span className="text-xs tracking-wider text-neutral-900 font-bold">
-                    {product.inStock ? 'IN STOCK' : 'SOLD OUT'}
+                    {product.inStock ? 'In Stock' : 'Sold Out'}
                   </span>
                 </div>
               </div>
 
               {/* Sizes */}
               {product.inStock && (
-                <div className="space-y-4 font-bold pt-4">
-                  <p className="text-xs tracking-[0.2em] text-neutral-900 uppercase font-bold">
-                    Select Size
+                <div className="space-y-4">
+                  <p className="text-xs tracking-[0.2em] text-neutral-900 font-bold">
+                    SELECT SIZE
                   </p>
-                  <div className="grid grid-cols-3 gap-2 font-bold">
+                  <div className="grid grid-cols-3 gap-2">
                     {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
                       <button
                         key={size}
@@ -196,26 +205,24 @@ export default function ProductPage() {
               {product.inStock && (
                 <button
                   onClick={() => requestAccess(() => alert("We are currently not accepting any orders. Please try later."))}
-                  className="w-full py-4 bg-neutral-900 text-white text-xs tracking-[0.2em] hover:bg-neutral-800 transition-colors uppercase font-bold"
+                  className="w-full py-4 bg-neutral-900 text-white text-xs tracking-[0.2em] hover:bg-neutral-800 transition-colors font-bold"
                 >
-                  Contact Valen Masijmo Seller
+                  CONTACT VALEN MASIJMO SELLER
                 </button>
               )}
 
-
-              {/* Accordions (now fed from centralized data) */}
-              <div className="space-y-0 divide-y divide-neutral-200 font-bold">
-                {/* DETAILS uses product-specific fields, but the *structure* stays here */}
+              {/* Accordions */}
+              <div className="space-y-0 border-t border-neutral-300">
                 <Accordion title="DETAILS" defaultOpen={true}>
-                <ul className="list-disc pl-5 space-y-1 text-xs text-left leading-relaxed text-neutral-900">
-                  {PRODUCT_DETAILS.map((detail, i) => (
-                    <li key={i}>{detail}</li>
-                  ))}
-                </ul>
-              </Accordion>
+                  <ul className="list-disc pl-5 space-y-2 text-xs leading-relaxed text-neutral-700">
+                    {PRODUCT_DETAILS.map((detail, i) => (
+                      <li key={i}>{detail}</li>
+                    ))}
+                  </ul>
+                </Accordion>
 
-                <Accordion title="CARE INSTRUCTIONS" defaultOpen={true}>
-                  <div className="space-y-2 text-xs text-left text-neutral-900">
+                <Accordion title="CARE INSTRUCTIONS">
+                  <div className="space-y-2 text-xs text-neutral-700">
                     {CARE_INSTRUCTIONS.map((line, i) => (
                       <p key={i}>{line}</p>
                     ))}
@@ -223,8 +230,8 @@ export default function ProductPage() {
                 </Accordion>
 
                 <Accordion title="WASHING GUIDE">
-                  <div className="space-y-3 text-xs text-left text-neutral-900">
-                    <p className="font-bold uppercase">{WASHING_GUIDE.heading}</p>
+                  <div className="space-y-3 text-xs text-neutral-700">
+                    <p className="font-bold text-neutral-900">{WASHING_GUIDE.heading}</p>
                     <div className="space-y-2">
                       {WASHING_GUIDE.points.map((line, i) => (
                         <p key={i}>{line}</p>
@@ -234,13 +241,13 @@ export default function ProductPage() {
                 </Accordion>
 
                 <Accordion title="SHIPPING AND RETURNS">
-                  <div className="space-y-4 text-xs text-left text-neutral-900">
+                  <div className="space-y-4 text-xs text-neutral-700">
                     <div>
-                      <p className="font-bold uppercase mb-1">{SHIPPING_AND_RETURNS.shippingTitle}</p>
+                      <p className="font-bold text-neutral-900 mb-2">{SHIPPING_AND_RETURNS.shippingTitle}</p>
                       <p>{SHIPPING_AND_RETURNS.shipping}</p>
                     </div>
                     <div>
-                      <p className="font-bold uppercase mb-1">{SHIPPING_AND_RETURNS.returnsTitle}</p>
+                      <p className="font-bold text-neutral-900 mb-2">{SHIPPING_AND_RETURNS.returnsTitle}</p>
                       <p>{SHIPPING_AND_RETURNS.returns}</p>
                     </div>
                   </div>
@@ -248,12 +255,12 @@ export default function ProductPage() {
 
                 <Accordion title="SIZE GUIDE">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-xs text-neutral-900">
+                    <table className="w-full text-xs text-neutral-700">
                       <thead>
-                        <tr className="">
-                          <th className="text-center py-3 pr-8 font-bold">Size</th>
-                          <th className="text-center py-3 pr-8 font-bold">Chest</th>
-                          <th className="text-center py-3 font-bold">Length</th>
+                        <tr className="border-b border-neutral-200">
+                          <th className="text-left py-3 pr-8 font-bold text-neutral-900">Size</th>
+                          <th className="text-left py-3 pr-8 font-bold text-neutral-900">Chest</th>
+                          <th className="text-left py-3 font-bold text-neutral-900">Length</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-neutral-200">
@@ -275,13 +282,13 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <section className="py-16 border-t border-neutral-200 font-bold">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-bold">
+      <section className="py-16 border-t border-neutral-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <button
             onClick={() => router.push('/shop')}
-            className="inline-flex underline items-center gap-2 text-xs tracking-[0.2em] text-neutral-900 hover:text-neutral-900 transition-colors uppercase font-bold"
+            className="inline-flex underline items-center gap-2 text-xs tracking-[0.2em] text-neutral-900 hover:text-neutral-700 transition-colors font-bold"
           >
-            Back to Shop
+            BACK TO SHOP
           </button>
         </div>
       </section>

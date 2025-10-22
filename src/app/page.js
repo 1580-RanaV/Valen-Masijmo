@@ -5,8 +5,6 @@ import People from './components/BlackChapterIntro';
 import ShopRow1 from './components/ShopRow1';
 import SectionThree from './components/ValenClubIntro';
 import Grid from './components/Grid1';
-import CrDir from './components/SectionSix';
-import GridTwo from './components/Grid2';
 import Footer from './components/Footer';
 
 export default function Home() {
@@ -23,8 +21,6 @@ export default function Home() {
         <ShopRow1 />
         <SectionThree />
         <Grid />
-        <GridTwo />
-        <CrDir />
         <Footer />
       </div>
     </main>

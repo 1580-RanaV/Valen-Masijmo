@@ -1,22 +1,22 @@
-'use client';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { PRODUCTS } from '../data/products';
+'use client'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import { PRODUCTS } from '../data/products'
 
 export default function ShopPage() {
-  const [currentImages, setCurrentImages] = useState({});
-  const [sortOrder, setSortOrder] = useState('default');
-  const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [gridView, setGridView] = useState('four'); // 'one', 'two', 'four', 'five'
-  const [showDescription, setShowDescription] = useState(false);
-  const router = useRouter();
+  const [currentImages, setCurrentImages] = useState({})
+  const [sortOrder, setSortOrder] = useState('default')
+  const [hoveredProduct, setHoveredProduct] = useState(null)
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
+  const [gridView, setGridView] = useState('four') // 'one', 'two', 'four', 'five'
+  const [showDescription, setShowDescription] = useState(false)
+  const router = useRouter()
 
-  const minSwipeDistance = 50;
+  const minSwipeDistance = 50
 
   const allListItems = PRODUCTS.map((p) => ({
     id: p.id,
@@ -26,100 +26,100 @@ export default function ShopPage() {
     originalPrice: p.originalPrice,
     slug: p.slug,
     isSale: !!p.originalPrice || !!p.isSale,
-  }));
+  }))
 
   useEffect(() => {
-    const initial = {};
+    const initial = {}
     allListItems.forEach((product) => {
-      initial[product.id] = 0;
-    });
-    setCurrentImages(initial);
+      initial[product.id] = 0
+    })
+    setCurrentImages(initial)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleProductClick = (product) => {
-    router.push(`/product/${product.slug}`);
-  };
+    router.push(`/product/${product.slug}`)
+  }
 
   const handlePrevImage = (e, productId, totalImages) => {
-    e.stopPropagation();
+    e.stopPropagation()
     setCurrentImages((prev) => ({
       ...prev,
       [productId]: prev[productId] === 0 ? totalImages - 1 : prev[productId] - 1,
-    }));
-  };
+    }))
+  }
 
   const handleNextImage = (e, productId, totalImages) => {
-    e.stopPropagation();
+    e.stopPropagation()
     setCurrentImages((prev) => ({
       ...prev,
       [productId]: (prev[productId] + 1) % totalImages,
-    }));
-  };
+    }))
+  }
 
   const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
 
   const onTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
 
   const onTouchEnd = (productId, totalImages) => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) return
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
 
     if (isLeftSwipe) {
       setCurrentImages((prev) => ({
         ...prev,
         [productId]: (prev[productId] + 1) % totalImages,
-      }));
+      }))
     }
 
     if (isRightSwipe) {
       setCurrentImages((prev) => ({
         ...prev,
         [productId]: prev[productId] === 0 ? totalImages - 1 : prev[productId] - 1,
-      }));
+      }))
     }
-  };
+  }
 
   const parsePrice = (priceStr) => {
-    return parseInt(priceStr.replace(/[₹,]/g, ''), 10);
-  };
+    return parseInt(priceStr.replace(/[₹,]/g, ''), 10)
+  }
 
   const getSortedProducts = () => {
-    const list = [...allListItems];
+    const list = [...allListItems]
 
     if (sortOrder === 'low-to-high') {
-      return list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      return list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price))
     } else if (sortOrder === 'high-to-low') {
-      return list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      return list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price))
     }
 
-    return list;
-  };
+    return list
+  }
 
-  const sortedProducts = getSortedProducts();
+  const sortedProducts = getSortedProducts()
 
   const getGridColumns = () => {
     switch (gridView) {
       case 'one':
-        return 'grid-cols-1';
+        return 'grid-cols-1'
       case 'two':
-        return 'grid-cols-2';
+        return 'grid-cols-2'
       case 'four':
-        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4';
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       case 'five':
-        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5';
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
       default:
-        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4';
+        return 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
     }
-  };
+  }
 
   return (
     <>
@@ -187,11 +187,10 @@ export default function ShopPage() {
             {/* Title and Product Count */}
             <div className="align-middle text-center items-center gap-2 mb-4">
               <h1 className="text-xs sm:text-xs lg:text-xs font-bold tracking-tight text-black">
-                ALL PRODUCTS
+                All products
               </h1>
               <span className="text-sm text-gray-500">({sortedProducts.length})</span>
             </div>
-  
           </div>
 
           {/* Products Grid */}
@@ -213,7 +212,7 @@ export default function ShopPage() {
                 >
                   {item.isSale && (
                     <span className="absolute top-2 right-2 z-10 bg-black text-white px-2 py-1 font-bold tracking-widest text-[10px]">
-                      SALE
+                      Sale
                     </span>
                   )}
 
@@ -279,5 +278,5 @@ export default function ShopPage() {
       </main>
       <Footer />
     </>
-  );
+  )
 }
