@@ -195,7 +195,7 @@ export default function ShopPage() {
             {/* Description Toggle */}
             <button
               onClick={() => setShowDescription(!showDescription)}
-              className="text-sm text-left text-black mb-4 hover:opacity-70 transition-opacity flex items-center gap-2"
+              className="text-sm uppercase text-left text-black mb-4 hover:opacity-70 transition-opacity flex items-center gap-2"
             >
               Discover our complete collection — from everyday essentials to statement pieces
               <svg
@@ -209,9 +209,11 @@ export default function ShopPage() {
             </button>
 
             {showDescription && (
-              <div className="text-sm text-gray-600 mb-6 leading-relaxed max-w-3xl">
+              <div className="text-sm uppercase text-gray-900 mb-6 leading-relaxed max-w-3xl">
                 Explore our full range of products featuring quality craftsmanship and modern design. 
-                Each piece is carefully selected to bring style and functionality to your wardrobe.
+                Each piece is thoughtfully curated to bring both style and functionality to your wardrobe. 
+                Please note that these are exclusive, limited pieces, and we may occasionally decline purchase 
+                offers due to limited availability.
               </div>
             )}
 
