@@ -13,10 +13,10 @@ html, body {
   --font-mono: var(--font-geist-mono);
 }
 
-@theme inline {
+/* @theme inline {
   --text-xs: var(--text-sm);
   --text-xs--line-height: var(--text-sm--line-height);
-} 
+}  */
 
 
 body {
