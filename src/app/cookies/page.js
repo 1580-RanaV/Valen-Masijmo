@@ -25,7 +25,7 @@ export default function CookiesPolicy() {
   }, [])
 
   return (
-    <section className="min-h-screen bg-gray-50 relative">
+    <section className="min-h-screen relative">
       <Navbar />
 
       <div className="max-w-3xl mx-auto px-4 pt-28 pb-16 text-center font-bold">
