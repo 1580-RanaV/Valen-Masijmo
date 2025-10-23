@@ -3,6 +3,7 @@ import "./globals.css";
 import { PasswordProvider, PasswordModal } from "../app/components/PasswordProtection";
 import SmoothScrollProvider from "../app/components/SmoothScrollProvider";
 import ScrollToTop from "../app/components/ScrollToTop";
+import GlobalImageGuards from "../app/components/GlobalImageGuards"; // 🔒 add this line
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -33,6 +34,9 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* 🔒 Global image protection (no right-click or drag on images) */}
+        <GlobalImageGuards />
+
         <PasswordProvider>
           <SmoothScrollProvider>
             {children}

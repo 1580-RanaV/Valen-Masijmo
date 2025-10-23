@@ -25,23 +25,17 @@ export default function People() {
         {/* Text overlay for mobile */}
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-8">
           <p className="text-white text-sm tracking-widest uppercase mb-2">
-            GIFTS
+            COUPLE GIFTS
           </p>
           <h1 className="text-white text-sm font-light tracking-wide mb-4 text-center">
-            Festive Gifting Ideas
+            Couple Gifting Combos Releasing Soon
           </h1>
           <div className="flex gap-6">
             <button
               onClick={handleShopClick}
               className="text-white text-sm hover:underline underline-offset-4 transition-all"
             >
-              For Her
-            </button>
-            <button
-              onClick={handleShopClick}
-              className="text-white text-sm hover:underline underline-offset-4 transition-all"
-            >
-              For Him
+              Know More
             </button>
           </div>
         </div>

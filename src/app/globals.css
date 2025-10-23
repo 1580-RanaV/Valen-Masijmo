@@ -13,10 +13,12 @@ html, body {
   --font-mono: var(--font-geist-mono);
 }
 
-/* @theme inline {
+@theme inline {
   --text-xs: var(--text-sm);
   --text-xs--line-height: var(--text-sm--line-height);
-}  */
+  --text-xs--letter-spacing: var(--text-sm--letter-spacing);
+}
+
 
 
 body {
@@ -29,7 +31,7 @@ body {
 /* globals.css */
 @font-face {
   font-family: 'font-bold';
-  src: url('/fonts/gotham.woff') format('woff');
+  src: url('/fonts/dream-bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -85,3 +87,10 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   overflow: -moz-scrollbars-none;
 }
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* disables long-press menu on iOS */
+}
+

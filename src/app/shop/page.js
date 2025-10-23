@@ -187,7 +187,7 @@ export default function ShopPage() {
             {/* Title and Product Count */}
             <div className="align-middle text-center items-center gap-2 mb-4">
               <h1 className="text-xs sm:text-xs lg:text-xs font-bold tracking-tight text-black">
-                All products
+                ALL PRODUCTS
               </h1>
               <span className="text-sm text-gray-500">({sortedProducts.length})</span>
             </div>

@@ -20,11 +20,11 @@ export default function Grid() {
 
   // Text overlays in zigzag pattern (left-right-left-right-left)
   const textOverlays = [
-    { text: '"DESIGN DIGNITY"', position: 'top-[12%] left-[5%]' },
-    { text: 'HOUSE OF VALEN', position: 'top-[30%] right-[8%]' },
-    { text: 'DRAFTS OF MASIJMO—', position: 'top-[48%] left-[10%]' },
-    { text: '{AЯTS OFFICE}', position: 'top-[66%] right-[5%]' },
-    { text: 'VAL3N CLUB', position: 'bottom-[8%] left-[8%]' },
+    { text: '', position: 'top-[12%] left-[5%]' },
+    { text: '"DESIGN DIGNITY"', position: 'top-[30%] right-[8%]' },
+    { text: 'DRAFTS OF MASIJMO—', position: 'top-[46%] left-[10%]' },
+    { text: '{ARTS OFFICE}', position: 'top-[66%] right-[5%]' },
+    { text: '', position: 'bottom-[8%] left-[8%]' },
   ]
 
   const handleProductClick = (product) => {
@@ -66,7 +66,7 @@ export default function Grid() {
               key={idx}
               className={`absolute ${overlay.position} text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white/90 mix-blend-color-dodge tracking-wider`}
               style={{ 
-                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                textShadow: '4px 4px 8px rgba(0,0,0,1)'
               }}
             >
               {overlay.text}
