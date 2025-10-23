@@ -1,3 +1,24 @@
+// Define the display order using slugs (easier to read and manage)
+export const PRODUCT_DISPLAY_ORDER = [
+  'instructions-tshirt',
+  'cup-of-ice-tshirt',
+  'blue-valen-tshirt',
+  'kisses-to-valen-tshirt',
+  'valen-club-tshirt',
+  'addition-tshirt',
+  'valen-valentine-tshirt',
+  'owl-eyes-tshirt',
+  'ironveil-tshirt',
+  'maybe-egypt-tshirt',
+  'dear-masijmo-tshirt',
+  'valen-picnic-tshirt',
+  'only-names-tshirt',
+  
+  'coffee-spill-tshirt',
+  // 'instructions-tshirt' appears twice in your data with different IDs (13 & 14)
+  // You may want to fix the slug for the "A Cup Of Ice T-shirt"
+]
+
 export const PRODUCTS = [
   {
     id: 9,
@@ -42,6 +63,22 @@ export const PRODUCTS = [
     collection: 'From "Drafts Vault"',
     slug: 'instructions-tshirt',
     productCode: 'INSTRUCTIONS-PHONEXC',
+    care: 'Machine wash cold. Do not bleach. Tumble dry low. Iron on low heat if needed. Do not dry clean.',
+    fabric: '100% premium cotton',
+    fit: 'Oversized fit',
+    description:
+      'Inspired by creative chaos, this design brings artistic energy to your wardrobe.',
+    isSale: false,
+  },
+  {
+    id: 14,
+    images: ['/t14/t14-4.png', '/t14/t14-3.png', '/t14/t14-2.png', '/t14/t14.png'],
+    title: 'A Cup Of Ice T-shirt',
+    price: 'Rs. 1,42,900',
+    inStock: true,
+    collection: 'From "Drafts Vault"',
+    slug: 'cup-of-ice-tshirt', // FIXED: Changed slug to be unique
+    productCode: 'CUPOFICE-LXC',
     care: 'Machine wash cold. Do not bleach. Tumble dry low. Iron on low heat if needed. Do not dry clean.',
     fabric: '100% premium cotton',
     fit: 'Oversized fit',
@@ -204,4 +241,32 @@ export const PRODUCTS = [
   },
 ]
 
+// Function to sort products based on the display order
+export const getSortedProducts = () => {
+  const orderMap = new Map(PRODUCT_DISPLAY_ORDER.map((slug, index) => [slug, index]))
+  
+  return [...PRODUCTS].sort((a, b) => {
+    const orderA = orderMap.get(a.slug)
+    const orderB = orderMap.get(b.slug)
+    
+    // If both products are in the order list, sort by their position
+    if (orderA !== undefined && orderB !== undefined) {
+      return orderA - orderB
+    }
+    
+    // If only A is in the order list, it comes first
+    if (orderA !== undefined) return -1
+    
+    // If only B is in the order list, it comes first
+    if (orderB !== undefined) return 1
+    
+    // If neither is in the order list, maintain original order (by ID)
+    return a.id - b.id
+  })
+}
+
+// Backward compatibility - use this for your PRODUCT_BY_SLUG
 export const PRODUCT_BY_SLUG = Object.fromEntries(PRODUCTS.map((p) => [p.slug, p]))
+
+// Pre-sorted products for immediate use
+export const SORTED_PRODUCTS = getSortedProducts()

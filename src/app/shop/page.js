@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { PRODUCTS } from '../data/products'
+import { PRODUCTS, getSortedProducts } from '../data/products'
 
 export default function ShopPage() {
   const [currentImages, setCurrentImages] = useState({})
@@ -18,7 +18,10 @@ export default function ShopPage() {
 
   const minSwipeDistance = 50
 
-  const allListItems = PRODUCTS.map((p) => ({
+  // Get products in custom order from PRODUCT_DISPLAY_ORDER
+  const customOrderedProducts = getSortedProducts()
+
+  const allListItems = customOrderedProducts.map((p) => ({
     id: p.id,
     images: p.images,
     title: p.title,
@@ -92,19 +95,21 @@ export default function ShopPage() {
     return parseInt(priceStr.replace(/[₹,]/g, ''), 10)
   }
 
-  const getSortedProducts = () => {
+  const getDisplayProducts = () => {
     const list = [...allListItems]
 
+    // Apply price sorting if selected (overrides custom order)
     if (sortOrder === 'low-to-high') {
       return list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price))
     } else if (sortOrder === 'high-to-low') {
       return list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price))
     }
 
+    // Default: use custom order from PRODUCT_DISPLAY_ORDER
     return list
   }
 
-  const sortedProducts = getSortedProducts()
+  const sortedProducts = getDisplayProducts()
 
   const getGridColumns = () => {
     switch (gridView) {
