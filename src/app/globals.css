@@ -37,6 +37,14 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'font-price';
+  src: url('/fonts/gotham.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Make this the default font everywhere */
 html, body {
   font-family: 'font-bold', sans-serif;
@@ -94,3 +102,6 @@ img {
   -webkit-touch-callout: none; /* disables long-press menu on iOS */
 }
 
+.price {
+  font-family: 'font-price', sans-serif;
+}

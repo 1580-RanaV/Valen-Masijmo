@@ -6,21 +6,53 @@ export default function ScrollToTop({
   threshold = 160,      // px from top before showing the button
   bottom = '1.5rem',   // CSS spacing (e.g., '1rem', '24px')
   right = '1.5rem',
+  footerSelector = 'footer', // CSS selector for FooterTwo component
 }) {
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => {
+  }, []);
+
+  useEffect(() => {
+    const checkVisibility = () => {
+      // Check scroll position
       const y = window.scrollY || document.documentElement.scrollTop;
-      setVisible(y > threshold);
+      const scrolledEnough = y > threshold;
+
+      // Check if footer is 50% visible
+      const footer = document.querySelector(footerSelector);
+      let footerVisible = false;
+
+      if (footer) {
+        const rect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerHeight = rect.height;
+        
+        // Calculate how much of the footer is visible
+        const visibleTop = Math.max(0, rect.top);
+        const visibleBottom = Math.min(viewportHeight, rect.bottom);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        
+        // Check if 50% or more of footer is visible
+        footerVisible = visibleHeight >= footerHeight * 0.5;
+      }
+
+      // Show button only if scrolled enough AND footer is NOT 50% visible
+      setVisible(scrolledEnough && !footerVisible);
     };
-    // init + listener
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [threshold]);
+
+    // Initial check + listener
+    checkVisibility();
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    window.addEventListener('resize', checkVisibility, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', checkVisibility);
+      window.removeEventListener('resize', checkVisibility);
+    };
+  }, [threshold, footerSelector]);
 
   const scrollToTop = () => {
     try {

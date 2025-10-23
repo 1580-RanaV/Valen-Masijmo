@@ -6,9 +6,7 @@ export const PRODUCT_DETAILS = [
   'Midweight pigment dyed 240gsm cotton jersey',
   'High ribbed crewneck',
   'Printed on garment',
-  'Unisex',
   'Material: 100% cotton',
-  'Imported',
   'This garment has been individually dyed, producing a one-of-a-kind result. Color may fade or bleed after wash',
 ];
 

@@ -22,7 +22,7 @@ export default function Grid() {
   const textOverlays = [
     { text: '', position: 'top-[12%] left-[5%]' },
     { text: '"DESIGN DIGNITY"', position: 'top-[30%] right-[8%]' },
-    { text: 'DRAFTS OF MASIJMO—', position: 'top-[46%] left-[10%]' },
+    { text: 'DRAFTS OF MASIJMO', position: 'top-[46%] left-[10%]' },
     { text: '{ARTS OFFICE}', position: 'top-[66%] right-[5%]' },
     { text: '', position: 'bottom-[8%] left-[8%]' },
   ]

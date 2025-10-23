@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SectionThree() {
   return (
-    <section className="relative w-full flex justify-center px-4">
+    <section className="relative w-full flex justify-center px-4 mt-16">
       <div className="w-full max-w-8xl flex flex-col lg:flex-row overflow-hidden bg-white">
         
         {/* Left (on lg) / Top (on mobile) — Image */}

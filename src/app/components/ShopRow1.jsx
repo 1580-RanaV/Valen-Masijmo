@@ -67,9 +67,9 @@ export default function TopThree() {
                 <h3 className="text-xs font-bold tracking-wide text-neutral-900">
                   {product.title}
                 </h3>
-                <p className="text-xs font-bold tracking-wider text-neutral-900">
-                  {product.price}
-                </p>
+                {/* <p className="text-xs font-bold tracking-wider text-neutral-900">
+                  <span className="price">{product.price}</span>
+                </p> */}
               </div>
             </div>
           </div>

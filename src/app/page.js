@@ -17,10 +17,10 @@ export default function Home() {
         <HeroSection />
         <Hero2 />
         <ShopRow2 />
-        <People />
-        <ShopRow1 />
-        <SectionThree />
         <Grid />
+        <ShopRow1 />
+        <People />
+        <SectionThree />
         <Footer />
       </div>
     </main>

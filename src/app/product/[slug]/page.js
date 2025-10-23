@@ -151,12 +151,12 @@ export default function ProductPage() {
                 <div className="flex items-baseline gap-3">
                   {product.originalPrice ? (
                     <>
-                      <span className="text-base text-neutral-900 font-bold">{product.price}</span>
-                      <span className="text-sm line-through text-neutral-500">{product.originalPrice}</span>
+                      <span className="text-base text-neutral-900 font-bold price">{product.price}</span>
+                      <span className="text-sm line-through text-neutral-500 price">{product.originalPrice}</span>
                       <span className="text-xs px-2 py-1 bg-green-50 text-green-700 tracking-wider font-bold">SALE</span>
                     </>
                   ) : (
-                    <span className="text-base text-neutral-900 font-bold">{product.price}</span>
+                    <span className="text-base text-neutral-900 font-bold price">{product.price}</span>
                   )}
                 </div>
               </div>

@@ -261,12 +261,12 @@ export default function ShopPage() {
 
                     {item.originalPrice ? (
                       <div className="font-bold tracking-wider text-xs flex flex-col sm:flex-row sm:gap-2">
-                        <span className="line-through text-neutral-400">{item.originalPrice}</span>
-                        <span className="text-green-600">{item.price}</span>
+                        <span className="line-through text-neutral-400 price">{item.originalPrice}</span>
+                        <span className="text-green-600 price">{item.price}</span>
                       </div>
                     ) : (
                       <p className="font-bold tracking-wider text-neutral-900 text-xs">
-                        {item.price}
+                        <span className="price">{item.price}</span>
                       </p>
                     )}
                   </div>
