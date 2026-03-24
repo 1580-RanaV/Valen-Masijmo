@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         {/* Intempt — main SDK */}
         <Script
           id="intempt-sdk"
-          src="https://cdn.intempt.com/v1/intempt.min.js?organization=cetaphil&project=valenmasijmo&source=1735707871308984320&key=10c42ca5f48144c9b30afa7f9ae3f46a.fbb23ae7c8364d3fae657b40304a3efc"
+          src="https://cdn.staging.intempt.com/v1/intempt.min.js?organization=cetaphil&project=valenmasijmo&source=1735707871308984320&key=10c42ca5f48144c9b30afa7f9ae3f46a.fbb23ae7c8364d3fae657b40304a3efc"
           strategy="afterInteractive"
         />
       </head>
